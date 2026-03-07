@@ -48,6 +48,7 @@ const GradeReveal = ({
   const config = gradeConfig[grade] || gradeConfig.C;
   const [counter, setCounter] = useState(0);
   const [copied, setCopied] = useState(false);
+  const [showContractorMatch, setShowContractorMatch] = useState(false);
   const counterStarted = useRef(false);
 
   const redCount = flags.filter(f => f.severity === "red").length;
