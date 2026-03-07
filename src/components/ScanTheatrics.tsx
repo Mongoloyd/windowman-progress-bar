@@ -56,6 +56,7 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
       setOtpValues(["", "", "", "", "", ""]);
       setPillarsDone([false, false, false, false]);
       setShowGrade(false);
+      setSkippedOtp(false);
       return;
     }
     // Start Phase 1
