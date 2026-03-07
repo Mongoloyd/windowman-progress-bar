@@ -300,8 +300,6 @@ const GradeReveal = ({
           </p>
         </div>
       </section>
-
-    </motion.div>
     </motion.div>
   );
 };
