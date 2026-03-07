@@ -192,6 +192,7 @@ const formatDateDisplay = (dateStr: string): string => {
 interface QuoteWatcherProps {
   onSwitchToFlowA?: () => void;
   onViewChecklist?: () => void;
+  onReminderSet?: (date: string, time: string) => void;
 }
 
 const QuoteWatcher = ({ onSwitchToFlowA, onViewChecklist }: QuoteWatcherProps) => {
