@@ -298,6 +298,8 @@ const GradeReveal = ({
           </p>
         </div>
       </section>
+
+      <ContractorMatch isVisible={showContractorMatch} grade={grade} county={county} dollarDelta={dollarDelta} />
     </motion.div>
   );
 };
