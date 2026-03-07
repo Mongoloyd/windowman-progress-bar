@@ -8,6 +8,7 @@ import ScanTheatrics from "@/components/ScanTheatrics";
 import IndustryTruth from "@/components/IndustryTruth";
 import ProcessSteps from "@/components/ProcessSteps";
 import NarrativeProof from "@/components/NarrativeProof";
+import ClosingManifesto from "@/components/ClosingManifesto";
 
 const Index = () => {
   const [showUpload, setShowUpload] = useState(false);
@@ -33,6 +34,7 @@ const Index = () => {
       <IndustryTruth />
       <ProcessSteps />
       <NarrativeProof />
+      <ClosingManifesto />
     </div>
   );
 };
