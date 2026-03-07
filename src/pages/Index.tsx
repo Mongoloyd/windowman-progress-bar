@@ -108,6 +108,18 @@ const Index = () => {
                     }, 100);
                   }}
                 />
+                <MarketBaselineTool
+                  onBaselineRevealed={() => {
+                    setLeadCaptured(true);
+                    console.log({ event: 'wm_flow_b_baseline_revealed' });
+                  }}
+                  onChecklistClick={() => {
+                    document.getElementById("forensic-checklist")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  onReminderClick={() => {
+                    document.getElementById("quote-watcher")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                />
               </motion.div>
             )}
           </AnimatePresence>
