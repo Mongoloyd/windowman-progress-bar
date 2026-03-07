@@ -33,6 +33,7 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
   const [otpValues, setOtpValues] = useState(["", "", "", "", "", ""]);
   const [pillarsDone, setPillarsDone] = useState<boolean[]>([false, false, false, false]);
   const [showGrade, setShowGrade] = useState(false);
+  const [skippedOtp, setSkippedOtp] = useState(false);
   const otpRefs = useRef<(HTMLInputElement | null)[]>([]);
   const timersRef = useRef<number[]>([]);
 
