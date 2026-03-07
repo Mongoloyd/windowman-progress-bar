@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { toast } from "@/hooks/use-toast";
+import ContractorMatch from "./ContractorMatch";
 
 interface Flag {
   id: number;
@@ -47,6 +48,7 @@ const GradeReveal = ({
   const config = gradeConfig[grade] || gradeConfig.C;
   const [counter, setCounter] = useState(0);
   const [copied, setCopied] = useState(false);
+  const [showContractorMatch, setShowContractorMatch] = useState(false);
   const counterStarted = useRef(false);
 
   const redCount = flags.filter(f => f.severity === "red").length;
@@ -257,7 +259,10 @@ const GradeReveal = ({
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => console.log({ event: "wm_contractor_match_clicked", grade, dollarDelta })}
+              onClick={() => {
+                console.log({ event: "wm_contractor_match_clicked", grade, dollarDelta });
+                setShowContractorMatch(true);
+              }}
               className="flex flex-col items-center"
               style={{ background: "#C8952A", color: "white", fontFamily: "'DM Sans', sans-serif", fontSize: 17, fontWeight: 700, padding: "16px 36px", borderRadius: 10, border: "none", cursor: "pointer", boxShadow: "0 4px 16px rgba(200,149,42,0.35)" }}
             >
@@ -293,6 +298,8 @@ const GradeReveal = ({
           </p>
         </div>
       </section>
+
+      <ContractorMatch isVisible={showContractorMatch} grade={grade} county={county} dollarDelta={dollarDelta} />
     </motion.div>
   );
 };
