@@ -1,0 +1,173 @@
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+
+const checks = [
+  "No account required to receive your grade",
+  "Scans are private — your contractor never knows",
+  "Built by Florida homeowners who got tired of not knowing",
+  "Used by 4,127+ Florida homeowners this year",
+];
+
+const ClosingManifesto = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.2 });
+
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  return (
+    <section style={{ backgroundColor: "#0F1F35" }}>
+      <div ref={ref} className="mx-auto max-w-4xl px-4 md:px-8 py-24 md:py-32 text-center">
+        {/* Opening line */}
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.4 }}
+          style={{
+            fontFamily: "'Playfair Display', serif",
+            fontSize: 13,
+            color: "#94A3B8",
+            letterSpacing: "0.15em",
+            textTransform: "uppercase",
+            marginBottom: 40,
+          }}
+        >
+          WHY WINDOWMAN EXISTS
+        </motion.p>
+
+        {/* Manifesto */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          style={{
+            fontFamily: "'Playfair Display', serif",
+            fontSize: "clamp(28px, 4vw, 36px)",
+            color: "#F3F4F6",
+            fontWeight: 400,
+            lineHeight: 1.5,
+            marginBottom: 24,
+          }}
+        >
+          The industry built a system where you need their expertise to understand their quote.
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          style={{
+            fontFamily: "'Playfair Display', serif",
+            fontSize: "clamp(28px, 4vw, 36px)",
+            color: "#C8952A",
+            fontWeight: 700,
+            lineHeight: 1.5,
+          }}
+        >
+          We built a system where you don't.
+        </motion.p>
+
+        {/* Trust Checks */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.4, delay: 0.35 }}
+          className="grid grid-cols-2 gap-4 mx-auto mt-12"
+          style={{ maxWidth: 560 }}
+        >
+          {checks.map((text, i) => (
+            <div key={i} className="flex items-start gap-2.5 text-left">
+              <div
+                className="flex items-center justify-center flex-shrink-0"
+                style={{
+                  width: 24,
+                  height: 24,
+                  borderRadius: "50%",
+                  background: "rgba(255,255,255,0.1)",
+                }}
+              >
+                <span style={{ color: "#FFFFFF", fontSize: 12, fontWeight: 700 }}>✓</span>
+              </div>
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#D1D5DB" }}>
+                {text}
+              </span>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* Final CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.4, delay: 0.5 }}
+          className="mt-14"
+        >
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: "#94A3B8", marginBottom: 24 }}>
+            Your contract already contains the truth. We'll show it to you.
+          </p>
+
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={() => scrollTo("truth-gate")}
+            style={{
+              background: "#C8952A",
+              color: "#FFFFFF",
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: 18,
+              fontWeight: 700,
+              padding: "18px 48px",
+              borderRadius: 12,
+              border: "none",
+              boxShadow: "0 6px 24px rgba(200, 149, 42, 0.4)",
+              cursor: "pointer",
+              transition: "box-shadow 0.2s",
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 6px 24px rgba(200, 149, 42, 0.55)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 6px 24px rgba(200, 149, 42, 0.4)"; }}
+          >
+            Scan My Quote →
+          </motion.button>
+
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#6B7280", fontStyle: "italic", marginTop: 14 }}>
+            Or explore a{" "}
+            <button
+              onClick={() => console.log({ event: "wm_sample_report_clicked" })}
+              style={{ fontFamily: "inherit", fontSize: "inherit", color: "#94A3B8", background: "none", border: "none", textDecoration: "underline", cursor: "pointer", fontStyle: "italic" }}
+            >
+              sample report
+            </button>{" "}
+            first — you're free to choose.
+          </p>
+        </motion.div>
+
+        {/* Footer */}
+        <div style={{ paddingTop: 40, borderTop: "1px solid rgba(255,255,255,0.08)", marginTop: 56 }}>
+          <div className="flex justify-center items-center gap-6 flex-wrap" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "#4B5563" }}>
+            <span>© 2025 WindowMan.pro</span>
+            <span>·</span>
+            <button
+              onClick={() => console.log("privacy")}
+              style={{ fontFamily: "inherit", fontSize: "inherit", color: "#4B5563", background: "none", border: "none", cursor: "pointer", textDecoration: "none" }}
+              onMouseEnter={(e) => { e.currentTarget.style.textDecoration = "underline"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.textDecoration = "none"; }}
+            >
+              Privacy Policy
+            </button>
+            <span>·</span>
+            <button
+              onClick={() => console.log("terms")}
+              style={{ fontFamily: "inherit", fontSize: "inherit", color: "#4B5563", background: "none", border: "none", cursor: "pointer", textDecoration: "none" }}
+              onMouseEnter={(e) => { e.currentTarget.style.textDecoration = "underline"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.textDecoration = "none"; }}
+            >
+              Terms of Service
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ClosingManifesto;
