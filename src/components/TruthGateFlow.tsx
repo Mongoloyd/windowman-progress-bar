@@ -153,6 +153,7 @@ const TruthGateFlow = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log({ event: "wm_lead_captured", ...answers });
+    onLeadCaptured?.();
   };
 
   const progressWidth = currentStep <= 4 ? `${currentStep * 25}%` : "100%";
