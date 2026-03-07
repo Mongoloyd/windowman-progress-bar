@@ -426,9 +426,63 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
                     C
                   </span>
                 </div>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: "#FFFFFF", marginTop: 20 }}>
-                  Your grade is ready.
-                </p>
+
+                {skippedOtp ? (
+                  <>
+                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, fontWeight: 700, color: "#FFFFFF", marginTop: 20 }}>
+                      Your quote scored a C.
+                    </p>
+                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#94A3B8", marginTop: 8, maxWidth: 360, lineHeight: 1.6 }}>
+                      This is a basic score. Verify your phone to unlock your full report with line-by-line pricing breakdown, red flags, and negotiation tips.
+                    </p>
+                    <div className="flex flex-col gap-3 mt-6 w-full" style={{ maxWidth: 320 }}>
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => {
+                          setSkippedOtp(false);
+                          setShowGrade(false);
+                          setPhase("otp");
+                        }}
+                        style={{
+                          width: "100%",
+                          height: 48,
+                          background: "#059669",
+                          color: "#FFFFFF",
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontSize: 15,
+                          fontWeight: 700,
+                          borderRadius: 10,
+                          border: "none",
+                          cursor: "pointer",
+                        }}
+                      >
+                        🔓 Unlock Full Report
+                      </motion.button>
+                      <button
+                        onClick={() => {
+                          console.log({ event: "wm_grade_revealed", skipped: true });
+                          onRevealComplete?.();
+                        }}
+                        style={{
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontSize: 13,
+                          color: "#6B7280",
+                          background: "none",
+                          border: "none",
+                          cursor: "pointer",
+                          textDecoration: "underline",
+                        }}
+                      >
+                        Continue with basic score →
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: "#FFFFFF", marginTop: 20 }}>
+                    Your grade is ready.
+                  </p>
+                )}
               </motion.div>
             )}
           </motion.div>
