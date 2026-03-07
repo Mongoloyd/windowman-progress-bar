@@ -33,6 +33,7 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
   const [otpValues, setOtpValues] = useState(["", "", "", "", "", ""]);
   const [pillarsDone, setPillarsDone] = useState<boolean[]>([false, false, false, false]);
   const [showGrade, setShowGrade] = useState(false);
+  const [skippedOtp, setSkippedOtp] = useState(false);
   const otpRefs = useRef<(HTMLInputElement | null)[]>([]);
   const timersRef = useRef<number[]>([]);
 
@@ -55,6 +56,7 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
       setOtpValues(["", "", "", "", "", ""]);
       setPillarsDone([false, false, false, false]);
       setShowGrade(false);
+      setSkippedOtp(false);
       return;
     }
     // Start Phase 1
@@ -116,10 +118,17 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
 
   const handleOtpSubmit = () => {
     console.log({ event: "wm_phone_verified" });
-    startPillars();
+    setSkippedOtp(false);
+    startPillars(false);
   };
 
-  const startPillars = () => {
+  const handleOtpSkip = () => {
+    console.log({ event: "wm_otp_skipped" });
+    setSkippedOtp(true);
+    startPillars(true);
+  };
+
+  const startPillars = (skipped: boolean) => {
     setPhase("pillars");
     setPillarsDone([false, false, false, false]);
     setShowGrade(false);
@@ -137,11 +146,13 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
     // After all pillars (~4.5s) → show grade
     addTimer(() => setShowGrade(true), 5000);
 
-    // After grade shown → reveal complete
-    addTimer(() => {
-      console.log({ event: "wm_grade_revealed" });
-      onRevealComplete?.();
-    }, 7000);
+    // Only auto-dismiss for verified users
+    if (!skipped) {
+      addTimer(() => {
+        console.log({ event: "wm_grade_revealed" });
+        onRevealComplete?.();
+      }, 7000);
+    }
   };
 
   const county = selectedCounty;
@@ -348,7 +359,7 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "#9CA3AF", marginTop: 12, lineHeight: 1.7 }}>
               Enter the code to unlock your full analysis — or{" "}
               <button
-                onClick={handleOtpSubmit}
+                onClick={handleOtpSkip}
                 style={{ fontFamily: "inherit", fontSize: "inherit", color: "#6B7280", background: "none", border: "none", textDecoration: "underline", cursor: "pointer" }}
               >
                 skip for now
@@ -415,9 +426,63 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
                     C
                   </span>
                 </div>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: "#FFFFFF", marginTop: 20 }}>
-                  Your grade is ready.
-                </p>
+
+                {skippedOtp ? (
+                  <>
+                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, fontWeight: 700, color: "#FFFFFF", marginTop: 20 }}>
+                      Your quote scored a C.
+                    </p>
+                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#94A3B8", marginTop: 8, maxWidth: 360, lineHeight: 1.6 }}>
+                      This is a basic score. Verify your phone to unlock your full report with line-by-line pricing breakdown, red flags, and negotiation tips.
+                    </p>
+                    <div className="flex flex-col gap-3 mt-6 w-full" style={{ maxWidth: 320 }}>
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => {
+                          setSkippedOtp(false);
+                          setShowGrade(false);
+                          setPhase("otp");
+                        }}
+                        style={{
+                          width: "100%",
+                          height: 48,
+                          background: "#059669",
+                          color: "#FFFFFF",
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontSize: 15,
+                          fontWeight: 700,
+                          borderRadius: 10,
+                          border: "none",
+                          cursor: "pointer",
+                        }}
+                      >
+                        🔓 Unlock Full Report
+                      </motion.button>
+                      <button
+                        onClick={() => {
+                          console.log({ event: "wm_grade_revealed", skipped: true });
+                          onRevealComplete?.();
+                        }}
+                        style={{
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontSize: 13,
+                          color: "#6B7280",
+                          background: "none",
+                          border: "none",
+                          cursor: "pointer",
+                          textDecoration: "underline",
+                        }}
+                      >
+                        Continue with basic score →
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: "#FFFFFF", marginTop: 20 }}>
+                    Your grade is ready.
+                  </p>
+                )}
               </motion.div>
             )}
           </motion.div>
