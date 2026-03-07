@@ -22,7 +22,10 @@ const Index = () => {
       <TruthGateFlow onLeadCaptured={() => setShowUpload(true)} />
       <UploadZone
         isVisible={showUpload}
-        onScanStart={() => setShowScan(true)}
+        onScanStart={() => {
+          console.log("onScanStart fired, setting showScan=true");
+          setShowScan(true);
+        }}
       />
       <ScanTheatrics
         isActive={showScan}
