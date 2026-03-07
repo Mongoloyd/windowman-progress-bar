@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Upload } from "lucide-react";
 
@@ -11,6 +11,15 @@ const UploadZone = ({ isVisible, onScanStart }: UploadZoneProps) => {
   const [file, setFile] = useState<File | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isVisible && containerRef.current) {
+      setTimeout(() => {
+        containerRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 450);
+    }
+  }, [isVisible]);
 
   const handleFile = useCallback((f: File) => {
     setFile(f);
@@ -28,6 +37,7 @@ const UploadZone = ({ isVisible, onScanStart }: UploadZoneProps) => {
   );
 
   const handleScan = () => {
+    console.log("handleScan called, file:", file?.name);
     if (!file) return;
     console.log({ event: "wm_quote_uploaded", fileName: file.name });
     onScanStart?.(file.name);
@@ -42,6 +52,7 @@ const UploadZone = ({ isVisible, onScanStart }: UploadZoneProps) => {
     <AnimatePresence>
       {isVisible && (
         <motion.div
+          ref={containerRef}
           initial={{ opacity: 0, height: 0, y: 20 }}
           animate={{ opacity: 1, height: "auto", y: 0 }}
           exit={{ opacity: 0, height: 0 }}
