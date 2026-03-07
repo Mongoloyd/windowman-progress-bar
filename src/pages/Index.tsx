@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import LinearHeader from "@/components/LinearHeader";
 import AuditHero from "@/components/AuditHero";
 import SocialProofStrip from "@/components/SocialProofStrip";
@@ -12,6 +12,7 @@ import IndustryTruth from "@/components/IndustryTruth";
 import ProcessSteps from "@/components/ProcessSteps";
 import NarrativeProof from "@/components/NarrativeProof";
 import ClosingManifesto from "@/components/ClosingManifesto";
+import StickyRecoveryBar from "@/components/StickyRecoveryBar";
 
 const mockAuditResult = {
   grade: "C",
@@ -34,6 +35,34 @@ const Index = () => {
   const [gradeRevealed, setGradeRevealed] = useState(false);
   const [contractorMatchVisible, setContractorMatchVisible] = useState(false);
 
+  // Recovery bar state
+  const [stepsCompleted, setStepsCompleted] = useState(0);
+  const [selectedCounty, setSelectedCounty] = useState("your county");
+  const [recoveryBarDismissed, setRecoveryBarDismissed] = useState(() =>
+    localStorage.getItem("wm_recovery_bar_dismissed") === "true"
+  );
+  const [scrolledPast70, setScrolledPast70] = useState(false);
+  const [timeOnPage, setTimeOnPage] = useState(false);
+
+  // 30-second timer
+  useEffect(() => {
+    const timer = setTimeout(() => setTimeOnPage(true), 30000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Scroll listener for 70%
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPercent = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight;
+      if (scrollPercent >= 0.7) setScrolledPast70(true);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const showRecoveryBar =
+    scrolledPast70 && !leadCaptured && timeOnPage && !recoveryBarDismissed && !gradeRevealed;
+
   return (
     <div className="min-h-screen bg-background">
       <LinearHeader />
@@ -42,11 +71,16 @@ const Index = () => {
         <>
           <AuditHero />
           <SocialProofStrip />
-          <TruthGateFlow onLeadCaptured={() => setLeadCaptured(true)} />
+          <TruthGateFlow
+            onLeadCaptured={() => setLeadCaptured(true)}
+            onStepChange={(step, county) => {
+              setStepsCompleted(step);
+              setSelectedCounty(county);
+            }}
+          />
           <UploadZone
             isVisible={leadCaptured}
             onScanStart={() => {
-              console.log("onScanStart fired, setting fileUploaded=true");
               setFileUploaded(true);
             }}
           />
@@ -103,6 +137,13 @@ const Index = () => {
       <ProcessSteps />
       <NarrativeProof />
       <ClosingManifesto />
+
+      <StickyRecoveryBar
+        stepsCompleted={stepsCompleted}
+        county={selectedCounty}
+        isVisible={showRecoveryBar}
+        onDismiss={() => setRecoveryBarDismissed(true)}
+      />
     </div>
   );
 };
