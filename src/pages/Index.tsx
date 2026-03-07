@@ -17,6 +17,7 @@ import IndustryTruth from "@/components/IndustryTruth";
 import ProcessSteps from "@/components/ProcessSteps";
 import NarrativeProof from "@/components/NarrativeProof";
 import ClosingManifesto from "@/components/ClosingManifesto";
+import MarketMakerManifesto from "@/components/MarketMakerManifesto";
 import StickyRecoveryBar from "@/components/StickyRecoveryBar";
 
 const mockAuditResult = {
@@ -241,6 +242,7 @@ const Index = () => {
       )}
 
       <IndustryTruth />
+      <MarketMakerManifesto />
       <ProcessSteps />
       <NarrativeProof />
       <ClosingManifesto />
