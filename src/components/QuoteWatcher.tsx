@@ -195,7 +195,7 @@ interface QuoteWatcherProps {
   onReminderSet?: (date: string, time: string) => void;
 }
 
-const QuoteWatcher = ({ onSwitchToFlowA, onViewChecklist }: QuoteWatcherProps) => {
+const QuoteWatcher = ({ onSwitchToFlowA, onViewChecklist, onReminderSet }: QuoteWatcherProps) => {
   const [appointmentDate, setAppointmentDate] = useState("");
   const [appointmentTime, setAppointmentTime] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -208,6 +208,7 @@ const QuoteWatcher = ({ onSwitchToFlowA, onViewChecklist }: QuoteWatcherProps) =
     if (!bothFilled) return;
     console.log({ event: "wm_quote_watcher_set", appointmentDate, appointmentTime });
     setSubmitted(true);
+    onReminderSet?.(appointmentDate, appointmentTime);
   };
 
   return (
