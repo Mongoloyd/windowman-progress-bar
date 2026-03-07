@@ -88,8 +88,13 @@ const Index = () => {
             dollarDelta={mockAuditResult.dollarDelta}
           />
           <EvidenceLocker
-            {...mockAuditResult}
-            flags={mockAuditResult.flags}
+            grade={mockAuditResult.grade}
+            county={mockAuditResult.county}
+            dollarDelta={mockAuditResult.dollarDelta}
+            firstName={mockAuditResult.firstName}
+            redFlagCount={mockAuditResult.flags.filter(f => f.severity === "red").length}
+            amberCount={mockAuditResult.flags.filter(f => f.severity === "amber").length}
+            greenCount={mockAuditResult.flags.filter(f => f.severity === "green").length}
           />
         </>
       )}
