@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { toast } from "@/hooks/use-toast";
 import ContractorMatch from "./ContractorMatch";
+import EvidenceLocker from "./EvidenceLocker";
 
 interface Flag {
   id: number;
@@ -300,6 +301,7 @@ const GradeReveal = ({
       </section>
 
       <ContractorMatch isVisible={showContractorMatch} grade={grade} county={county} dollarDelta={dollarDelta} />
+      <EvidenceLocker grade={grade} county={county} dollarDelta={dollarDelta} />
     </motion.div>
   );
 };
