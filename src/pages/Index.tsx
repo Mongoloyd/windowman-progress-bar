@@ -5,6 +5,7 @@ import AuditHero from "@/components/AuditHero";
 import FlowBEntry from "@/components/FlowBEntry";
 import MarketBaselineTool from "@/components/MarketBaselineTool";
 import ForensicChecklist from "@/components/ForensicChecklist";
+import QuoteWatcher from "@/components/QuoteWatcher";
 import SocialProofStrip from "@/components/SocialProofStrip";
 import TruthGateFlow from "@/components/TruthGateFlow";
 import UploadZone from "@/components/UploadZone";
@@ -130,6 +131,17 @@ const Index = () => {
                   }}
                   onSetReminder={() => {
                     document.getElementById("quote-watcher")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                />
+                <QuoteWatcher
+                  onSwitchToFlowA={() => {
+                    setActiveFlow('A');
+                    setTimeout(() => {
+                      document.getElementById("truth-gate")?.scrollIntoView({ behavior: "smooth" });
+                    }, 100);
+                  }}
+                  onViewChecklist={() => {
+                    document.getElementById("forensic-checklist")?.scrollIntoView({ behavior: "smooth" });
                   }}
                 />
               </motion.div>
