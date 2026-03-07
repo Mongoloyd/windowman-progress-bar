@@ -6,9 +6,18 @@ interface StickyRecoveryBarProps {
   county: string;
   isVisible: boolean;
   onDismiss: () => void;
+  flowMode?: 'A' | 'B';
+  flowBLeadCaptured?: boolean;
+  quoteWatcherSet?: boolean;
 }
 
-const getStatusCopy = (steps: number) => {
+const getStatusCopy = (steps: number, flowMode: string, flowBLeadCaptured: boolean) => {
+  if (flowMode === 'B') {
+    if (!flowBLeadCaptured) {
+      return { line1: "Your baseline is being configured.", line2: "Takes less than a minute." };
+    }
+    return { line1: "Set your quote reminder to complete Flow B.", line2: "Your analysis is waiting." };
+  }
   switch (steps) {
     case 0: return { line1: "Your scan is ready to configure.", line2: "Takes 60 seconds. Free." };
     case 1: return { line1: "You answered 1 of 4 questions.", line2: "Takes less than a minute to finish." };
@@ -18,36 +27,54 @@ const getStatusCopy = (steps: number) => {
   }
 };
 
-const getCtaText = (steps: number) => {
+const getCtaText = (steps: number, flowMode: string, flowBLeadCaptured: boolean) => {
+  if (flowMode === 'B') {
+    if (!flowBLeadCaptured) return "Continue to Baseline →";
+    return "Set My Reminder →";
+  }
   if (steps === 0) return "Start My Scan →";
   if (steps >= 4) return "Unlock My Grade →";
   return "Continue My Scan →";
 };
 
-const StickyRecoveryBar = ({ stepsCompleted, county, isVisible, onDismiss }: StickyRecoveryBarProps) => {
+const getCtaTarget = (flowMode: string, flowBLeadCaptured: boolean) => {
+  if (flowMode === 'B') {
+    return flowBLeadCaptured ? "quote-watcher" : "market-baseline";
+  }
+  return "truth-gate";
+};
+
+const StickyRecoveryBar = ({
+  stepsCompleted, county, isVisible, onDismiss,
+  flowMode = 'A', flowBLeadCaptured = false, quoteWatcherSet = false,
+}: StickyRecoveryBarProps) => {
   const [isUrgent, setIsUrgent] = useState(false);
 
   useEffect(() => {
     if (!isVisible) return;
     const timer = setTimeout(() => {
       if (stepsCompleted > 0) setIsUrgent(true);
-    }, 150000); // 3 minutes after bar appears
+    }, 150000);
     return () => clearTimeout(timer);
   }, [isVisible, stepsCompleted]);
 
   const handleCta = () => {
-    document.getElementById("truth-gate")?.scrollIntoView({ behavior: "smooth" });
-    console.log({ event: "wm_recovery_bar_clicked", stepsCompleted });
+    const target = getCtaTarget(flowMode, flowBLeadCaptured);
+    document.getElementById(target)?.scrollIntoView({ behavior: "smooth" });
+    console.log({ event: "wm_recovery_bar_clicked", stepsCompleted, flowMode });
   };
 
   const handleClose = () => {
     localStorage.setItem("wm_recovery_bar_dismissed", "true");
-    console.log({ event: "wm_recovery_bar_dismissed", stepsCompleted });
+    console.log({ event: "wm_recovery_bar_dismissed", stepsCompleted, flowMode });
     onDismiss();
   };
 
-  const { line1, line2 } = getStatusCopy(stepsCompleted);
-  const urgentLine1 = isUrgent ? "Your configured scan expires in 24 hours." : line1;
+  const { line1, line2 } = getStatusCopy(stepsCompleted, flowMode, flowBLeadCaptured);
+  const urgentLine1 = isUrgent && flowMode === 'A' ? "Your configured scan expires in 24 hours." : line1;
+
+  // Hide for completed Flow B
+  if (flowMode === 'B' && quoteWatcherSet) return null;
 
   return (
     <AnimatePresence>
@@ -64,7 +91,7 @@ const StickyRecoveryBar = ({ stepsCompleted, county, isVisible, onDismiss }: Sti
             right: 0,
             zIndex: 8000,
             background: "#FFFFFF",
-            borderTop: `2px solid ${isUrgent ? "#DC2626" : "#C8952A"}`,
+            borderTop: `2px solid ${isUrgent && flowMode === 'A' ? "#DC2626" : "#C8952A"}`,
             boxShadow: "0 -4px 24px rgba(15, 31, 53, 0.14)",
           }}
           className="px-5 py-3.5 sm:px-8 sm:py-4"
@@ -74,7 +101,7 @@ const StickyRecoveryBar = ({ stepsCompleted, county, isVisible, onDismiss }: Sti
             <div className="flex items-center gap-3.5">
               {/* Progress dots */}
               <div className="flex items-center gap-1">
-                {[0, 1, 2, 3].map((i) => (
+                {(flowMode === 'A' ? [0, 1, 2, 3] : [0, 1, 2]).map((i) => (
                   <div
                     key={i}
                     style={{
@@ -106,7 +133,7 @@ const StickyRecoveryBar = ({ stepsCompleted, county, isVisible, onDismiss }: Sti
             <div className="hidden md:block" style={{ width: 160, height: 4, background: "#E5E7EB", borderRadius: 2 }}>
               <motion.div
                 style={{ height: "100%", background: "#C8952A", borderRadius: 2 }}
-                animate={{ width: `${(stepsCompleted / 4) * 100}%` }}
+                animate={{ width: `${(stepsCompleted / (flowMode === 'A' ? 4 : 3)) * 100}%` }}
                 transition={{ type: "spring", stiffness: 200, damping: 20 }}
               />
             </div>
@@ -129,7 +156,7 @@ const StickyRecoveryBar = ({ stepsCompleted, county, isVisible, onDismiss }: Sti
                   whiteSpace: "nowrap",
                 }}
               >
-                {getCtaText(stepsCompleted)}
+                {getCtaText(stepsCompleted, flowMode, flowBLeadCaptured)}
               </button>
 
               <button

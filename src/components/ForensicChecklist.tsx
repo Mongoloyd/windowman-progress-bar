@@ -87,7 +87,13 @@ const ForensicChecklist = ({ onUploadQuote, onSetReminder }: ForensicChecklistPr
   const checkedCount = Object.values(checked).filter(Boolean).length;
 
   const toggleCheck = (id: number) => {
-    setChecked((prev) => ({ ...prev, [id]: !prev[id] }));
+    const newChecked = { ...checked, [id]: !checked[id] };
+    setChecked(newChecked);
+    const allChecked = Object.values(newChecked).filter(Boolean).length === 5;
+    console.log({ event: 'wm_checklist_question_checked', questionNumber: id, allChecked });
+    if (allChecked) {
+      console.log({ event: 'wm_checklist_completed' });
+    }
   };
 
   return (

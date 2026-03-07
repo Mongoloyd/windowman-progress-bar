@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import LinearHeader from "@/components/LinearHeader";
 import AuditHero from "@/components/AuditHero";
@@ -35,13 +35,28 @@ const mockAuditResult = {
 };
 
 const Index = () => {
-  const [activeFlow, setActiveFlow] = useState<'A' | 'B' | null>(null);
+  // ── Flow mode ──
+  const [flowMode, setFlowMode] = useState<'A' | 'B'>('A');
+
+  // ── Flow A state ──
   const [leadCaptured, setLeadCaptured] = useState(false);
   const [fileUploaded, setFileUploaded] = useState(false);
   const [gradeRevealed, setGradeRevealed] = useState(false);
   const [contractorMatchVisible, setContractorMatchVisible] = useState(false);
 
-  // Recovery bar state
+  // ── Flow B state ──
+  const [flowBLeadCaptured, setFlowBLeadCaptured] = useState(false);
+  const [baselineRevealed, setBaselineRevealed] = useState(false);
+  const [quoteWatcherSet, setQuoteWatcherSet] = useState(false);
+  const [flowBAnswers, setFlowBAnswers] = useState({
+    county: "",
+    windowCount: "",
+    windowType: "",
+    appointmentDate: "",
+    appointmentTime: "",
+  });
+
+  // ── Recovery bar state ──
   const [stepsCompleted, setStepsCompleted] = useState(0);
   const [selectedCounty, setSelectedCounty] = useState("your county");
   const [recoveryBarDismissed, setRecoveryBarDismissed] = useState(() =>
@@ -50,13 +65,11 @@ const Index = () => {
   const [scrolledPast70, setScrolledPast70] = useState(false);
   const [timeOnPage, setTimeOnPage] = useState(false);
 
-  // 30-second timer
   useEffect(() => {
     const timer = setTimeout(() => setTimeOnPage(true), 30000);
     return () => clearTimeout(timer);
   }, []);
 
-  // Scroll listener for 70%
   useEffect(() => {
     const handleScroll = () => {
       const scrollPercent = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight;
@@ -66,8 +79,20 @@ const Index = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // ── Recovery bar visibility ──
+  const anyLeadCaptured = flowMode === 'A' ? leadCaptured : flowBLeadCaptured;
+  const flowBComplete = flowMode === 'B' && quoteWatcherSet;
   const showRecoveryBar =
-    scrolledPast70 && !leadCaptured && timeOnPage && !recoveryBarDismissed && !gradeRevealed;
+    scrolledPast70 && !anyLeadCaptured && timeOnPage && !recoveryBarDismissed && !gradeRevealed && !flowBComplete;
+
+  // ── Flow A→B / B→A helpers ──
+  const switchToFlowA = (triggeredFrom: string) => {
+    setFlowMode('A');
+    console.log({ event: 'wm_flow_b_to_a_transition', triggeredFrom });
+    setTimeout(() => {
+      document.getElementById("truth-gate")?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -76,7 +101,7 @@ const Index = () => {
       {!gradeRevealed && (
         <>
           <AnimatePresence mode="wait">
-            {activeFlow !== 'B' ? (
+            {flowMode === 'A' ? (
               <motion.div
                 key="flow-a-hero"
                 exit={{ opacity: 0 }}
@@ -84,11 +109,11 @@ const Index = () => {
               >
                 <AuditHero
                   onFlowBClick={() => {
-                    setActiveFlow('B');
-                    console.log({ event: 'wm_flow_b_started' });
+                    setFlowMode('B');
+                    console.log({ event: 'wm_flow_b_entered' });
                     setTimeout(() => {
                       document.getElementById("flow-b")?.scrollIntoView({ behavior: "smooth" });
-                    }, 100);
+                    }, 400);
                   }}
                 />
               </motion.div>
@@ -103,52 +128,52 @@ const Index = () => {
                   onContinueToTool={() => {
                     document.getElementById("market-baseline")?.scrollIntoView({ behavior: "smooth" });
                   }}
-                  onSwitchToFlowA={() => {
-                    setActiveFlow('A');
-                    setTimeout(() => {
-                      document.getElementById("truth-gate")?.scrollIntoView({ behavior: "smooth" });
-                    }, 100);
-                  }}
+                  onSwitchToFlowA={() => switchToFlowA('hero_switch')}
                 />
                 <MarketBaselineTool
+                  onStepComplete={(step, answer) => {
+                    setStepsCompleted(step);
+                  }}
+                  onLeadCaptured={(answers) => {
+                    setFlowBLeadCaptured(true);
+                    setFlowBAnswers(prev => ({ ...prev, ...answers }));
+                  }}
                   onBaselineRevealed={() => {
-                    setLeadCaptured(true);
-                    console.log({ event: 'wm_flow_b_baseline_revealed' });
+                    setBaselineRevealed(true);
                   }}
                   onChecklistClick={() => {
+                    console.log({ event: 'wm_checklist_opened' });
                     document.getElementById("forensic-checklist")?.scrollIntoView({ behavior: "smooth" });
                   }}
                   onReminderClick={() => {
                     document.getElementById("quote-watcher")?.scrollIntoView({ behavior: "smooth" });
                   }}
                 />
-                <ForensicChecklist
-                  onUploadQuote={() => {
-                    setActiveFlow('A');
-                    setTimeout(() => {
-                      document.getElementById("truth-gate")?.scrollIntoView({ behavior: "smooth" });
-                    }, 100);
-                  }}
-                  onSetReminder={() => {
-                    document.getElementById("quote-watcher")?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                />
-                <QuoteWatcher
-                  onSwitchToFlowA={() => {
-                    setActiveFlow('A');
-                    setTimeout(() => {
-                      document.getElementById("truth-gate")?.scrollIntoView({ behavior: "smooth" });
-                    }, 100);
-                  }}
-                  onViewChecklist={() => {
-                    document.getElementById("forensic-checklist")?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                />
+                {flowBLeadCaptured && (
+                  <>
+                    <ForensicChecklist
+                      onUploadQuote={() => switchToFlowA('checklist_cta')}
+                      onSetReminder={() => {
+                        document.getElementById("quote-watcher")?.scrollIntoView({ behavior: "smooth" });
+                      }}
+                    />
+                    <QuoteWatcher
+                      onReminderSet={(date, time) => {
+                        setQuoteWatcherSet(true);
+                        setFlowBAnswers(prev => ({ ...prev, appointmentDate: date, appointmentTime: time }));
+                      }}
+                      onSwitchToFlowA={() => switchToFlowA('watcher_link')}
+                      onViewChecklist={() => {
+                        document.getElementById("forensic-checklist")?.scrollIntoView({ behavior: "smooth" });
+                      }}
+                    />
+                  </>
+                )}
               </motion.div>
             )}
           </AnimatePresence>
 
-          {activeFlow !== 'B' && (
+          {flowMode === 'A' && (
             <>
               <SocialProofStrip />
               <TruthGateFlow
@@ -225,6 +250,9 @@ const Index = () => {
         county={selectedCounty}
         isVisible={showRecoveryBar}
         onDismiss={() => setRecoveryBarDismissed(true)}
+        flowMode={flowMode}
+        flowBLeadCaptured={flowBLeadCaptured}
+        quoteWatcherSet={quoteWatcherSet}
       />
     </div>
   );
