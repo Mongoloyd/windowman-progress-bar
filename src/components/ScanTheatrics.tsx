@@ -359,7 +359,7 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "#9CA3AF", marginTop: 12, lineHeight: 1.7 }}>
               Enter the code to unlock your full analysis — or{" "}
               <button
-                onClick={handleOtpSubmit}
+                onClick={handleOtpSkip}
                 style={{ fontFamily: "inherit", fontSize: "inherit", color: "#6B7280", background: "none", border: "none", textDecoration: "underline", cursor: "pointer" }}
               >
                 skip for now
