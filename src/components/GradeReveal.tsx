@@ -19,6 +19,7 @@ interface GradeRevealProps {
   flags?: Flag[];
   fairPriceLow?: number;
   fairPriceHigh?: number;
+  onContractorMatchClick?: () => void;
 }
 
 const gradeConfig: Record<string, { color: string; bg: string; label: string; message: string }> = {
@@ -45,11 +46,11 @@ const GradeReveal = ({
   flags = defaultFlags,
   fairPriceLow = 12600,
   fairPriceHigh = 14200,
+  onContractorMatchClick,
 }: GradeRevealProps) => {
   const config = gradeConfig[grade] || gradeConfig.C;
   const [counter, setCounter] = useState(0);
   const [copied, setCopied] = useState(false);
-  const [showContractorMatch, setShowContractorMatch] = useState(false);
   const counterStarted = useRef(false);
 
   const redCount = flags.filter(f => f.severity === "red").length;
@@ -262,7 +263,7 @@ const GradeReveal = ({
               whileTap={{ scale: 0.98 }}
               onClick={() => {
                 console.log({ event: "wm_contractor_match_clicked", grade, dollarDelta });
-                setShowContractorMatch(true);
+                onContractorMatchClick?.();
               }}
               className="flex flex-col items-center"
               style={{ background: "#C8952A", color: "white", fontFamily: "'DM Sans', sans-serif", fontSize: 17, fontWeight: 700, padding: "16px 36px", borderRadius: 10, border: "none", cursor: "pointer", boxShadow: "0 4px 16px rgba(200,149,42,0.35)" }}
@@ -299,9 +300,6 @@ const GradeReveal = ({
           </p>
         </div>
       </section>
-
-      <ContractorMatch isVisible={showContractorMatch} grade={grade} county={county} dollarDelta={dollarDelta} />
-      <EvidenceLocker grade={grade} county={county} dollarDelta={dollarDelta} />
     </motion.div>
   );
 };
