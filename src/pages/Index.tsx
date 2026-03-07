@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import LinearHeader from "@/components/LinearHeader";
 import AuditHero from "@/components/AuditHero";
+import FlowBEntry from "@/components/FlowBEntry";
 import SocialProofStrip from "@/components/SocialProofStrip";
 import TruthGateFlow from "@/components/TruthGateFlow";
 import UploadZone from "@/components/UploadZone";
@@ -30,6 +32,7 @@ const mockAuditResult = {
 };
 
 const Index = () => {
+  const [activeFlow, setActiveFlow] = useState<'A' | 'B' | null>(null);
   const [leadCaptured, setLeadCaptured] = useState(false);
   const [fileUploaded, setFileUploaded] = useState(false);
   const [gradeRevealed, setGradeRevealed] = useState(false);
@@ -69,21 +72,63 @@ const Index = () => {
 
       {!gradeRevealed && (
         <>
-          <AuditHero />
-          <SocialProofStrip />
-          <TruthGateFlow
-            onLeadCaptured={() => setLeadCaptured(true)}
-            onStepChange={(step, county) => {
-              setStepsCompleted(step);
-              setSelectedCounty(county);
-            }}
-          />
-          <UploadZone
-            isVisible={leadCaptured}
-            onScanStart={() => {
-              setFileUploaded(true);
-            }}
-          />
+          <AnimatePresence mode="wait">
+            {activeFlow !== 'B' ? (
+              <motion.div
+                key="flow-a-hero"
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <AuditHero
+                  onFlowBClick={() => {
+                    setActiveFlow('B');
+                    console.log({ event: 'wm_flow_b_started' });
+                    setTimeout(() => {
+                      document.getElementById("flow-b")?.scrollIntoView({ behavior: "smooth" });
+                    }, 100);
+                  }}
+                />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="flow-b-entry"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+              >
+                <FlowBEntry
+                  onContinueToTool={() => {
+                    document.getElementById("market-baseline")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  onSwitchToFlowA={() => {
+                    setActiveFlow('A');
+                    setTimeout(() => {
+                      document.getElementById("truth-gate")?.scrollIntoView({ behavior: "smooth" });
+                    }, 100);
+                  }}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {activeFlow !== 'B' && (
+            <>
+              <SocialProofStrip />
+              <TruthGateFlow
+                onLeadCaptured={() => setLeadCaptured(true)}
+                onStepChange={(step, county) => {
+                  setStepsCompleted(step);
+                  setSelectedCounty(county);
+                }}
+              />
+              <UploadZone
+                isVisible={leadCaptured}
+                onScanStart={() => {
+                  setFileUploaded(true);
+                }}
+              />
+            </>
+          )}
         </>
       )}
 
