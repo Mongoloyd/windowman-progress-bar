@@ -4,6 +4,7 @@ import SocialProofStrip from "@/components/SocialProofStrip";
 import TruthGateFlow from "@/components/TruthGateFlow";
 import IndustryTruth from "@/components/IndustryTruth";
 import ProcessSteps from "@/components/ProcessSteps";
+import NarrativeProof from "@/components/NarrativeProof";
 
 const Index = () => {
   return (
@@ -14,6 +15,7 @@ const Index = () => {
       <TruthGateFlow />
       <IndustryTruth />
       <ProcessSteps />
+      <NarrativeProof />
     </div>
   );
 };
