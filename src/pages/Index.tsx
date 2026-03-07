@@ -99,14 +99,10 @@ const Index = () => {
         </>
       )}
 
-      {!gradeRevealed && (
-        <>
-          <IndustryTruth />
-          <ProcessSteps />
-          <NarrativeProof />
-          <ClosingManifesto />
-        </>
-      )}
+      <IndustryTruth />
+      <ProcessSteps />
+      <NarrativeProof />
+      <ClosingManifesto />
     </div>
   );
 };
