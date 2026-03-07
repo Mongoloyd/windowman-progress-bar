@@ -131,33 +131,66 @@ const AuditHero = ({ onFlowBClick }: AuditHeroProps) => {
                 Scan My Quote — It's Free
               </motion.button>
 
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => onFlowBClick?.()}
-                style={{
-                  background: "transparent",
-                  color: "#374151",
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontSize: 15,
-                  fontWeight: 500,
-                  padding: "14px 24px",
-                  border: "1.5px solid #D1D5DB",
-                  borderRadius: 10,
-                  cursor: "pointer",
-                  transition: "border-color 0.2s, color 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "#0F1F35";
-                  e.currentTarget.style.color = "#0F1F35";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "#D1D5DB";
-                  e.currentTarget.style.color = "#374151";
-                }}
-              >
-                I Don't Have a Quote Yet →
-              </motion.button>
+              <div className="flex flex-col">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => onFlowBClick?.()}
+                  className="relative"
+                  style={{
+                    background: "transparent",
+                    color: "#374151",
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: 15,
+                    fontWeight: 500,
+                    padding: "14px 24px",
+                    border: "1.5px solid #D1D5DB",
+                    borderRadius: 10,
+                    cursor: "pointer",
+                    transition: "border-color 0.2s, color 0.2s",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = "#0F1F35";
+                    e.currentTarget.style.color = "#0F1F35";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = "#D1D5DB";
+                    e.currentTarget.style.color = "#374151";
+                  }}
+                >
+                  <span
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: "#059669",
+                      color: "#FFFFFF",
+                      fontFamily: "'DM Mono', monospace",
+                      fontSize: 9,
+                      fontWeight: 700,
+                      letterSpacing: "0.05em",
+                      padding: "2px 6px",
+                      borderRadius: 4,
+                      marginRight: 8,
+                      verticalAlign: "middle",
+                    }}
+                  >
+                    NEW
+                  </span>
+                  Getting Quotes Soon? We Can Arm You First →
+                </motion.button>
+                <p
+                  style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: 12,
+                    color: "#6B7280",
+                    textAlign: "center",
+                    marginTop: 6,
+                  }}
+                >
+                  Generate your fair-market baseline before the contractor arrives
+                </p>
+              </div>
             </div>
 
             {/* Trust Line */}
