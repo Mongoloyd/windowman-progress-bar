@@ -31,7 +31,11 @@ const trustItems = [
   "Results in 60 seconds",
 ];
 
-const AuditHero = () => {
+interface AuditHeroProps {
+  onFlowBClick?: () => void;
+}
+
+const AuditHero = ({ onFlowBClick }: AuditHeroProps) => {
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
@@ -130,7 +134,7 @@ const AuditHero = () => {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => scrollTo("flow-b")}
+                onClick={() => onFlowBClick?.()}
                 style={{
                   background: "transparent",
                   color: "#374151",
