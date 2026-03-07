@@ -118,10 +118,17 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
 
   const handleOtpSubmit = () => {
     console.log({ event: "wm_phone_verified" });
-    startPillars();
+    setSkippedOtp(false);
+    startPillars(false);
   };
 
-  const startPillars = () => {
+  const handleOtpSkip = () => {
+    console.log({ event: "wm_otp_skipped" });
+    setSkippedOtp(true);
+    startPillars(true);
+  };
+
+  const startPillars = (skipped: boolean) => {
     setPhase("pillars");
     setPillarsDone([false, false, false, false]);
     setShowGrade(false);
@@ -139,11 +146,13 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
     // After all pillars (~4.5s) → show grade
     addTimer(() => setShowGrade(true), 5000);
 
-    // After grade shown → reveal complete
-    addTimer(() => {
-      console.log({ event: "wm_grade_revealed" });
-      onRevealComplete?.();
-    }, 7000);
+    // Only auto-dismiss for verified users
+    if (!skipped) {
+      addTimer(() => {
+        console.log({ event: "wm_grade_revealed" });
+        onRevealComplete?.();
+      }, 7000);
+    }
   };
 
   const county = selectedCounty;
