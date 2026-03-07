@@ -2,6 +2,7 @@ import LinearHeader from "@/components/LinearHeader";
 import AuditHero from "@/components/AuditHero";
 import SocialProofStrip from "@/components/SocialProofStrip";
 import TruthGateFlow from "@/components/TruthGateFlow";
+import IndustryTruth from "@/components/IndustryTruth";
 
 const Index = () => {
   return (
@@ -10,6 +11,7 @@ const Index = () => {
       <AuditHero />
       <SocialProofStrip />
       <TruthGateFlow />
+      <IndustryTruth />
     </div>
   );
 };
