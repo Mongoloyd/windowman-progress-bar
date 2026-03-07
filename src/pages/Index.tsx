@@ -3,6 +3,7 @@ import AuditHero from "@/components/AuditHero";
 import SocialProofStrip from "@/components/SocialProofStrip";
 import TruthGateFlow from "@/components/TruthGateFlow";
 import IndustryTruth from "@/components/IndustryTruth";
+import ProcessSteps from "@/components/ProcessSteps";
 
 const Index = () => {
   return (
@@ -12,6 +13,7 @@ const Index = () => {
       <SocialProofStrip />
       <TruthGateFlow />
       <IndustryTruth />
+      <ProcessSteps />
     </div>
   );
 };
