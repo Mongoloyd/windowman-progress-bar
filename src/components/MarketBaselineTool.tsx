@@ -103,12 +103,14 @@ const useCounter = (target: number, duration: number, active: boolean) => {
 
 /* ── main component ── */
 interface MarketBaselineToolProps {
+  onLeadCaptured?: (answers: { county: string; windowCount: string; windowType: string }) => void;
   onBaselineRevealed?: () => void;
+  onStepComplete?: (step: number, answer: string) => void;
   onChecklistClick?: () => void;
   onReminderClick?: () => void;
 }
 
-const MarketBaselineTool = ({ onBaselineRevealed, onChecklistClick, onReminderClick }: MarketBaselineToolProps) => {
+const MarketBaselineTool = ({ onLeadCaptured, onBaselineRevealed, onStepComplete, onChecklistClick, onReminderClick }: MarketBaselineToolProps) => {
   const [step, setStep] = useState<Step>(1);
   const [answers, setAnswers] = useState({ county: "", windowCount: "", windowType: "" });
   const [selected, setSelected] = useState("");
@@ -132,6 +134,9 @@ const MarketBaselineTool = ({ onBaselineRevealed, onChecklistClick, onReminderCl
     setAnswers(newAnswers);
 
     const stepNum = step as number;
+    console.log({ event: 'wm_flow_b_step_complete', step: stepNum, answer: value });
+    onStepComplete?.(stepNum, value);
+
     if (stepNum < 3) {
       setTimeout(() => {
         setSelected("");
@@ -144,7 +149,7 @@ const MarketBaselineTool = ({ onBaselineRevealed, onChecklistClick, onReminderCl
         setTimeout(() => setStep("gate"), 800);
       }, 400);
     }
-  }, [step, answers]);
+  }, [step, answers, onStepComplete]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -154,6 +159,7 @@ const MarketBaselineTool = ({ onBaselineRevealed, onChecklistClick, onReminderCl
       windowCount: answers.windowCount,
       windowType: answers.windowType,
     });
+    onLeadCaptured?.(answers);
     // Animate reveal
     setShowOverlay(false);
     setTimeout(() => {
@@ -162,11 +168,20 @@ const MarketBaselineTool = ({ onBaselineRevealed, onChecklistClick, onReminderCl
         const t = Math.min((now - animStart) / 800, 1);
         setBlurAmount(7 * (1 - t));
         if (t < 1) requestAnimationFrame(animBlur);
-        else setStep("reveal");
+        else {
+          setStep("reveal");
+          console.log({
+            event: "wm_baseline_revealed",
+            county: answers.county,
+            windowCount: answers.windowCount,
+            baselineLow: priceRange[0],
+            baselineHigh: priceRange[1],
+          });
+          onBaselineRevealed?.();
+        }
       };
       requestAnimationFrame(animBlur);
     }, 400);
-    onBaselineRevealed?.();
   };
 
   return (
