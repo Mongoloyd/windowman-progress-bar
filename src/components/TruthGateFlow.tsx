@@ -106,7 +106,7 @@ const Spinner = () => (
   </svg>
 );
 
-const TruthGateFlow = () => {
+const TruthGateFlow = ({ onLeadCaptured }: { onLeadCaptured?: () => void }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [answers, setAnswers] = useState<Answers>({
     windowCount: "",
@@ -153,6 +153,7 @@ const TruthGateFlow = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log({ event: "wm_lead_captured", ...answers });
+    onLeadCaptured?.();
   };
 
   const progressWidth = currentStep <= 4 ? `${currentStep * 25}%` : "100%";
