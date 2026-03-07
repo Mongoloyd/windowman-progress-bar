@@ -4,6 +4,7 @@ import LinearHeader from "@/components/LinearHeader";
 import AuditHero from "@/components/AuditHero";
 import FlowBEntry from "@/components/FlowBEntry";
 import MarketBaselineTool from "@/components/MarketBaselineTool";
+import ForensicChecklist from "@/components/ForensicChecklist";
 import SocialProofStrip from "@/components/SocialProofStrip";
 import TruthGateFlow from "@/components/TruthGateFlow";
 import UploadZone from "@/components/UploadZone";
@@ -117,6 +118,17 @@ const Index = () => {
                     document.getElementById("forensic-checklist")?.scrollIntoView({ behavior: "smooth" });
                   }}
                   onReminderClick={() => {
+                    document.getElementById("quote-watcher")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                />
+                <ForensicChecklist
+                  onUploadQuote={() => {
+                    setActiveFlow('A');
+                    setTimeout(() => {
+                      document.getElementById("truth-gate")?.scrollIntoView({ behavior: "smooth" });
+                    }, 100);
+                  }}
+                  onSetReminder={() => {
                     document.getElementById("quote-watcher")?.scrollIntoView({ behavior: "smooth" });
                   }}
                 />
