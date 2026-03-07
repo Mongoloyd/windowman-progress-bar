@@ -106,7 +106,7 @@ const Spinner = () => (
   </svg>
 );
 
-const TruthGateFlow = ({ onLeadCaptured }: { onLeadCaptured?: () => void }) => {
+const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () => void; onStepChange?: (step: number, county: string) => void }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [answers, setAnswers] = useState<Answers>({
     windowCount: "",
