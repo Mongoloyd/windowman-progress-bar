@@ -115,7 +115,7 @@ const EvidenceLocker = ({
             }
           />
           {/* Row 5 — Empty slot */}
-          <div className="flex items-center justify-between" style={{ padding: "14px 0", background: "#F9FAFB", borderRadius: 10, padding: "14px 16px", marginTop: 4 }}>
+          <div className="flex items-center justify-between" style={{ background: "#F9FAFB", borderRadius: 10, padding: "14px 16px", marginTop: 4 }}>
             <div className="flex items-center gap-3">
               <div style={{ width: 20, height: 20, borderRadius: "50%", border: "1.5px dashed #D1D5DB", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <Plus size={10} color="#D1D5DB" />
