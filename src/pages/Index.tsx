@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import LinearHeader from "@/components/LinearHeader";
 import AuditHero from "@/components/AuditHero";
 import FlowBEntry from "@/components/FlowBEntry";
+import MarketBaselineTool from "@/components/MarketBaselineTool";
 import SocialProofStrip from "@/components/SocialProofStrip";
 import TruthGateFlow from "@/components/TruthGateFlow";
 import UploadZone from "@/components/UploadZone";
