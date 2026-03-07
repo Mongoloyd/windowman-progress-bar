@@ -106,7 +106,7 @@ const Spinner = () => (
   </svg>
 );
 
-const TruthGateFlow = ({ onLeadCaptured }: { onLeadCaptured?: () => void }) => {
+const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () => void; onStepChange?: (step: number, county: string) => void }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [answers, setAnswers] = useState<Answers>({
     windowCount: "",
@@ -126,13 +126,19 @@ const TruthGateFlow = ({ onLeadCaptured }: { onLeadCaptured?: () => void }) => {
   const handleOptionClick = useCallback(
     (key: string, value: string) => {
       setSelectedOption(value);
+      const newAnswers = { ...answers, [key]: value };
       setAnswers((prev) => ({ ...prev, [key]: value }));
 
       if (currentStep < 4) {
         setTimeout(() => {
           setSelectedOption("");
-          setCurrentStep((s) => s + 1);
+          setCurrentStep((s) => {
+            const next = s + 1;
+            onStepChange?.(next - 1, newAnswers.county || "your county");
+            return next;
+          });
         }, 300);
+
       } else {
         // Step 4 → loading → estimate → lead gate
         setTimeout(() => {
