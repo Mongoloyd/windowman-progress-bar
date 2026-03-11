@@ -1108,16 +1108,30 @@ function DemoReport({ lead, onUploadQuote, onClose }) {
           backdropFilter: "blur(12px)",
         }}
       >
-        <span style={{ fontSize: "13px", color: "#fbbf24", fontWeight: 600 }}>
-          ⚡ DEMO — Real Pompano Beach quote data.{" "}
-          <a
-            href="#"
-            onClick={handleUploadClick}
-            style={{ color: T.cyan, textDecoration: "underline", fontWeight: 700 }}
-          >
-            Upload YOUR quote to get your real Truth Report →
-          </a>
-        </span>
+        <div style={{ maxWidth: "940px", margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <span style={{ fontSize: "13px", color: "#fbbf24", fontWeight: 600 }}>
+            ⚡ DEMO — Real Pompano Beach quote data.{" "}
+            <a
+              href="#"
+              onClick={handleUploadClick}
+              style={{ color: T.cyan, textDecoration: "underline", fontWeight: 700 }}
+            >
+              Upload YOUR quote to get your real Truth Report →
+            </a>
+          </span>
+          {onClose && (
+            <button
+              onClick={onClose}
+              style={{
+                background: "rgba(245,158,11,0.1)", border: "1px solid rgba(245,158,11,0.3)",
+                color: "#fbbf24", padding: "6px 14px", borderRadius: "6px", cursor: "pointer",
+                fontSize: "12px", fontWeight: 700, whiteSpace: "nowrap", marginLeft: "12px",
+              }}
+            >
+              Exit Demo ✕
+            </button>
+          )}
+        </div>
       </div>
 
       <div style={{ maxWidth: "940px", margin: "0 auto", padding: "44px 20px 140px" }}>
