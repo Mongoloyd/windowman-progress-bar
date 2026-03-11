@@ -92,7 +92,7 @@ const TrustFooter = React.forwardRef<HTMLDivElement>((props, ref) => {
       ))}
     </div>
   );
-}
+});
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Social proof counter
