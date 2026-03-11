@@ -239,7 +239,7 @@ const MarketBaselineTool = ({ onLeadCaptured, onBaselineRevealed, onStepComplete
                 exit="exit"
                 transition={{ duration: 0.25 }}
               >
-                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(26px, 3.5vw, 32px)", fontWeight: 600, color: "hsl(213 57% 14%)", marginBottom: 8 }}>
+                <h3 style={{ fontFamily: "'Jost', sans-serif", fontSize: "clamp(26px, 3.5vw, 32px)", fontWeight: 800, letterSpacing: "-0.02em", color: "hsl(213 57% 14%)", marginBottom: 8 }}>
                   {steps[step - 1].question}
                 </h3>
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "hsl(220 9% 46%)", marginBottom: 28 }}>
