@@ -55,6 +55,7 @@ export default {
           cyan: "hsl(var(--brand-cyan))",
           lime: "hsl(var(--brand-lime))",
           amber: "hsl(var(--brand-amber))",
+          ruby: "hsl(var(--brand-ruby))",
           surface: "hsl(var(--brand-surface))",
         },
         sidebar: {
