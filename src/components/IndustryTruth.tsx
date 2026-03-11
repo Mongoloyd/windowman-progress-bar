@@ -146,11 +146,11 @@ const IndustryTruth = () => {
         >
           <p
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Jost', sans-serif",
               fontSize: "clamp(22px, 3vw, 28px)",
               color: "#F3F4F6",
-              fontWeight: 400,
-              fontStyle: "italic",
+              fontWeight: 700,
+              letterSpacing: "-0.02em",
               marginBottom: 16,
             }}
           >
