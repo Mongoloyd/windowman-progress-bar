@@ -330,7 +330,7 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
                     e.currentTarget.style.boxShadow = "0 0 0 3px hsl(185 100% 50% / 0.15)";
                   }}
                   onBlur={(e) => {
-                    e.currentTarget.style.borderColor = "#E5E7EB";
+                    e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
                     e.currentTarget.style.boxShadow = "none";
                   }}
                 />
