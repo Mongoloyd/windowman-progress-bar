@@ -6,6 +6,7 @@
  */
 
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Inlined Design System (was @/styles/design-system)
