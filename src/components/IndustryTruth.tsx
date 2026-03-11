@@ -59,10 +59,11 @@ const IndustryTruth = () => {
           <h2
             className="mx-auto"
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Jost', sans-serif",
               fontSize: "clamp(34px, 5vw, 44px)",
               color: "#0F1F35",
-              fontWeight: 700,
+              fontWeight: 800,
+              letterSpacing: "-0.02em",
               maxWidth: 700,
               marginBottom: 16,
               lineHeight: 1.2,
