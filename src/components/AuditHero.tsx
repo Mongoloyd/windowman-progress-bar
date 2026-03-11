@@ -10,10 +10,10 @@ const PowerToolFlow = React.lazy(() => import("./PowerToolDemo"));
 
 const flagCards = [
   {
-    stripe: "hsl(0 84% 60%)",
+    stripe: "hsl(var(--brand-ruby))",
     icon: "⚠",
     label: "No Window Brand Specified",
-    labelColor: "hsl(0 84% 60%)",
+    labelColor: "hsl(var(--brand-ruby))",
     sub: "Contractor can install any quality level",
   },
   {
@@ -108,10 +108,14 @@ const AuditHero = ({ onFlowBClick, onUploadQuote }: AuditHeroProps) => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => scrollTo("truth-gate")}
-                className="w-full md:w-auto bg-primary text-primary-foreground font-bold py-4 px-8 rounded-lg transition-shadow hover:shadow-[0_0_24px_hsl(var(--brand-cyan)/0.4)]"
+                className="relative w-full md:w-auto bg-primary text-primary-foreground font-bold py-4 px-8 rounded-lg overflow-hidden"
                 style={{
                   fontFamily: "'DM Sans', sans-serif",
                   fontSize: 16,
+                  backgroundImage: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%)",
+                  backgroundSize: "200% 100%",
+                  animation: "scan-line-shimmer 3s ease-in-out infinite",
+                  backgroundColor: "hsl(var(--primary))",
                 }}
               >
                 Scan My Quote Free
@@ -145,21 +149,22 @@ const AuditHero = ({ onFlowBClick, onUploadQuote }: AuditHeroProps) => {
 
           {/* RIGHT COLUMN */}
           <div className="order-1 md:order-2 flex flex-col items-center">
-            {/* Hand scanner hero image — top on mobile */}
+            {/* Hand scanner hero image — breathing animation + hover glow */}
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="w-full max-w-[360px] md:max-w-none mb-6 md:mb-0"
             >
-              <img
+              <motion.img
                 src={handScannerImg}
                 alt="WindowMan forensic quote scanner"
-                className="w-full h-auto rounded-xl"
+                className="w-full h-auto rounded-xl animate-breathing transition-all duration-300"
+                whileHover={{ filter: "drop-shadow(0 0 25px rgba(0, 242, 255, 0.4))" }}
               />
             </motion.div>
 
-            {/* Floating Grade Card — desktop only */}
+            {/* Floating Grade Card — glassmorphic HUD */}
             <motion.div
               className="hidden md:block mt-8"
               initial={{ opacity: 0, x: 20 }}
@@ -169,8 +174,13 @@ const AuditHero = ({ onFlowBClick, onUploadQuote }: AuditHeroProps) => {
               <motion.div
                 animate={{ y: [-6, 0, -6] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="bg-card border border-border rounded-2xl p-7 shadow-[0_8px_40px_hsl(var(--brand-cyan)/0.08)]"
-                style={{ maxWidth: 420, width: "100%" }}
+                className="glass-card rounded-2xl p-7"
+                style={{
+                  maxWidth: 420,
+                  width: "100%",
+                  boxShadow: "0 8px 40px hsl(var(--brand-cyan) / 0.08), inset 0 1px 0 rgba(255,255,255,0.06)",
+                  borderImage: "linear-gradient(135deg, hsl(var(--brand-cyan) / 0.4), hsl(var(--brand-amber) / 0.4)) 1",
+                }}
               >
                 {/* Card Header */}
                 <p
@@ -235,7 +245,7 @@ const AuditHero = ({ onFlowBClick, onUploadQuote }: AuditHeroProps) => {
                   {flagCards.map((flag, i) => (
                     <div
                       key={i}
-                      className="flex overflow-hidden bg-card border border-border rounded-lg"
+                      className="flex overflow-hidden bg-card border border-white/5 rounded-lg"
                     >
                       <div
                         className="w-[3px] shrink-0"
@@ -263,7 +273,7 @@ const AuditHero = ({ onFlowBClick, onUploadQuote }: AuditHeroProps) => {
                 </div>
 
                 {/* Footer */}
-                <div className="text-center border-t border-border mt-4 pt-3.5">
+                <div className="text-center border-t border-white/5 mt-4 pt-3.5">
                   <p className="text-muted-foreground/60 text-[12px] italic" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                     This is a sample. Your quote will generate a real grade.
                   </p>

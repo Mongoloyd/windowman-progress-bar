@@ -17,21 +17,15 @@ const ClosingManifesto = () => {
   };
 
   return (
-    <section style={{ backgroundColor: "#0F1F35" }}>
+    <section style={{ background: "linear-gradient(180deg, hsl(0 0% 2%) 0%, hsl(215 50% 8%) 100%)" }}>
       <div ref={ref} className="mx-auto max-w-4xl px-4 md:px-8 py-24 md:py-32 text-center">
         {/* Opening line */}
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.4 }}
-          style={{
-            fontFamily: "'Jost', sans-serif",
-            fontSize: 13,
-            color: "#94A3B8",
-            letterSpacing: "0.15em",
-            textTransform: "uppercase",
-            marginBottom: 40,
-          }}
+          className="text-muted-foreground uppercase tracking-[0.15em] mb-10"
+          style={{ fontFamily: "'Jost', sans-serif", fontSize: 13 }}
         >
           WHY WINDOWMAN EXISTS
         </motion.p>
@@ -41,10 +35,10 @@ const ClosingManifesto = () => {
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.1 }}
+          className="text-foreground"
           style={{
             fontFamily: "'Jost', sans-serif",
             fontSize: "clamp(28px, 4vw, 36px)",
-            color: "#F3F4F6",
             fontWeight: 700,
             letterSpacing: "-0.02em",
             lineHeight: 1.5,
@@ -60,7 +54,7 @@ const ClosingManifesto = () => {
           style={{
             fontFamily: "'Jost', sans-serif",
             fontSize: "clamp(28px, 4vw, 36px)",
-            color: "#C8952A",
+            color: "hsl(var(--primary))",
             fontWeight: 800,
             letterSpacing: "-0.02em",
             lineHeight: 1.5,
@@ -78,22 +72,28 @@ const ClosingManifesto = () => {
           style={{ maxWidth: 560 }}
         >
           {checks.map((text, i) => (
-            <div key={i} className="flex items-start gap-2.5 text-left">
+            <motion.div
+              key={i}
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ delay: 0.4 + i * 0.08 }}
+              className="flex items-start gap-2.5 text-left"
+            >
               <div
                 className="flex items-center justify-center flex-shrink-0"
                 style={{
                   width: 24,
                   height: 24,
                   borderRadius: "50%",
-                  background: "rgba(255,255,255,0.1)",
+                  background: "hsl(var(--brand-lime) / 0.1)",
                 }}
               >
-                <span style={{ color: "#FFFFFF", fontSize: 12, fontWeight: 700 }}>✓</span>
+                <span className="animate-pulse-glow" style={{ color: "hsl(var(--brand-lime))", fontSize: 12, fontWeight: 700 }}>✓</span>
               </div>
-              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#D1D5DB" }}>
+              <span className="text-muted-foreground" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14 }}>
                 {text}
               </span>
-            </div>
+            </motion.div>
           ))}
         </motion.div>
 
@@ -104,7 +104,7 @@ const ClosingManifesto = () => {
           transition={{ duration: 0.4, delay: 0.5 }}
           className="mt-14"
         >
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: "#94A3B8", marginBottom: 24 }}>
+          <p className="text-muted-foreground mb-6" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16 }}>
             Your contract already contains the truth. We'll show it to you.
           </p>
 
@@ -112,30 +112,28 @@ const ClosingManifesto = () => {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => scrollTo("truth-gate")}
+            className="relative overflow-hidden bg-primary text-primary-foreground font-bold rounded-xl"
             style={{
-              background: "#C8952A",
-              color: "#FFFFFF",
               fontFamily: "'DM Sans', sans-serif",
               fontSize: 18,
-              fontWeight: 700,
               padding: "18px 48px",
-              borderRadius: 12,
               border: "none",
-              boxShadow: "0 6px 24px rgba(200, 149, 42, 0.4)",
               cursor: "pointer",
-              transition: "box-shadow 0.2s",
+              backgroundImage: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%)",
+              backgroundSize: "200% 100%",
+              animation: "scan-line-shimmer 3s ease-in-out infinite",
+              backgroundColor: "hsl(var(--primary))",
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 6px 24px rgba(200, 149, 42, 0.55)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 6px 24px rgba(200, 149, 42, 0.4)"; }}
           >
             Scan My Quote →
           </motion.button>
 
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#6B7280", fontStyle: "italic", marginTop: 14 }}>
+          <p className="text-muted-foreground/60 italic mt-3.5" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>
             Or explore a{" "}
             <button
               onClick={() => console.log({ event: "wm_sample_report_clicked" })}
-              style={{ fontFamily: "inherit", fontSize: "inherit", color: "#94A3B8", background: "none", border: "none", textDecoration: "underline", cursor: "pointer", fontStyle: "italic" }}
+              className="text-muted-foreground underline hover:text-foreground"
+              style={{ fontFamily: "inherit", fontSize: "inherit", background: "none", border: "none", cursor: "pointer", fontStyle: "italic" }}
             >
               sample report
             </button>{" "}
@@ -144,24 +142,22 @@ const ClosingManifesto = () => {
         </motion.div>
 
         {/* Footer */}
-        <div style={{ paddingTop: 40, borderTop: "1px solid rgba(255,255,255,0.08)", marginTop: 56 }}>
-          <div className="flex justify-center items-center gap-6 flex-wrap" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "#4B5563" }}>
+        <div className="border-t border-white/5 mt-14 pt-10">
+          <div className="flex justify-center items-center gap-6 flex-wrap text-muted-foreground/40" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12 }}>
             <span>© 2025 WindowMan.pro</span>
             <span>·</span>
             <button
               onClick={() => console.log("privacy")}
-              style={{ fontFamily: "inherit", fontSize: "inherit", color: "#4B5563", background: "none", border: "none", cursor: "pointer", textDecoration: "none" }}
-              onMouseEnter={(e) => { e.currentTarget.style.textDecoration = "underline"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.textDecoration = "none"; }}
+              className="hover:underline hover:text-muted-foreground"
+              style={{ fontFamily: "inherit", fontSize: "inherit", color: "inherit", background: "none", border: "none", cursor: "pointer" }}
             >
               Privacy Policy
             </button>
             <span>·</span>
             <button
               onClick={() => console.log("terms")}
-              style={{ fontFamily: "inherit", fontSize: "inherit", color: "#4B5563", background: "none", border: "none", cursor: "pointer", textDecoration: "none" }}
-              onMouseEnter={(e) => { e.currentTarget.style.textDecoration = "underline"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.textDecoration = "none"; }}
+              className="hover:underline hover:text-muted-foreground"
+              style={{ fontFamily: "inherit", fontSize: "inherit", color: "inherit", background: "none", border: "none", cursor: "pointer" }}
             >
               Terms of Service
             </button>

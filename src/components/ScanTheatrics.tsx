@@ -164,7 +164,7 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
       style={{
         position: "fixed",
         inset: 0,
-        backgroundColor: "#0F1F35",
+        backgroundColor: "hsl(0 0% 2%)",
         zIndex: 9000,
         display: "flex",
         flexDirection: "column",
@@ -191,7 +191,7 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
               textAlign: "center",
             }}
           >
-            <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 12, color: "#0099BB", letterSpacing: "0.1em", marginBottom: 32 }}>
+            <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: "hsl(var(--primary))", letterSpacing: "0.1em", marginBottom: 32 }}>
               WINDOWMAN AI · ANALYZING QUOTE
             </p>
 
@@ -201,7 +201,7 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
                 if (i > activeLogIndex) return null;
                 const isComplete = i < activeLogIndex;
                 const isLast = i === 6;
-                const dotColor = isComplete ? "#059669" : "#0099BB";
+                const dotColor = isComplete ? "hsl(var(--brand-lime))" : "hsl(var(--primary))";
                 const text = isComplete
                   ? step.done
                   : step.active.replace("{county}", county);
@@ -281,20 +281,21 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4 }}
             style={{
-              background: "#FFFFFF",
+              background: "hsl(var(--card))",
               borderRadius: 16,
               padding: "32px 28px",
               maxWidth: 400,
               width: "100%",
-              boxShadow: "0 16px 48px rgba(0,0,0,0.4)",
+              boxShadow: "0 16px 48px rgba(0,0,0,0.6)",
+              border: "1px solid rgba(255,255,255,0.08)",
               textAlign: "center",
             }}
           >
             <div style={{ fontSize: 32, marginBottom: 16 }}>📱</div>
-            <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 20, fontWeight: 700, color: "#0F1F35" }}>
+            <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 20, fontWeight: 700, color: "hsl(var(--foreground))" }}>
               Enter the code we sent to your mobile.
             </h3>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#6B7280", marginBottom: 24 }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "hsl(var(--muted-foreground))", marginBottom: 24 }}>
               We use this to secure your report.
             </p>
 
@@ -313,22 +314,23 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
                   style={{
                     width: 48,
                     height: 56,
-                    border: "1.5px solid #E5E7EB",
+                    border: "1.5px solid rgba(255,255,255,0.1)",
                     borderRadius: 8,
-                    fontFamily: "'DM Mono', monospace",
+                    fontFamily: "'IBM Plex Mono', monospace",
                     fontSize: 24,
                     fontWeight: 700,
-                    color: "#0F1F35",
+                    color: "hsl(var(--foreground))",
+                    background: "hsl(var(--card))",
                     textAlign: "center",
                     outline: "none",
                     transition: "border-color 0.15s, box-shadow 0.15s",
                   }}
                   onFocus={(e) => {
-                    e.currentTarget.style.borderColor = "#C8952A";
-                    e.currentTarget.style.boxShadow = "0 0 0 3px rgba(200,149,42,0.15)";
+                    e.currentTarget.style.borderColor = "hsl(185 100% 50%)";
+                    e.currentTarget.style.boxShadow = "0 0 0 3px hsl(185 100% 50% / 0.15)";
                   }}
                   onBlur={(e) => {
-                    e.currentTarget.style.borderColor = "#E5E7EB";
+                    e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
                     e.currentTarget.style.boxShadow = "none";
                   }}
                 />
@@ -343,8 +345,8 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
               style={{
                 width: "100%",
                 height: 50,
-                background: "#059669",
-                color: "#FFFFFF",
+                background: "hsl(var(--brand-lime))",
+                color: "hsl(var(--primary-foreground))",
                 fontFamily: "'DM Sans', sans-serif",
                 fontSize: 16,
                 fontWeight: 700,
@@ -414,15 +416,15 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
                     width: 120,
                     height: 120,
                     borderRadius: "50%",
-                    background: "#FFF7ED",
-                    border: "3px solid #F97316",
+                    background: "hsl(var(--brand-amber) / 0.1)",
+                    border: "3px solid hsl(var(--brand-amber))",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    boxShadow: "0 0 40px rgba(249,115,22,0.4)",
+                    boxShadow: "0 0 40px hsl(var(--brand-amber) / 0.3)",
                   }}
                 >
-                  <span style={{ fontFamily: "'Jost', sans-serif", fontSize: 64, fontWeight: 900, color: "#F97316" }}>
+                  <span style={{ fontFamily: "'Jost', sans-serif", fontSize: 64, fontWeight: 900, color: "hsl(var(--brand-amber))" }}>
                     C
                   </span>
                 </div>

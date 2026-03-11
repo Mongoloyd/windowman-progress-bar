@@ -45,6 +45,7 @@
     --brand-cyan: 185 100% 50%;     /* #00f2ff */
     --brand-lime: 142 71% 45%;      /* cyber lime for pass */
     --brand-amber: 38 92% 50%;      /* alert amber for risks */
+    --brand-ruby: 0 72% 50%;        /* vivid ruby for critical flags */
     --brand-surface: 0 0% 8%;       /* glassmorphic card bg */
 
     /* Sidebar (keep dark) */
@@ -64,7 +65,40 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
+}
+
+/* Scan-line shimmer for CTA buttons */
+@keyframes scan-line-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Pulse glow for checkmarks */
+@keyframes pulse-glow {
+  0%, 100% { filter: drop-shadow(0 0 4px hsl(142 71% 45% / 0.6)); }
+  50% { filter: drop-shadow(0 0 12px hsl(142 71% 45% / 0.9)); }
+}
+
+/* Grid overlay utility */
+.grid-overlay {
+  background-image: 
+    repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.03) 59px, rgba(255,255,255,0.03) 60px),
+    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.03) 59px, rgba(255,255,255,0.03) 60px);
+}
+
+/* Glassmorphic card utility */
+.glass-card {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.08);
 }
