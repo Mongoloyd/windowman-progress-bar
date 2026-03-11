@@ -173,7 +173,7 @@ const GradeReveal = ({
         <div className="max-w-4xl mx-auto">
           <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
             <div>
-              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, fontWeight: 700, color: "#0F1F35" }}>What We Found</h2>
+              <h2 style={{ fontFamily: "'Jost', sans-serif", fontSize: 28, fontWeight: 800, letterSpacing: "-0.02em", color: "#0F1F35" }}>What We Found</h2>
               <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#6B7280" }}>
                 {issueCount} issue{issueCount !== 1 ? "s" : ""} identified · {greenCount} item{greenCount !== 1 ? "s" : ""} confirmed correct
               </p>
