@@ -218,7 +218,7 @@ const QuoteWatcher = ({ onSwitchToFlowA, onViewChecklist, onReminderSet }: Quote
         <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: "hsl(215 20% 65%)", letterSpacing: "0.1em", marginBottom: 20 }}>
           WHAT HAPPENS WHEN YOU UPLOAD YOUR QUOTE
         </p>
-        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(32px, 4.5vw, 42px)", fontWeight: 700, color: "hsl(0 0% 100%)", marginBottom: 40 }}>
+        <h2 style={{ fontFamily: "'Jost', sans-serif", fontSize: "clamp(32px, 4.5vw, 42px)", fontWeight: 800, letterSpacing: "-0.02em", color: "hsl(0 0% 100%)", marginBottom: 40 }}>
           This is what will happen to your quote once you get it.
         </h2>
         <ScanPreview />
