@@ -139,7 +139,7 @@ const ScanPreview = () => {
                   background: "hsl(33 100% 96%)",
                 }}
               >
-                <span style={{ fontFamily: "'Playfair Display', serif", fontSize: 44, fontWeight: 900, color: "hsl(24 95% 53%)" }}>
+                <span style={{ fontFamily: "'Jost', sans-serif", fontSize: 44, fontWeight: 900, color: "hsl(24 95% 53%)" }}>
                   C
                 </span>
               </motion.div>
