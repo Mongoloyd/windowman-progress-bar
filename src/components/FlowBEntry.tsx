@@ -97,9 +97,10 @@ const FlowBEntry = ({ onContinueToTool, onSwitchToFlowA }: FlowBEntryProps) => {
           {/* Headline */}
           <h1
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Jost', sans-serif",
               fontSize: "clamp(42px, 5.5vw, 58px)",
-              fontWeight: 700,
+              fontWeight: 800,
+              letterSpacing: "-0.02em",
               color: "hsl(213 57% 14%)",
               lineHeight: 1.15,
               marginBottom: 20,
