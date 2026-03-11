@@ -326,8 +326,8 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
                     transition: "border-color 0.15s, box-shadow 0.15s",
                   }}
                   onFocus={(e) => {
-                    e.currentTarget.style.borderColor = "#C8952A";
-                    e.currentTarget.style.boxShadow = "0 0 0 3px rgba(200,149,42,0.15)";
+                    e.currentTarget.style.borderColor = "hsl(185 100% 50%)";
+                    e.currentTarget.style.boxShadow = "0 0 0 3px hsl(185 100% 50% / 0.15)";
                   }}
                   onBlur={(e) => {
                     e.currentTarget.style.borderColor = "#E5E7EB";
