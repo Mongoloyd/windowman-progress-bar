@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import "@fontsource/playfair-display/700.css";
+
 
 const stepConfig = [
   {
