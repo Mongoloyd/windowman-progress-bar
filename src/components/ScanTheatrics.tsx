@@ -345,8 +345,8 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
               style={{
                 width: "100%",
                 height: 50,
-                background: "#059669",
-                color: "#FFFFFF",
+                background: "hsl(var(--brand-lime))",
+                color: "hsl(var(--primary-foreground))",
                 fontFamily: "'DM Sans', sans-serif",
                 fontSize: 16,
                 fontWeight: 700,
