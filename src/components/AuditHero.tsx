@@ -85,9 +85,10 @@ const AuditHero = ({ onFlowBClick, onUploadQuote }: AuditHeroProps) => {
             {/* Headline */}
             <h1
               style={{
-                fontFamily: "'Playfair Display', serif",
+                fontFamily: "'Jost', sans-serif",
                 fontSize: "clamp(40px, 5vw, 54px)",
-                fontWeight: 700,
+                fontWeight: 800,
+                letterSpacing: "-0.02em",
                 color: "#0F1F35",
                 lineHeight: 1.15,
                 marginBottom: 20,
