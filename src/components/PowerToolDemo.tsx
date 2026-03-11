@@ -1614,7 +1614,7 @@ function DemoScanPage({ lead, onUploadQuote, onClose }) {
   if (phase === "revealing") {
     return <ScoreReveal score={scoreDisplay} />;
   }
-  return <DemoReport lead={lead} onUploadQuote={onUploadQuote} />;
+  return <DemoReport lead={lead} onUploadQuote={onUploadQuote} onClose={onClose} />;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
