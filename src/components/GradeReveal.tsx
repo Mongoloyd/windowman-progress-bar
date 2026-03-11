@@ -227,7 +227,7 @@ const GradeReveal = ({
       {/* SECTION 4 — NEGOTIATION SCRIPT */}
       <section style={{ background: "white", borderTop: "1px solid #E5E7EB" }} className="py-12 md:py-16 px-4 md:px-8">
         <div className="max-w-4xl mx-auto">
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, fontWeight: 700, color: "#0F1F35" }}>How to handle this quote.</h2>
+          <h2 style={{ fontFamily: "'Jost', sans-serif", fontSize: 28, fontWeight: 800, letterSpacing: "-0.02em", color: "#0F1F35" }}>How to handle this quote.</h2>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "#6B7280", marginTop: 8, marginBottom: 28 }}>
             Use this exact language when you call your contractor back.
           </p>
