@@ -378,7 +378,7 @@ const QuoteWatcher = ({ onSwitchToFlowA, onViewChecklist, onReminderSet }: Quote
 
       {/* Section 3 — Flow B Closing */}
       <div className="mx-auto max-w-3xl px-4 pb-16 md:pb-28 text-center" style={{ marginTop: 40 }}>
-        <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, fontWeight: 400, fontStyle: "italic", color: "hsl(0 0% 100%)" }}>
+        <p style={{ fontFamily: "'Jost', sans-serif", fontSize: 28, fontWeight: 700, letterSpacing: "-0.02em", color: "hsl(0 0% 100%)" }}>
           Most homeowners decide whether to sign based on how the contractor made them feel.
         </p>
         <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, fontWeight: 700, color: "hsl(36 77% 47%)", marginTop: 12 }}>
