@@ -266,9 +266,10 @@ const FlowBEntry = ({ onContinueToTool, onSwitchToFlowA }: FlowBEntryProps) => {
           <h2
             className="text-center"
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Jost', sans-serif",
               fontSize: "clamp(30px, 4vw, 38px)",
-              fontWeight: 700,
+              fontWeight: 800,
+              letterSpacing: "-0.02em",
               color: "hsl(213 57% 14%)",
               marginBottom: 48,
             }}
