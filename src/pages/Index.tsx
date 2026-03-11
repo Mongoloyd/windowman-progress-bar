@@ -184,6 +184,7 @@ const Index = () => {
 
           {flowMode === 'A' && (
             <>
+              <InteractiveDemoScan />
               <SocialProofStrip />
               <TruthGateFlow
                 onLeadCaptured={() => setLeadCaptured(true)}
