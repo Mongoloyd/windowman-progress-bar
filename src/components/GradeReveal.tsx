@@ -108,7 +108,7 @@ const GradeReveal = ({
             }}
             className="w-[120px] h-[120px] md:w-[160px] md:h-[160px]"
           >
-            <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(80px, 10vw, 96px)", fontWeight: 900, color: config.color }}>
+            <span style={{ fontFamily: "'Jost', sans-serif", fontSize: "clamp(80px, 10vw, 96px)", fontWeight: 900, color: config.color }}>
               {grade}
             </span>
           </motion.div>
