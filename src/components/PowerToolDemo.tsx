@@ -1625,33 +1625,28 @@ export default function PowerToolFlow({ onUploadQuote }: { onUploadQuote?: () =>
   const [state, setState] = useState("idle");
   const [lead, setLead] = useState(null);
 
+  // Lock background scrolling when the tool is active
+  useEffect(() => {
+    if (state !== "idle") {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => { document.body.style.overflow = "unset"; };
+  }, [state]);
+
   const openModal = () => {
     console.log({ event: "wm_power_tool_opened" });
     setState("modal");
   };
+
+  const closeAll = () => setState("idle");
 
   const handleLeadComplete = (formData) => {
     setLead(formData);
     setState("demo");
     console.log({ event: "wm_flow_b_lead_captured", source: "power_tool" });
   };
-
-  // When in demo mode, take over the full page (in-flow replacement)
-  if (state === "demo") {
-    return (
-      <div
-        id="power-tool-isolated-container"
-        style={{
-          fontFamily: "'Inter', system-ui, sans-serif",
-          WebkitFontSmoothing: "antialiased",
-          color: "#0f172a",
-          backgroundColor: "#ffffff",
-        }}
-      >
-        <DemoScanPage lead={lead} onUploadQuote={onUploadQuote} />
-      </div>
-    );
-  }
 
   return (
     <div
@@ -1669,9 +1664,25 @@ export default function PowerToolFlow({ onUploadQuote }: { onUploadQuote?: () =>
         <div style={{ display: "flex", justifyContent: "center", padding: "12px 0" }}>
           <UrgencyBadge />
         </div>
-        {state === "modal" && <LeadModal onComplete={handleLeadComplete} onClose={() => setState("idle")} />}
         <TrustFooter />
       </div>
+
+      {/* PORTAL: Lead Modal */}
+      {state === "modal" && createPortal(
+        <LeadModal onComplete={handleLeadComplete} onClose={closeAll} />,
+        document.body
+      )}
+
+      {/* PORTAL: Full Screen Demo */}
+      {state === "demo" && createPortal(
+        <div style={{
+          position: "fixed", inset: 0, zIndex: 9999, overflowY: "auto",
+          background: T.bg, fontFamily: "'Inter', system-ui, sans-serif",
+        }}>
+          <DemoScanPage lead={lead} onUploadQuote={onUploadQuote} onClose={closeAll} />
+        </div>,
+        document.body
+      )}
     </div>
   );
 }
