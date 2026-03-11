@@ -191,7 +191,7 @@ const MarketBaselineTool = ({ onLeadCaptured, onBaselineRevealed, onStepComplete
         <p className="text-center mb-3" style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: "hsl(192 100% 37%)", letterSpacing: "0.1em" }}>
           FAIR-MARKET BASELINE GENERATOR
         </p>
-        <h2 className="text-center" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(30px, 4vw, 38px)", fontWeight: 700, color: "hsl(213 57% 14%)", marginBottom: 10 }}>
+        <h2 className="text-center" style={{ fontFamily: "'Jost', sans-serif", fontSize: "clamp(30px, 4vw, 38px)", fontWeight: 800, letterSpacing: "-0.02em", color: "hsl(213 57% 14%)", marginBottom: 10 }}>
           Don't walk into a sales pitch unarmed.
         </h2>
         <p className="text-center" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: "hsl(220 9% 30%)", lineHeight: 1.7, marginBottom: 8 }}>
