@@ -281,12 +281,13 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4 }}
             style={{
-              background: "#FFFFFF",
+              background: "hsl(var(--card))",
               borderRadius: 16,
               padding: "32px 28px",
               maxWidth: 400,
               width: "100%",
-              boxShadow: "0 16px 48px rgba(0,0,0,0.4)",
+              boxShadow: "0 16px 48px rgba(0,0,0,0.6)",
+              border: "1px solid rgba(255,255,255,0.08)",
               textAlign: "center",
             }}
           >
