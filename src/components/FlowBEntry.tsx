@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import "@fontsource/playfair-display/700.css";
+
 import "@fontsource/dm-mono/500.css";
 
 const outcomes = [
