@@ -220,12 +220,12 @@ const fmt$ = (n) =>
 // Design Tokens (internal)
 // ─────────────────────────────────────────────────────────────────────────────
 const T = {
-  bg: "#070b12",
-  surface: "#0e1420",
+  bg: "#050505",
+  surface: "#0f0f0f",
   card: "rgba(255,255,255,0.033)",
   border: "rgba(255,255,255,0.08)",
-  cyan: "#06b6d4",
-  cyanDim: "rgba(6,182,212,0.15)",
+  cyan: "#00f2ff",
+  cyanDim: "rgba(0,242,255,0.15)",
   red: "#ef4444",
   amber: "#f59e0b",
   green: "#10b981",
