@@ -6,6 +6,7 @@
  */
 
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Inlined Design System (was @/styles/design-system)
@@ -1069,7 +1070,7 @@ function ScoreReveal({ score }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // COMPONENT 5 — Demo Truth Report
 // ─────────────────────────────────────────────────────────────────────────────
-function DemoReport({ lead, onUploadQuote }) {
+function DemoReport({ lead, onUploadQuote, onClose }) {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 80);
@@ -1107,16 +1108,30 @@ function DemoReport({ lead, onUploadQuote }) {
           backdropFilter: "blur(12px)",
         }}
       >
-        <span style={{ fontSize: "13px", color: "#fbbf24", fontWeight: 600 }}>
-          ⚡ DEMO — Real Pompano Beach quote data.{" "}
-          <a
-            href="#"
-            onClick={handleUploadClick}
-            style={{ color: T.cyan, textDecoration: "underline", fontWeight: 700 }}
-          >
-            Upload YOUR quote to get your real Truth Report →
-          </a>
-        </span>
+        <div style={{ maxWidth: "940px", margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <span style={{ fontSize: "13px", color: "#fbbf24", fontWeight: 600 }}>
+            ⚡ DEMO — Real Pompano Beach quote data.{" "}
+            <a
+              href="#"
+              onClick={handleUploadClick}
+              style={{ color: T.cyan, textDecoration: "underline", fontWeight: 700 }}
+            >
+              Upload YOUR quote to get your real Truth Report →
+            </a>
+          </span>
+          {onClose && (
+            <button
+              onClick={onClose}
+              style={{
+                background: "rgba(245,158,11,0.1)", border: "1px solid rgba(245,158,11,0.3)",
+                color: "#fbbf24", padding: "6px 14px", borderRadius: "6px", cursor: "pointer",
+                fontSize: "12px", fontWeight: 700, whiteSpace: "nowrap", marginLeft: "12px",
+              }}
+            >
+              Exit Demo ✕
+            </button>
+          )}
+        </div>
       </div>
 
       <div style={{ maxWidth: "940px", margin: "0 auto", padding: "44px 20px 140px" }}>
@@ -1541,7 +1556,7 @@ function DemoReport({ lead, onUploadQuote }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // ORCHESTRATOR — DemoScanPage
 // ─────────────────────────────────────────────────────────────────────────────
-function DemoScanPage({ lead, onUploadQuote }) {
+function DemoScanPage({ lead, onUploadQuote, onClose }) {
   const [phase, setPhase] = useState("scanning");
   const [lines, setLines] = useState([]);
   const [progress, setProgress] = useState(0);
@@ -1599,7 +1614,7 @@ function DemoScanPage({ lead, onUploadQuote }) {
   if (phase === "revealing") {
     return <ScoreReveal score={scoreDisplay} />;
   }
-  return <DemoReport lead={lead} onUploadQuote={onUploadQuote} />;
+  return <DemoReport lead={lead} onUploadQuote={onUploadQuote} onClose={onClose} />;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1610,33 +1625,28 @@ export default function PowerToolFlow({ onUploadQuote }: { onUploadQuote?: () =>
   const [state, setState] = useState("idle");
   const [lead, setLead] = useState(null);
 
+  // Lock background scrolling when the tool is active
+  useEffect(() => {
+    if (state !== "idle") {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => { document.body.style.overflow = "unset"; };
+  }, [state]);
+
   const openModal = () => {
     console.log({ event: "wm_power_tool_opened" });
     setState("modal");
   };
+
+  const closeAll = () => setState("idle");
 
   const handleLeadComplete = (formData) => {
     setLead(formData);
     setState("demo");
     console.log({ event: "wm_flow_b_lead_captured", source: "power_tool" });
   };
-
-  // When in demo mode, take over the full page (in-flow replacement)
-  if (state === "demo") {
-    return (
-      <div
-        id="power-tool-isolated-container"
-        style={{
-          fontFamily: "'Inter', system-ui, sans-serif",
-          WebkitFontSmoothing: "antialiased",
-          color: "#0f172a",
-          backgroundColor: "#ffffff",
-        }}
-      >
-        <DemoScanPage lead={lead} onUploadQuote={onUploadQuote} />
-      </div>
-    );
-  }
 
   return (
     <div
@@ -1654,9 +1664,25 @@ export default function PowerToolFlow({ onUploadQuote }: { onUploadQuote?: () =>
         <div style={{ display: "flex", justifyContent: "center", padding: "12px 0" }}>
           <UrgencyBadge />
         </div>
-        {state === "modal" && <LeadModal onComplete={handleLeadComplete} onClose={() => setState("idle")} />}
         <TrustFooter />
       </div>
+
+      {/* PORTAL: Lead Modal */}
+      {state === "modal" && createPortal(
+        <LeadModal onComplete={handleLeadComplete} onClose={closeAll} />,
+        document.body
+      )}
+
+      {/* PORTAL: Full Screen Demo */}
+      {state === "demo" && createPortal(
+        <div style={{
+          position: "fixed", inset: 0, zIndex: 9999, overflowY: "auto",
+          background: T.bg, fontFamily: "'Inter', system-ui, sans-serif",
+        }}>
+          <DemoScanPage lead={lead} onUploadQuote={onUploadQuote} onClose={closeAll} />
+        </div>,
+        document.body
+      )}
     </div>
   );
 }
