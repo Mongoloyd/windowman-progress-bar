@@ -295,7 +295,7 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
             <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 20, fontWeight: 700, color: "hsl(var(--foreground))" }}>
               Enter the code we sent to your mobile.
             </h3>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#6B7280", marginBottom: 24 }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "hsl(var(--muted-foreground))", marginBottom: 24 }}>
               We use this to secure your report.
             </p>
 
