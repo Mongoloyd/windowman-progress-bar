@@ -228,10 +228,11 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
         >
           <h2
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Jost', sans-serif",
               fontSize: "clamp(26px, 4vw, 32px)",
               color: "#0F1F35",
-              fontWeight: 600,
+              fontWeight: 800,
+              letterSpacing: "-0.02em",
               marginBottom: 8,
             }}
           >
