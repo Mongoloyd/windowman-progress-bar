@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import "@fontsource/playfair-display/700.css";
+
 
 const PowerToolFlow = React.lazy(() => import('./PowerToolDemo'));
 
