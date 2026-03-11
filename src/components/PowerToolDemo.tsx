@@ -1070,7 +1070,7 @@ function ScoreReveal({ score }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // COMPONENT 5 — Demo Truth Report
 // ─────────────────────────────────────────────────────────────────────────────
-function DemoReport({ lead, onUploadQuote }) {
+function DemoReport({ lead, onUploadQuote, onClose }) {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 80);
