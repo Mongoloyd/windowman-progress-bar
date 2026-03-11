@@ -191,7 +191,7 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
               textAlign: "center",
             }}
           >
-            <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 12, color: "#0099BB", letterSpacing: "0.1em", marginBottom: 32 }}>
+            <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: "hsl(var(--primary))", letterSpacing: "0.1em", marginBottom: 32 }}>
               WINDOWMAN AI · ANALYZING QUOTE
             </p>
 
