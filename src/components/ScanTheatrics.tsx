@@ -164,7 +164,7 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
       style={{
         position: "fixed",
         inset: 0,
-        backgroundColor: "#0F1F35",
+        backgroundColor: "hsl(0 0% 2%)",
         zIndex: 9000,
         display: "flex",
         flexDirection: "column",
