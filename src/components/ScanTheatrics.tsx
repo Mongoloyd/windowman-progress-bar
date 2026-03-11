@@ -292,7 +292,7 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
             }}
           >
             <div style={{ fontSize: 32, marginBottom: 16 }}>📱</div>
-            <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 20, fontWeight: 700, color: "#0F1F35" }}>
+            <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 20, fontWeight: 700, color: "hsl(var(--foreground))" }}>
               Enter the code we sent to your mobile.
             </h3>
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#6B7280", marginBottom: 24 }}>
