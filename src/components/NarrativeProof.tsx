@@ -59,7 +59,7 @@ const NarrativeProof = () => {
           <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: "#0099BB", letterSpacing: "0.1em", marginBottom: 16 }}>
             REAL RESULTS FROM FLORIDA HOMEOWNERS
           </p>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(32px, 5vw, 42px)", color: "#0F1F35", fontWeight: 700, marginBottom: 12 }}>
+          <h2 style={{ fontFamily: "'Jost', sans-serif", fontSize: "clamp(32px, 5vw, 42px)", color: "#0F1F35", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: 12 }}>
             What happens when you know the truth.
           </h2>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: "#6B7280", marginBottom: 48 }}>
