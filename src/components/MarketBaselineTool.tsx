@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import "@fontsource/playfair-display/700.css";
+
 import "@fontsource/dm-mono/500.css";
 
 /* ── price lookup (mock) ── */
