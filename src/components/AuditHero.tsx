@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import "@fontsource/playfair-display/700.css";
+
 
 const PowerToolFlow = React.lazy(() => import('./PowerToolDemo'));
 
@@ -85,9 +85,10 @@ const AuditHero = ({ onFlowBClick, onUploadQuote }: AuditHeroProps) => {
             {/* Headline */}
             <h1
               style={{
-                fontFamily: "'Playfair Display', serif",
+                fontFamily: "'Jost', sans-serif",
                 fontSize: "clamp(40px, 5vw, 54px)",
-                fontWeight: 700,
+                fontWeight: 800,
+                letterSpacing: "-0.02em",
                 color: "#0F1F35",
                 lineHeight: 1.15,
                 marginBottom: 20,
@@ -261,9 +262,9 @@ const AuditHero = ({ onFlowBClick, onUploadQuote }: AuditHeroProps) => {
                 <div className="text-center">
                   <div
                     style={{
-                      fontFamily: "'Playfair Display', serif",
+                      fontFamily: "'Jost', sans-serif",
                       fontSize: 96,
-                      fontWeight: 700,
+                      fontWeight: 800,
                       color: "#F97316",
                       lineHeight: 1,
                     }}

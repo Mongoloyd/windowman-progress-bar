@@ -59,10 +59,11 @@ const IndustryTruth = () => {
           <h2
             className="mx-auto"
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Jost', sans-serif",
               fontSize: "clamp(34px, 5vw, 44px)",
               color: "#0F1F35",
-              fontWeight: 700,
+              fontWeight: 800,
+              letterSpacing: "-0.02em",
               maxWidth: 700,
               marginBottom: 16,
               lineHeight: 1.2,
@@ -145,11 +146,11 @@ const IndustryTruth = () => {
         >
           <p
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Jost', sans-serif",
               fontSize: "clamp(22px, 3vw, 28px)",
               color: "#F3F4F6",
-              fontWeight: 400,
-              fontStyle: "italic",
+              fontWeight: 700,
+              letterSpacing: "-0.02em",
               marginBottom: 16,
             }}
           >
@@ -157,10 +158,11 @@ const IndustryTruth = () => {
           </p>
           <p
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Jost', sans-serif",
               fontSize: "clamp(22px, 3vw, 28px)",
               color: "#C8952A",
-              fontWeight: 700,
+              fontWeight: 800,
+              letterSpacing: "-0.02em",
             }}
           >
             It usually doesn't.

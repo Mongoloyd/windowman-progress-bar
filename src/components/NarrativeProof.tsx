@@ -59,7 +59,7 @@ const NarrativeProof = () => {
           <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: "#0099BB", letterSpacing: "0.1em", marginBottom: 16 }}>
             REAL RESULTS FROM FLORIDA HOMEOWNERS
           </p>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(32px, 5vw, 42px)", color: "#0F1F35", fontWeight: 700, marginBottom: 12 }}>
+          <h2 style={{ fontFamily: "'Jost', sans-serif", fontSize: "clamp(32px, 5vw, 42px)", color: "#0F1F35", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: 12 }}>
             What happens when you know the truth.
           </h2>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: "#6B7280", marginBottom: 48 }}>
@@ -167,7 +167,7 @@ const NarrativeProof = () => {
           className="text-center mt-12"
           style={{ backgroundColor: "#F9FAFB", borderRadius: 16, padding: 32 }}
         >
-          <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, color: "#0F1F35", fontWeight: 700 }}>
+          <h3 style={{ fontFamily: "'Jost', sans-serif", fontSize: 24, color: "#0F1F35", fontWeight: 800, letterSpacing: "-0.02em" }}>
             Your quote is either priced fairly or it isn't.
           </h3>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, color: "#374151", fontStyle: "italic", marginTop: 12 }}>

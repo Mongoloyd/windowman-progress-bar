@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import "@fontsource/playfair-display/700.css";
+
 import "@fontsource/dm-mono/500.css";
 
 /* ── question data ── */
@@ -306,7 +306,7 @@ const ForensicChecklist = ({ onUploadQuote, onSetReminder }: ForensicChecklistPr
 
         {/* Post-checklist bridge */}
         <div className="text-center" style={{ background: "hsl(0 0% 100%)", padding: "40px 28px", borderRadius: 16, marginTop: 32 }}>
-          <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 26, fontWeight: 700, color: "hsl(213 57% 14%)" }}>
+          <h3 style={{ fontFamily: "'Jost', sans-serif", fontSize: 26, fontWeight: 800, letterSpacing: "-0.02em", color: "hsl(213 57% 14%)" }}>
             Now set the reminder.
           </h3>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "hsl(220 9% 30%)", marginTop: 8 }}>

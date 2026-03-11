@@ -25,7 +25,7 @@ const ClosingManifesto = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.4 }}
           style={{
-            fontFamily: "'Playfair Display', serif",
+            fontFamily: "'Jost', sans-serif",
             fontSize: 13,
             color: "#94A3B8",
             letterSpacing: "0.15em",
@@ -42,10 +42,11 @@ const ClosingManifesto = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.1 }}
           style={{
-            fontFamily: "'Playfair Display', serif",
+            fontFamily: "'Jost', sans-serif",
             fontSize: "clamp(28px, 4vw, 36px)",
             color: "#F3F4F6",
-            fontWeight: 400,
+            fontWeight: 700,
+            letterSpacing: "-0.02em",
             lineHeight: 1.5,
             marginBottom: 24,
           }}
@@ -57,10 +58,11 @@ const ClosingManifesto = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.2 }}
           style={{
-            fontFamily: "'Playfair Display', serif",
+            fontFamily: "'Jost', sans-serif",
             fontSize: "clamp(28px, 4vw, 36px)",
             color: "#C8952A",
-            fontWeight: 700,
+            fontWeight: 800,
+            letterSpacing: "-0.02em",
             lineHeight: 1.5,
           }}
         >

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { format, addMinutes } from "date-fns";
-import "@fontsource/playfair-display/700.css";
+
 import "@fontsource/dm-mono/500.css";
 
 /* ── scan text cycle ── */
@@ -139,7 +139,7 @@ const ScanPreview = () => {
                   background: "hsl(33 100% 96%)",
                 }}
               >
-                <span style={{ fontFamily: "'Playfair Display', serif", fontSize: 44, fontWeight: 900, color: "hsl(24 95% 53%)" }}>
+                <span style={{ fontFamily: "'Jost', sans-serif", fontSize: 44, fontWeight: 900, color: "hsl(24 95% 53%)" }}>
                   C
                 </span>
               </motion.div>
@@ -218,7 +218,7 @@ const QuoteWatcher = ({ onSwitchToFlowA, onViewChecklist, onReminderSet }: Quote
         <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: "hsl(215 20% 65%)", letterSpacing: "0.1em", marginBottom: 20 }}>
           WHAT HAPPENS WHEN YOU UPLOAD YOUR QUOTE
         </p>
-        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(32px, 4.5vw, 42px)", fontWeight: 700, color: "hsl(0 0% 100%)", marginBottom: 40 }}>
+        <h2 style={{ fontFamily: "'Jost', sans-serif", fontSize: "clamp(32px, 4.5vw, 42px)", fontWeight: 800, letterSpacing: "-0.02em", color: "hsl(0 0% 100%)", marginBottom: 40 }}>
           This is what will happen to your quote once you get it.
         </h2>
         <ScanPreview />
@@ -240,7 +240,7 @@ const QuoteWatcher = ({ onSwitchToFlowA, onViewChecklist, onReminderSet }: Quote
                   </span>
                 </div>
 
-                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, fontWeight: 700, color: "hsl(213 57% 14%)" }}>
+                <h3 style={{ fontFamily: "'Jost', sans-serif", fontSize: 24, fontWeight: 800, letterSpacing: "-0.02em", color: "hsl(213 57% 14%)" }}>
                   When is your contractor visiting?
                 </h3>
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "hsl(220 9% 46%)", marginTop: 8, marginBottom: 28 }}>
@@ -378,10 +378,10 @@ const QuoteWatcher = ({ onSwitchToFlowA, onViewChecklist, onReminderSet }: Quote
 
       {/* Section 3 — Flow B Closing */}
       <div className="mx-auto max-w-3xl px-4 pb-16 md:pb-28 text-center" style={{ marginTop: 40 }}>
-        <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, fontWeight: 400, fontStyle: "italic", color: "hsl(0 0% 100%)" }}>
+        <p style={{ fontFamily: "'Jost', sans-serif", fontSize: 28, fontWeight: 700, letterSpacing: "-0.02em", color: "hsl(0 0% 100%)" }}>
           Most homeowners decide whether to sign based on how the contractor made them feel.
         </p>
-        <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, fontWeight: 700, color: "hsl(36 77% 47%)", marginTop: 12 }}>
+        <p style={{ fontFamily: "'Jost', sans-serif", fontSize: 28, fontWeight: 800, letterSpacing: "-0.02em", color: "hsl(36 77% 47%)", marginTop: 12 }}>
           You'll decide based on what the data says.
         </p>
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "hsl(215 20% 65%)", marginTop: 20 }}>

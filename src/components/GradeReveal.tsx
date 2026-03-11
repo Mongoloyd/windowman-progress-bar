@@ -108,7 +108,7 @@ const GradeReveal = ({
             }}
             className="w-[120px] h-[120px] md:w-[160px] md:h-[160px]"
           >
-            <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(80px, 10vw, 96px)", fontWeight: 900, color: config.color }}>
+            <span style={{ fontFamily: "'Jost', sans-serif", fontSize: "clamp(80px, 10vw, 96px)", fontWeight: 900, color: config.color }}>
               {grade}
             </span>
           </motion.div>
@@ -173,7 +173,7 @@ const GradeReveal = ({
         <div className="max-w-4xl mx-auto">
           <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
             <div>
-              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, fontWeight: 700, color: "#0F1F35" }}>What We Found</h2>
+              <h2 style={{ fontFamily: "'Jost', sans-serif", fontSize: 28, fontWeight: 800, letterSpacing: "-0.02em", color: "#0F1F35" }}>What We Found</h2>
               <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#6B7280" }}>
                 {issueCount} issue{issueCount !== 1 ? "s" : ""} identified · {greenCount} item{greenCount !== 1 ? "s" : ""} confirmed correct
               </p>
@@ -227,7 +227,7 @@ const GradeReveal = ({
       {/* SECTION 4 — NEGOTIATION SCRIPT */}
       <section style={{ background: "white", borderTop: "1px solid #E5E7EB" }} className="py-12 md:py-16 px-4 md:px-8">
         <div className="max-w-4xl mx-auto">
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, fontWeight: 700, color: "#0F1F35" }}>How to handle this quote.</h2>
+          <h2 style={{ fontFamily: "'Jost', sans-serif", fontSize: 28, fontWeight: 800, letterSpacing: "-0.02em", color: "#0F1F35" }}>How to handle this quote.</h2>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "#6B7280", marginTop: 8, marginBottom: 28 }}>
             Use this exact language when you call your contractor back.
           </p>
@@ -250,7 +250,7 @@ const GradeReveal = ({
       {/* SECTION 5 — CTAs */}
       <section style={{ background: "#FAFAFA", borderTop: "1px solid #E5E7EB" }} className="py-12 md:py-16 px-4 md:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, fontWeight: 700, color: "#0F1F35", marginBottom: 8 }}>
+          <h2 style={{ fontFamily: "'Jost', sans-serif", fontSize: 24, fontWeight: 800, letterSpacing: "-0.02em", color: "#0F1F35", marginBottom: 8 }}>
             What do you want to do with this?
           </h2>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "#6B7280", marginBottom: 32 }}>

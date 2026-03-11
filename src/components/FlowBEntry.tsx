@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import "@fontsource/playfair-display/700.css";
+
 import "@fontsource/dm-mono/500.css";
 
 const outcomes = [
@@ -97,9 +97,10 @@ const FlowBEntry = ({ onContinueToTool, onSwitchToFlowA }: FlowBEntryProps) => {
           {/* Headline */}
           <h1
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Jost', sans-serif",
               fontSize: "clamp(42px, 5.5vw, 58px)",
-              fontWeight: 700,
+              fontWeight: 800,
+              letterSpacing: "-0.02em",
               color: "hsl(213 57% 14%)",
               lineHeight: 1.15,
               marginBottom: 20,
@@ -265,9 +266,10 @@ const FlowBEntry = ({ onContinueToTool, onSwitchToFlowA }: FlowBEntryProps) => {
           <h2
             className="text-center"
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Jost', sans-serif",
               fontSize: "clamp(30px, 4vw, 38px)",
-              fontWeight: 700,
+              fontWeight: 800,
+              letterSpacing: "-0.02em",
               color: "hsl(213 57% 14%)",
               marginBottom: 48,
             }}
@@ -427,9 +429,9 @@ const FlowBEntry = ({ onContinueToTool, onSwitchToFlowA }: FlowBEntryProps) => {
                       >
                         <p
                           style={{
-                            fontFamily: "'Playfair Display', serif",
+                            fontFamily: "'Jost', sans-serif",
                             fontSize: 40,
-                            fontWeight: 700,
+                            fontWeight: 800,
                             color: "hsl(24 95% 53%)",
                             filter: "blur(5px)",
                             userSelect: "none",

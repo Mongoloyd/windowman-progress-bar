@@ -32,7 +32,7 @@ const MarketMakerManifesto = () => {
         </motion.p>
 
         {/* Headline */}
-        <motion.h2 {...fade(0.05)} className="text-center mx-auto" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(36px, 5vw, 46px)", color: "#FFFFFF", fontWeight: 700, lineHeight: 1.2, maxWidth: 680, marginBottom: 16 }}>
+        <motion.h2 {...fade(0.05)} className="text-center mx-auto" style={{ fontFamily: "'Jost', sans-serif", fontSize: "clamp(36px, 5vw, 46px)", color: "#FFFFFF", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.2, maxWidth: 680, marginBottom: 16 }}>
           We keep both sides honest.
         </motion.h2>
 
@@ -156,10 +156,10 @@ const MarketMakerManifesto = () => {
           className="mx-auto text-center"
           style={{ marginTop: 48, padding: "32px 24px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 12, maxWidth: 600 }}
         >
-          <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "#C8952A", fontWeight: 700, fontStyle: "italic" }}>
+          <p style={{ fontFamily: "'Jost', sans-serif", fontSize: 22, color: "#C8952A", fontWeight: 800, letterSpacing: "-0.02em" }}>
             "The industry profits from you not knowing."
           </p>
-          <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "#FFFFFF", fontWeight: 400, marginTop: 8 }}>
+          <p style={{ fontFamily: "'Jost', sans-serif", fontSize: 22, color: "#FFFFFF", fontWeight: 700, letterSpacing: "-0.02em", marginTop: 8 }}>
             We profit from making sure you do.
           </p>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#6B7280", marginTop: 16 }}>

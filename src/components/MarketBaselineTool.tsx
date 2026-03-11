@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import "@fontsource/playfair-display/700.css";
+
 import "@fontsource/dm-mono/500.css";
 
 /* ── price lookup (mock) ── */
@@ -191,7 +191,7 @@ const MarketBaselineTool = ({ onLeadCaptured, onBaselineRevealed, onStepComplete
         <p className="text-center mb-3" style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: "hsl(192 100% 37%)", letterSpacing: "0.1em" }}>
           FAIR-MARKET BASELINE GENERATOR
         </p>
-        <h2 className="text-center" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(30px, 4vw, 38px)", fontWeight: 700, color: "hsl(213 57% 14%)", marginBottom: 10 }}>
+        <h2 className="text-center" style={{ fontFamily: "'Jost', sans-serif", fontSize: "clamp(30px, 4vw, 38px)", fontWeight: 800, letterSpacing: "-0.02em", color: "hsl(213 57% 14%)", marginBottom: 10 }}>
           Don't walk into a sales pitch unarmed.
         </h2>
         <p className="text-center" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: "hsl(220 9% 30%)", lineHeight: 1.7, marginBottom: 8 }}>
@@ -239,7 +239,7 @@ const MarketBaselineTool = ({ onLeadCaptured, onBaselineRevealed, onStepComplete
                 exit="exit"
                 transition={{ duration: 0.25 }}
               >
-                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(26px, 3.5vw, 32px)", fontWeight: 600, color: "hsl(213 57% 14%)", marginBottom: 8 }}>
+                <h3 style={{ fontFamily: "'Jost', sans-serif", fontSize: "clamp(26px, 3.5vw, 32px)", fontWeight: 800, letterSpacing: "-0.02em", color: "hsl(213 57% 14%)", marginBottom: 8 }}>
                   {steps[step - 1].question}
                 </h3>
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "hsl(220 9% 46%)", marginBottom: 28 }}>
@@ -307,7 +307,7 @@ const MarketBaselineTool = ({ onLeadCaptured, onBaselineRevealed, onStepComplete
                   </span>
                 </div>
 
-                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 26, fontWeight: 700, color: "hsl(213 57% 14%)", marginBottom: 4 }}>
+                <h3 style={{ fontFamily: "'Jost', sans-serif", fontSize: 26, fontWeight: 800, letterSpacing: "-0.02em", color: "hsl(213 57% 14%)", marginBottom: 4 }}>
                   Your baseline is ready.
                 </h3>
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "hsl(220 9% 46%)", marginBottom: 24 }}>
