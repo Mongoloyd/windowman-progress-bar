@@ -416,12 +416,12 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
                     width: 120,
                     height: 120,
                     borderRadius: "50%",
-                    background: "#FFF7ED",
-                    border: "3px solid #F97316",
+                    background: "hsl(var(--brand-amber) / 0.1)",
+                    border: "3px solid hsl(var(--brand-amber))",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    boxShadow: "0 0 40px rgba(249,115,22,0.4)",
+                    boxShadow: "0 0 40px hsl(var(--brand-amber) / 0.3)",
                   }}
                 >
                   <span style={{ fontFamily: "'Jost', sans-serif", fontSize: 64, fontWeight: 900, color: "#F97316" }}>
