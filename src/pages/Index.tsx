@@ -116,6 +116,13 @@ const Index = () => {
                       document.getElementById("flow-b")?.scrollIntoView({ behavior: "smooth" });
                     }, 400);
                   }}
+                  onUploadQuote={() => {
+                    setFlowMode('A');
+                    console.log({ event: 'wm_flow_b_to_a_transition', triggeredFrom: 'power_tool_demo' });
+                    setTimeout(() => {
+                      document.getElementById("truth-gate")?.scrollIntoView({ behavior: "smooth" });
+                    }, 100);
+                  }}
                 />
               </motion.div>
             ) : (

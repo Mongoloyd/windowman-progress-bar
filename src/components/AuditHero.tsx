@@ -1,5 +1,8 @@
+import React from "react";
 import { motion } from "framer-motion";
 import "@fontsource/playfair-display/700.css";
+
+const PowerToolFlow = React.lazy(() => import('./PowerToolDemo'));
 
 const flagCards = [
   {
@@ -33,9 +36,10 @@ const trustItems = [
 
 interface AuditHeroProps {
   onFlowBClick?: () => void;
+  onUploadQuote?: () => void;
 }
 
-const AuditHero = ({ onFlowBClick }: AuditHeroProps) => {
+const AuditHero = ({ onFlowBClick, onUploadQuote }: AuditHeroProps) => {
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
@@ -43,12 +47,16 @@ const AuditHero = ({ onFlowBClick }: AuditHeroProps) => {
   return (
     <section style={{ backgroundColor: "#FFFFFF" }}>
       <div className="mx-auto max-w-6xl px-4 md:px-8 pt-12 pb-16 md:pt-20 md:pb-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          {/* LEFT COLUMN */}
+        {/* CSS Grid: 2 columns on md+, single column on mobile.
+            On mobile: left col order-1, power-tool order-2, right col order-3.
+            On desktop: left col spans col 1, right col + power-tool span col 2. */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+          {/* LEFT COLUMN — order-1 on all screens */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
+            className="order-1"
           >
             {/* Eyebrow */}
             <div
@@ -212,162 +220,180 @@ const AuditHero = ({ onFlowBClick }: AuditHeroProps) => {
             </div>
           </motion.div>
 
-          {/* RIGHT COLUMN — Desktop Only */}
-          <motion.div
-            className="hidden md:flex justify-center"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
+          {/* RIGHT COLUMN — Grade C card + Power Tool below it
+              Desktop: order-2 (natural), column 2
+              Mobile: Grade C card is hidden, Power Tool shows as order-2 */}
+          <div className="order-2 flex flex-col items-center">
+            {/* Floating Grade C Card — desktop only */}
             <motion.div
-              animate={{ y: [-6, 0, -6] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              style={{
-                background: "#FFFFFF",
-                border: "1.5px solid #E5E7EB",
-                borderRadius: 16,
-                padding: 28,
-                boxShadow: "0 8px 40px rgba(15, 31, 53, 0.12)",
-                maxWidth: 420,
-                width: "100%",
-              }}
+              className="hidden md:block"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
             >
-              {/* Card Header */}
-              <p
+              <motion.div
+                animate={{ y: [-6, 0, -6] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 style={{
-                  fontFamily: "'DM Mono', monospace",
-                  fontSize: 10,
-                  color: "#6B7280",
-                  letterSpacing: "0.12em",
-                  marginBottom: 20,
+                  background: "#FFFFFF",
+                  border: "1.5px solid #E5E7EB",
+                  borderRadius: 16,
+                  padding: 28,
+                  boxShadow: "0 8px 40px rgba(15, 31, 53, 0.12)",
+                  maxWidth: 420,
+                  width: "100%",
                 }}
               >
-                SAMPLE GRADE REPORT
-              </p>
-
-              {/* Grade */}
-              <div className="text-center">
-                <div
-                  style={{
-                    fontFamily: "'Playfair Display', serif",
-                    fontSize: 96,
-                    fontWeight: 700,
-                    color: "#F97316",
-                    lineHeight: 1,
-                  }}
-                >
-                  C
-                </div>
+                {/* Card Header */}
                 <p
                   style={{
                     fontFamily: "'DM Mono', monospace",
-                    fontSize: 11,
+                    fontSize: 10,
                     color: "#6B7280",
-                    marginTop: 4,
+                    letterSpacing: "0.12em",
+                    marginBottom: 20,
                   }}
                 >
-                  GRADE C — REVIEW BEFORE SIGNING
+                  SAMPLE GRADE REPORT
                 </p>
-              </div>
 
-              {/* Dollar Delta */}
-              <div
-                style={{
-                  background: "#FEF2F2",
-                  borderRadius: 8,
-                  padding: "12px 16px",
-                  marginTop: 16,
-                }}
-              >
-                <p
-                  style={{
-                    fontFamily: "'DM Mono', monospace",
-                    color: "#DC2626",
-                    fontWeight: 700,
-                    fontSize: 16,
-                  }}
-                >
-                  $4,800 above fair market
-                </p>
-                <p
-                  style={{
-                    fontFamily: "'DM Mono', monospace",
-                    fontSize: 11,
-                    color: "#6B7280",
-                    marginTop: 2,
-                  }}
-                >
-                  Broward County benchmark · Q1 2025
-                </p>
-              </div>
-
-              {/* Flag Cards */}
-              <div className="flex flex-col gap-2 mt-4">
-                {flagCards.map((flag, i) => (
+                {/* Grade */}
+                <div className="text-center">
                   <div
-                    key={i}
-                    className="flex overflow-hidden"
                     style={{
-                      background: "#FFFFFF",
-                      border: "1px solid #E5E7EB",
-                      borderRadius: 8,
+                      fontFamily: "'Playfair Display', serif",
+                      fontSize: 96,
+                      fontWeight: 700,
+                      color: "#F97316",
+                      lineHeight: 1,
                     }}
                   >
-                    <div
-                      style={{
-                        width: 3,
-                        backgroundColor: flag.stripe,
-                        flexShrink: 0,
-                      }}
-                    />
-                    <div style={{ padding: "10px 14px" }}>
-                      <p
-                        style={{
-                          fontFamily: "'DM Sans', sans-serif",
-                          fontSize: 13,
-                          fontWeight: 700,
-                          color: flag.labelColor,
-                        }}
-                      >
-                        {flag.icon} {flag.label}
-                      </p>
-                      <p
-                        style={{
-                          fontFamily: "'DM Sans', sans-serif",
-                          fontSize: 11,
-                          color: "#6B7280",
-                          marginTop: 2,
-                        }}
-                      >
-                        {flag.sub}
-                      </p>
-                    </div>
+                    C
                   </div>
-                ))}
-              </div>
+                  <p
+                    style={{
+                      fontFamily: "'DM Mono', monospace",
+                      fontSize: 11,
+                      color: "#6B7280",
+                      marginTop: 4,
+                    }}
+                  >
+                    GRADE C — REVIEW BEFORE SIGNING
+                  </p>
+                </div>
 
-              {/* Footer */}
-              <div
-                className="text-center"
-                style={{
-                  borderTop: "1px solid #E5E7EB",
-                  marginTop: 16,
-                  paddingTop: 14,
-                }}
-              >
-                <p
+                {/* Dollar Delta */}
+                <div
                   style={{
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontSize: 12,
-                    fontStyle: "italic",
-                    color: "#9CA3AF",
+                    background: "#FEF2F2",
+                    borderRadius: 8,
+                    padding: "12px 16px",
+                    marginTop: 16,
                   }}
                 >
-                  This is a sample. Your quote will generate a real grade.
-                </p>
-              </div>
+                  <p
+                    style={{
+                      fontFamily: "'DM Mono', monospace",
+                      color: "#DC2626",
+                      fontWeight: 700,
+                      fontSize: 16,
+                    }}
+                  >
+                    $4,800 above fair market
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "'DM Mono', monospace",
+                      fontSize: 11,
+                      color: "#6B7280",
+                      marginTop: 2,
+                    }}
+                  >
+                    Broward County benchmark · Q1 2025
+                  </p>
+                </div>
+
+                {/* Flag Cards */}
+                <div className="flex flex-col gap-2 mt-4">
+                  {flagCards.map((flag, i) => (
+                    <div
+                      key={i}
+                      className="flex overflow-hidden"
+                      style={{
+                        background: "#FFFFFF",
+                        border: "1px solid #E5E7EB",
+                        borderRadius: 8,
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: 3,
+                          backgroundColor: flag.stripe,
+                          flexShrink: 0,
+                        }}
+                      />
+                      <div style={{ padding: "10px 14px" }}>
+                        <p
+                          style={{
+                            fontFamily: "'DM Sans', sans-serif",
+                            fontSize: 13,
+                            fontWeight: 700,
+                            color: flag.labelColor,
+                          }}
+                        >
+                          {flag.icon} {flag.label}
+                        </p>
+                        <p
+                          style={{
+                            fontFamily: "'DM Sans', sans-serif",
+                            fontSize: 11,
+                            color: "#6B7280",
+                            marginTop: 2,
+                          }}
+                        >
+                          {flag.sub}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Footer */}
+                <div
+                  className="text-center"
+                  style={{
+                    borderTop: "1px solid #E5E7EB",
+                    marginTop: 16,
+                    paddingTop: 14,
+                  }}
+                >
+                  <p
+                    style={{
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontSize: 12,
+                      fontStyle: "italic",
+                      color: "#9CA3AF",
+                    }}
+                  >
+                    This is a sample. Your quote will generate a real grade.
+                  </p>
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
+
+            {/* Power Tool — 3rd CTA, single instance for both mobile & desktop
+                1-second delayed reveal animation */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1, duration: 0.6, ease: "easeOut" }}
+              className="mt-8 md:mt-10 w-full flex justify-center"
+            >
+              <React.Suspense fallback={<div className="h-[120px]" />}>
+                <PowerToolFlow onUploadQuote={onUploadQuote} />
+              </React.Suspense>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

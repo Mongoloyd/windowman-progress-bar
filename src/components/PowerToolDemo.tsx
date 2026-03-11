@@ -1,49 +1,104 @@
 // @ts-nocheck
 /**
- * PowerToolFlow.jsx
+ * PowerToolFlow.tsx
  * Window Man — Full Lead Capture + Demo Report Flow
- *
- * ARCHITECTURE:
- *   [Homepage Button] → [2-Step Lead Modal] → [Animated Scan Terminal] → [Demo Truth Report]
- *
- * PIXEL HOOKS: Search "🔥 PIXEL" for all Meta/Google event fire points.
- *
- * ADD TO <head>:
- *   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
- *
- * DROP ON HOMEPAGE:
- *   import PowerToolFlow from "./PowerToolFlow";
- *   <PowerToolFlow />
- *
- * ─── EXTERNAL WIRING: Live Scan Counter ───────────────────────────────────
- * To replace the static SCAN_COUNT with a live countdown from UrgencyChecker:
- *
- *   1. Import UrgencyChecker:
- *      import { useLiveCount } from "@/hooks/useUrgencyChecker";
- *
- *   2. Replace the SCAN_COUNT constant below with a hook call inside
- *      LeadModal (or lift it to PowerToolFlow and pass as a prop):
- *        const scanCount = useLiveCount("quote_scans") ?? SCAN_COUNT;
- *
- *   3. The useLiveCount hook should poll or subscribe to your API/websocket
- *      endpoint and return the current count, falling back to SCAN_COUNT
- *      if offline or loading.
- * ──────────────────────────────────────────────────────────────────────────
+ * Self-contained: all dependencies inlined. Lazy-loaded from AuditHero.
  */
 
 import { useState, useEffect, useRef } from "react";
-import { DS, DS_PAGE_STYLES } from "@/styles/design-system";
-import TrustFooter from "@/components/ds/TrustFooter";
-import UrgencyBadge from "@/components/ds/UrgencyBadge";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Social proof counter — see header comment for live wiring instructions
+// Inlined Design System (was @/styles/design-system)
+// ─────────────────────────────────────────────────────────────────────────────
+const DS = {
+  fontUI: "'Inter', system-ui, sans-serif",
+  fontMono: "'IBM Plex Mono', monospace",
+  colors: {
+    bg: "#070b12",
+    surface: "#0e1420",
+    cyan: "#06b6d4",
+    cyanDim: "rgba(6,182,212,0.15)",
+    red: "#ef4444",
+    amber: "#f59e0b",
+    green: "#10b981",
+    text: "#f1f5f9",
+    muted: "rgba(241,245,249,0.55)",
+    faint: "rgba(241,245,249,0.32)",
+    border: "rgba(255,255,255,0.08)",
+  },
+};
+
+const DS_PAGE_STYLES = `
+  .ds-wrapper * { box-sizing: border-box; }
+  .ds-wrapper button:focus-visible { outline: 2px solid rgba(6,182,212,0.6); outline-offset: 2px; }
+`;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Inlined UrgencyBadge (was @/components/ds/UrgencyBadge)
+// ─────────────────────────────────────────────────────────────────────────────
+function UrgencyBadge() {
+  return (
+    <div
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "7px",
+        background: "rgba(239,68,68,0.08)",
+        border: "1px solid rgba(239,68,68,0.22)",
+        borderRadius: "99px",
+        padding: "5px 14px",
+        fontSize: "11px",
+        fontWeight: 600,
+        color: "#ef4444",
+        fontFamily: "'Inter', system-ui, sans-serif",
+      }}
+    >
+      <span
+        style={{
+          width: "6px",
+          height: "6px",
+          borderRadius: "50%",
+          background: "#ef4444",
+          display: "inline-block",
+          animation: "ptf-urgency-pulse 1.5s ease-in-out infinite",
+        }}
+      />
+      {SCAN_COUNT.toLocaleString()}+ quotes scanned this month
+      <style>{`@keyframes ptf-urgency-pulse{0%,100%{opacity:1}50%{opacity:0.4}}`}</style>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Inlined TrustFooter (was @/components/ds/TrustFooter)
+// ─────────────────────────────────────────────────────────────────────────────
+function TrustFooter() {
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        gap: "18px",
+        padding: "10px 0 4px",
+        fontFamily: "'Inter', system-ui, sans-serif",
+        fontSize: "11px",
+        color: "rgba(241,245,249,0.35)",
+      }}
+    >
+      {["🔒 256-bit Encrypted", "No Credit Card", "Results in 60s"].map((t) => (
+        <span key={t}>{t}</span>
+      ))}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Social proof counter
 // ─────────────────────────────────────────────────────────────────────────────
 const SCAN_COUNT = 2432;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Demo Data — Real signals from a real Pompano Beach contractor quote
-// This is deliberately scary — it IS the product's "holy sh*t" moment
+// Demo Data
 // ─────────────────────────────────────────────────────────────────────────────
 const DEMO = {
   contractor: "Sunshine Premium Windows LLC",
@@ -65,7 +120,6 @@ const DEMO = {
   ],
 };
 
-// Terminal lines — timing is deliberate: slow enough to read, fast enough to feel live
 const SCAN_LINES = [
   { text: "Initializing Window Man AI scanner...", ms: 0, type: "info" },
   { text: "Parsing document structure — 14 pages detected...", ms: 500, type: "info" },
@@ -142,11 +196,7 @@ const COMPLIANCE = [
   { label: "Missile Impact Rating", status: "warn", detail: "Not clearly stated — request NOA/approval sheet proof" },
   { label: "Design Pressure", status: "fail", detail: "DP not listed — compliance cannot be verified" },
   { label: "Miami-Dade NOA", status: "warn", detail: "No NOA numbers found — request product-specific approvals" },
-  {
-    label: "FL Product Approval",
-    status: "warn",
-    detail: "Partial — FL12345 referenced, needs per-model verification",
-  },
+  { label: "FL Product Approval", status: "warn", detail: "Partial — FL12345 referenced, needs per-model verification" },
 ];
 
 const NEXT_STEPS = [
@@ -164,7 +214,7 @@ const fmt$ = (n) =>
   new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Design Tokens
+// Design Tokens (internal)
 // ─────────────────────────────────────────────────────────────────────────────
 const T = {
   bg: "#070b12",
@@ -281,7 +331,6 @@ function FadeIn({ children, delay = 0 }) {
 
 // ─────────────────────────────────────────────────────────────────────────────
 // COMPONENT 1 — Homepage Button
-// Drop anywhere on your homepage layout, no props required.
 // ─────────────────────────────────────────────────────────────────────────────
 function PowerToolButton({ onClick }) {
   const [hover, setHover] = useState(false);
@@ -337,7 +386,6 @@ function PowerToolButton({ onClick }) {
       />
 
       <div style={{ display: "flex", alignItems: "flex-start", gap: "16px", position: "relative" }}>
-        {/* Icon block */}
         <div
           style={{
             width: "46px",
@@ -408,7 +456,7 @@ function PowerToolButton({ onClick }) {
             key={tag}
             style={{
               fontSize: "11px",
-              color: "#e2f3ff", // Changed from T.faint
+              color: "#e2f3ff",
               display: "flex",
               alignItems: "center",
               gap: "5px",
@@ -424,11 +472,6 @@ function PowerToolButton({ onClick }) {
 
 // ─────────────────────────────────────────────────────────────────────────────
 // COMPONENT 2 — Lead Capture Modal (2 steps)
-//
-// PSYCHOLOGY:
-//   Step 1: Name + Email — low friction, Zeigarnik loop opens
-//   Step 2: Contact method toggle (Text vs Email) — phone feels like THEIR choice
-//           Framing: "Contractor Alert" utility, not sales call
 // ─────────────────────────────────────────────────────────────────────────────
 function LeadModal({ onComplete, onClose }: { onComplete: (form: any) => void; onClose: () => void }) {
   const [step, setStep] = useState(1);
@@ -437,7 +480,6 @@ function LeadModal({ onComplete, onClose }: { onComplete: (form: any) => void; o
   const [submitting, setSubmitting] = useState(false);
   const phoneRef = useRef<HTMLInputElement>(null);
 
-  // Auto-focus phone field on step 2 (fallback for browsers ignoring autoFocus on dynamic renders)
   useEffect(() => {
     if (step === 2) {
       const t = setTimeout(() => phoneRef.current?.focus(), 80);
@@ -447,7 +489,6 @@ function LeadModal({ onComplete, onClose }: { onComplete: (form: any) => void; o
 
   const set = (k: string) => (v: string) => setForm((f) => ({ ...f, [k]: v }));
 
-  // Phone formatter: (XXX) XXX-XXXX
   const formatPhone = (raw: string) => {
     const digits = raw.replace(/\D/g, "").slice(0, 10);
     if (digits.length <= 3) return digits;
@@ -474,20 +515,10 @@ function LeadModal({ onComplete, onClose }: { onComplete: (form: any) => void; o
       return;
     }
     setErrors({});
-
-    // 🔥 PIXEL: Lead event (name + email captured — step 1 complete)
-    // window.fbq?.("track", "Lead", { content_name: "PowerTool_EmailCapture" });
-    // window.gtag?.("event", "generate_lead", { event_category: "PowerTool", value: 1 });
-    //
-    // 🔥 META CAPI (server-side): Send SHA-256(email) + SHA-256(name) immediately for
-    //    cleaner signal matching. Don't wait for phone.
-    // await serverCAPI({ event: "Lead", email: form.email, name: form.name });
-
     setStep(2);
   };
 
   const handleStep2 = async () => {
-    // Always require 10 digits regardless of method
     const clean = form.phone.replace(/\D/g, "");
     if (clean.length < 10) {
       setErrors({ phone: "Please enter a valid 10-digit mobile number" });
@@ -495,17 +526,7 @@ function LeadModal({ onComplete, onClose }: { onComplete: (form: any) => void; o
     }
     setErrors({});
     setSubmitting(true);
-
-    // 🔥 PIXEL: CompleteRegistration (full lead with phone)
-    // window.fbq?.("track",       "CompleteRegistration", { content_name: "PowerTool_Complete", status: "with_phone" });
-    // window.fbq?.("trackCustom", "PowerToolActivated",   { has_phone: true, zip: "inferred_from_ip" });
-    // window.gtag?.("event", "sign_up", { method: "PowerTool", has_phone: true });
-    //
-    // 🔥 META CAPI (server-side): Re-send now with phone appended. Two server events is
-    //    fine — Meta deduplicates on event_id. Phone hash adds significant match quality.
-    // await serverCAPI({ event: "CompleteRegistration", email: form.email, phone: form.phone, name: form.name });
-
-    await new Promise((r) => setTimeout(r, 750)); // replace with real POST to your CRM/Zapier
+    await new Promise((r) => setTimeout(r, 750));
     setSubmitting(false);
     onComplete(form);
   };
@@ -605,7 +626,6 @@ function LeadModal({ onComplete, onClose }: { onComplete: (form: any) => void; o
             {cfg.headline}
           </h2>
 
-          {/* Social proof — step 2 only */}
           {step === 2 && (
             <div style={{ fontSize: "12px", color: T.cyan, marginBottom: "16px", fontWeight: 600 }}>
               Join {SCAN_COUNT.toLocaleString()}+ homeowners who've scanned their quotes
@@ -654,7 +674,6 @@ function LeadModal({ onComplete, onClose }: { onComplete: (form: any) => void; o
                 inputRef={phoneRef}
               />
 
-              {/* Trust bar */}
               <div style={{ fontSize: "11px", color: T.muted, textAlign: "center", letterSpacing: "0.3px" }}>
                 🔒 256-bit encrypted · No credit card required
               </div>
@@ -698,7 +717,6 @@ function LeadModal({ onComplete, onClose }: { onComplete: (form: any) => void; o
         </div>
       </div>
 
-      {/* Spinner keyframe */}
       <style>{`@keyframes ptf-spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   );
@@ -720,7 +738,6 @@ function ModalField({
   const fallbackRef = useRef<HTMLInputElement>(null);
   const ref = inputRef || fallbackRef;
 
-  // Auto-focus fallback
   useEffect(() => {
     if (autoFocus) {
       const t = setTimeout(() => ref.current?.focus(), 60);
@@ -813,7 +830,6 @@ function ScanTerminal({ lines, progress, terminalRef, firstName }) {
         overflow: "hidden",
       }}
     >
-      {/* Grid texture */}
       <div
         style={{
           position: "fixed",
@@ -828,7 +844,6 @@ function ScanTerminal({ lines, progress, terminalRef, firstName }) {
       />
 
       <div style={{ width: "100%", maxWidth: "700px", position: "relative", zIndex: 1 }}>
-        {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "30px" }}>
           <div
             style={{
@@ -875,7 +890,6 @@ function ScanTerminal({ lines, progress, terminalRef, firstName }) {
           </p>
         </div>
 
-        {/* Terminal window */}
         <div
           style={{
             background: "#080d14",
@@ -885,7 +899,6 @@ function ScanTerminal({ lines, progress, terminalRef, firstName }) {
             boxShadow: "0 0 80px rgba(6,182,212,0.05)",
           }}
         >
-          {/* Terminal chrome */}
           <div
             style={{
               background: "rgba(6,182,212,0.055)",
@@ -909,7 +922,6 @@ function ScanTerminal({ lines, progress, terminalRef, firstName }) {
             </span>
           </div>
 
-          {/* Log output */}
           <div
             ref={terminalRef}
             style={{
@@ -957,7 +969,6 @@ function ScanTerminal({ lines, progress, terminalRef, firstName }) {
             )}
           </div>
 
-          {/* Progress bar */}
           <div style={{ padding: "12px 20px 16px", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "7px" }}>
               <span style={{ fontSize: "11px", color: T.faint, letterSpacing: "1px" }}>ANALYSIS PROGRESS</span>
@@ -1056,7 +1067,7 @@ function ScoreReveal({ score }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // COMPONENT 5 — Demo Truth Report
 // ─────────────────────────────────────────────────────────────────────────────
-function DemoReport({ lead }) {
+function DemoReport({ lead, onUploadQuote }) {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 80);
@@ -1064,6 +1075,11 @@ function DemoReport({ lead }) {
   }, []);
 
   const firstName = lead?.name?.split(" ")[0] || "there";
+
+  const handleUploadClick = (e) => {
+    e.preventDefault();
+    onUploadQuote?.();
+  };
 
   return (
     <div
@@ -1076,7 +1092,7 @@ function DemoReport({ lead }) {
         transition: "opacity 0.7s ease",
       }}
     >
-      {/* DEMO BANNER — persistent reminder + primary upsell */}
+      {/* DEMO BANNER */}
       <div
         style={{
           background: "linear-gradient(90deg, rgba(245,158,11,0.14), rgba(245,158,11,0.07), rgba(245,158,11,0.14))",
@@ -1092,11 +1108,8 @@ function DemoReport({ lead }) {
         <span style={{ fontSize: "13px", color: "#fbbf24", fontWeight: 600 }}>
           ⚡ DEMO — Real Pompano Beach quote data.{" "}
           <a
-            href="/ai-scanner"
-            onClick={() => {
-              // 🔥 PIXEL: UploadQuoteIntent from demo banner
-              // window.fbq?.("trackCustom", "UploadQuoteIntent", { source: "demo_banner" });
-            }}
+            href="#"
+            onClick={handleUploadClick}
             style={{ color: T.cyan, textDecoration: "underline", fontWeight: 700 }}
           >
             Upload YOUR quote to get your real Truth Report →
@@ -1105,7 +1118,7 @@ function DemoReport({ lead }) {
       </div>
 
       <div style={{ maxWidth: "940px", margin: "0 auto", padding: "44px 20px 140px" }}>
-        {/* ── Report Header ── */}
+        {/* Report Header */}
         <FadeIn delay={0}>
           <div style={{ marginBottom: "40px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "9px", marginBottom: "13px" }}>
@@ -1131,7 +1144,7 @@ function DemoReport({ lead }) {
           </div>
         </FadeIn>
 
-        {/* ── Overall Score ── */}
+        {/* Overall Score */}
         <FadeIn delay={120}>
           <Card highlight>
             <div
@@ -1159,7 +1172,6 @@ function DemoReport({ lead }) {
                 </div>
               </div>
 
-              {/* Pillar mini-bars */}
               <div style={{ minWidth: "260px" }}>
                 {DEMO.pillars.map((p) => {
                   const barColor = p.status === "flag" ? T.red : T.amber;
@@ -1214,7 +1226,7 @@ function DemoReport({ lead }) {
           </Card>
         </FadeIn>
 
-        {/* ── Money Shot Findings ── */}
+        {/* Findings */}
         <FadeIn delay={220}>
           <SectionHead kicker="MONEY SHOT" title="Critical risks detected — do not sign until these are fixed" />
           <div style={{ display: "grid", gap: "12px" }}>
@@ -1274,29 +1286,14 @@ function DemoReport({ lead }) {
           </div>
         </FadeIn>
 
-        {/* ── Pricing ── */}
+        {/* Pricing */}
         <FadeIn delay={300}>
           <SectionHead kicker="PRICING" title="Price Intelligence" />
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(190px,1fr))", gap: "12px" }}>
             {[
-              {
-                label: "Total Project Price",
-                value: fmt$(DEMO.totalPrice),
-                note: "Total stated in document",
-                tone: "warn",
-              },
-              {
-                label: "Openings (count)",
-                value: `${DEMO.openings} openings`,
-                note: "Used for comparison",
-                tone: "neutral",
-              },
-              {
-                label: "Price Per Opening",
-                value: fmt$(DEMO.pricePerOpening),
-                note: "Best single comparison metric",
-                tone: "warn",
-              },
+              { label: "Total Project Price", value: fmt$(DEMO.totalPrice), note: "Total stated in document", tone: "warn" },
+              { label: "Openings (count)", value: `${DEMO.openings} openings`, note: "Used for comparison", tone: "neutral" },
+              { label: "Price Per Opening", value: fmt$(DEMO.pricePerOpening), note: "Best single comparison metric", tone: "warn" },
               { label: "Market Check", value: "HIGH", note: "Elevated — request itemized lines", tone: "danger" },
             ].map((p) => (
               <Card key={p.label} style={{ padding: "16px 18px" }}>
@@ -1316,7 +1313,7 @@ function DemoReport({ lead }) {
           </div>
         </FadeIn>
 
-        {/* ── Compliance ── */}
+        {/* Compliance */}
         <FadeIn delay={360}>
           <SectionHead kicker="COMPLIANCE" title="Hurricane + Inspection Readiness" />
           <Card>
@@ -1352,7 +1349,7 @@ function DemoReport({ lead }) {
           </Card>
         </FadeIn>
 
-        {/* ── Recommendations + CTA ── */}
+        {/* Recommendations + CTA */}
         <FadeIn delay={420}>
           <SectionHead kicker="WINDOW MAN RECOMMENDS" title="Protect yourself before you sign" />
           <Card>
@@ -1423,12 +1420,8 @@ function DemoReport({ lead }) {
               </div>
               <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
                 <a
-                  href="/ai-scanner"
-                  onClick={() => {
-                    // 🔥 PIXEL: Primary conversion event — UploadQuoteIntent (bottom CTA)
-                    // window.fbq?.("trackCustom", "UploadQuoteIntent", { source: "demo_report_cta" });
-                    // window.gtag?.("event", "upload_quote_cta_click", { location: "demo_report" });
-                  }}
+                  href="#"
+                  onClick={handleUploadClick}
                   style={{
                     padding: "14px 28px",
                     borderRadius: "11px",
@@ -1445,11 +1438,8 @@ function DemoReport({ lead }) {
                   Upload My Quote — Free →
                 </a>
                 <a
-                  href="/consultation"
-                  onClick={() => {
-                    // 🔥 PIXEL: Consultation intent
-                    // window.fbq?.("trackCustom", "ConsultationIntent", { source: "demo_report" });
-                  }}
+                  href="#"
+                  onClick={handleUploadClick}
                   style={{
                     padding: "14px 22px",
                     borderRadius: "11px",
@@ -1475,7 +1465,7 @@ function DemoReport({ lead }) {
         </FadeIn>
       </div>
 
-      {/* ── Sticky Bottom Bar ── persistent CTA as they scroll the report */}
+      {/* Sticky Bottom Bar */}
       <div
         style={{
           position: "fixed",
@@ -1508,11 +1498,8 @@ function DemoReport({ lead }) {
           </div>
           <div style={{ display: "flex", gap: "8px", flexShrink: 0 }}>
             <a
-              href="/ai-scanner"
-              onClick={() => {
-                // 🔥 PIXEL: sticky bar click — high-intent signal
-                // window.fbq?.("trackCustom", "UploadQuoteIntent", { source: "demo_sticky_bar" });
-              }}
+              href="#"
+              onClick={handleUploadClick}
               style={{
                 padding: "10px 20px",
                 borderRadius: "9px",
@@ -1526,7 +1513,8 @@ function DemoReport({ lead }) {
               Upload My Real Quote →
             </a>
             <a
-              href="/consultation"
+              href="#"
+              onClick={handleUploadClick}
               style={{
                 padding: "10px 16px",
                 borderRadius: "9px",
@@ -1550,16 +1538,20 @@ function DemoReport({ lead }) {
 
 // ─────────────────────────────────────────────────────────────────────────────
 // ORCHESTRATOR — DemoScanPage
-// Manages the 3-phase animation sequence: terminal → reveal → report
 // ─────────────────────────────────────────────────────────────────────────────
-function DemoScanPage({ lead }) {
-  const [phase, setPhase] = useState("scanning"); // "scanning" | "revealing" | "report"
+function DemoScanPage({ lead, onUploadQuote }) {
+  const [phase, setPhase] = useState("scanning");
   const [lines, setLines] = useState([]);
   const [progress, setProgress] = useState(0);
   const [scoreDisplay, setScoreDisplay] = useState(0);
   const terminalRef = useRef(null);
 
   const firstName = lead?.name?.split(" ")[0] || "";
+
+  // Scroll to top when demo starts
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   // Phase 1: stream terminal lines
   useEffect(() => {
@@ -1605,43 +1597,64 @@ function DemoScanPage({ lead }) {
   if (phase === "revealing") {
     return <ScoreReveal score={scoreDisplay} />;
   }
-  return <DemoReport lead={lead} />;
+  return <DemoReport lead={lead} onUploadQuote={onUploadQuote} />;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // ROOT EXPORT — Drop <PowerToolFlow /> on your homepage
+// Style-isolated: all rendering wrapped in a protective container
 // ─────────────────────────────────────────────────────────────────────────────
-export default function PowerToolFlow() {
-  const [state, setState] = useState("idle"); // "idle" | "modal" | "demo"
+export default function PowerToolFlow({ onUploadQuote }: { onUploadQuote?: () => void }) {
+  const [state, setState] = useState("idle");
   const [lead, setLead] = useState(null);
 
   const openModal = () => {
-    // 🔥 PIXEL: ViewContent — user clicked the Power Tool button
-    // window.fbq?.("track", "ViewContent", { content_name: "PowerToolModal_Open" });
-    // window.gtag?.("event", "power_tool_button_click");
+    console.log({ event: "wm_power_tool_opened" });
     setState("modal");
   };
 
   const handleLeadComplete = (formData) => {
     setLead(formData);
     setState("demo");
-    // Pixel events fire inside LeadModal before calling this
+    console.log({ event: "wm_flow_b_lead_captured", source: "power_tool" });
   };
 
-  // When in demo mode, take over the full page
+  // When in demo mode, take over the full page (in-flow replacement)
   if (state === "demo") {
-    return <DemoScanPage lead={lead} />;
+    return (
+      <div
+        id="power-tool-isolated-container"
+        style={{
+          fontFamily: "'Inter', system-ui, sans-serif",
+          WebkitFontSmoothing: "antialiased",
+          color: "#0f172a",
+          backgroundColor: "#ffffff",
+        }}
+      >
+        <DemoScanPage lead={lead} onUploadQuote={onUploadQuote} />
+      </div>
+    );
   }
 
   return (
-    <div className="ds-wrapper" style={{ fontFamily: DS.fontUI }}>
-      <style>{DS_PAGE_STYLES}</style>
-      <PowerToolButton onClick={openModal} />
-      <div style={{ display: "flex", justifyContent: "center", padding: "12px 0" }}>
-        <UrgencyBadge />
+    <div
+      id="power-tool-isolated-container"
+      style={{
+        fontFamily: "'Inter', system-ui, sans-serif",
+        WebkitFontSmoothing: "antialiased",
+        color: "#0f172a",
+        backgroundColor: "transparent",
+      }}
+    >
+      <div className="ds-wrapper" style={{ fontFamily: DS.fontUI }}>
+        <style>{DS_PAGE_STYLES}</style>
+        <PowerToolButton onClick={openModal} />
+        <div style={{ display: "flex", justifyContent: "center", padding: "12px 0" }}>
+          <UrgencyBadge />
+        </div>
+        {state === "modal" && <LeadModal onComplete={handleLeadComplete} onClose={() => setState("idle")} />}
+        <TrustFooter />
       </div>
-      {state === "modal" && <LeadModal onComplete={handleLeadComplete} onClose={() => setState("idle")} />}
-      <TrustFooter />
     </div>
   );
 }
