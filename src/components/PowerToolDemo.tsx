@@ -36,9 +36,10 @@ const DS_PAGE_STYLES = `
 // ─────────────────────────────────────────────────────────────────────────────
 // Inlined UrgencyBadge (was @/components/ds/UrgencyBadge)
 // ─────────────────────────────────────────────────────────────────────────────
-function UrgencyBadge() {
+const UrgencyBadge = React.forwardRef<HTMLDivElement>((props, ref) => {
   return (
     <div
+      ref={ref}
       style={{
         display: "inline-flex",
         alignItems: "center",
