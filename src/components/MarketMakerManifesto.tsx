@@ -156,7 +156,7 @@ const MarketMakerManifesto = () => {
           className="mx-auto text-center"
           style={{ marginTop: 48, padding: "32px 24px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 12, maxWidth: 600 }}
         >
-          <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "#C8952A", fontWeight: 700, fontStyle: "italic" }}>
+          <p style={{ fontFamily: "'Jost', sans-serif", fontSize: 22, color: "#C8952A", fontWeight: 800, letterSpacing: "-0.02em" }}>
             "The industry profits from you not knowing."
           </p>
           <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "#FFFFFF", fontWeight: 400, marginTop: 8 }}>
