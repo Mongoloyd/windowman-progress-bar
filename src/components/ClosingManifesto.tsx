@@ -25,7 +25,7 @@ const ClosingManifesto = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.4 }}
           style={{
-            fontFamily: "'Playfair Display', serif",
+            fontFamily: "'Jost', sans-serif",
             fontSize: 13,
             color: "#94A3B8",
             letterSpacing: "0.15em",
