@@ -167,7 +167,7 @@ const NarrativeProof = () => {
           className="text-center mt-12"
           style={{ backgroundColor: "#F9FAFB", borderRadius: 16, padding: 32 }}
         >
-          <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, color: "#0F1F35", fontWeight: 700 }}>
+          <h3 style={{ fontFamily: "'Jost', sans-serif", fontSize: 24, color: "#0F1F35", fontWeight: 800, letterSpacing: "-0.02em" }}>
             Your quote is either priced fairly or it isn't.
           </h3>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, color: "#374151", fontStyle: "italic", marginTop: 12 }}>

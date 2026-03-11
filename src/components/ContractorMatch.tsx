@@ -107,7 +107,7 @@ const ContractorMatch = ({
         ) : (
           /* ── GRADE C/D/F ── */
           <>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(30px, 5vw, 36px)", color: "white", fontWeight: 700 }}>
+            <h2 style={{ fontFamily: "'Jost', sans-serif", fontSize: "clamp(30px, 5vw, 36px)", color: "white", fontWeight: 800, letterSpacing: "-0.02em" }}>
               I found a contractor who will do this job for less.
             </h2>
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 17, color: "#D1D5DB", lineHeight: 1.75, maxWidth: 580, margin: "14px auto 0" }}>

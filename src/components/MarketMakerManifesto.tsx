@@ -159,7 +159,7 @@ const MarketMakerManifesto = () => {
           <p style={{ fontFamily: "'Jost', sans-serif", fontSize: 22, color: "#C8952A", fontWeight: 800, letterSpacing: "-0.02em" }}>
             "The industry profits from you not knowing."
           </p>
-          <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "#FFFFFF", fontWeight: 400, marginTop: 8 }}>
+          <p style={{ fontFamily: "'Jost', sans-serif", fontSize: 22, color: "#FFFFFF", fontWeight: 700, letterSpacing: "-0.02em", marginTop: 8 }}>
             We profit from making sure you do.
           </p>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#6B7280", marginTop: 16 }}>

@@ -250,7 +250,7 @@ const GradeReveal = ({
       {/* SECTION 5 — CTAs */}
       <section style={{ background: "#FAFAFA", borderTop: "1px solid #E5E7EB" }} className="py-12 md:py-16 px-4 md:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, fontWeight: 700, color: "#0F1F35", marginBottom: 8 }}>
+          <h2 style={{ fontFamily: "'Jost', sans-serif", fontSize: 24, fontWeight: 800, letterSpacing: "-0.02em", color: "#0F1F35", marginBottom: 8 }}>
             What do you want to do with this?
           </h2>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "#6B7280", marginBottom: 32 }}>

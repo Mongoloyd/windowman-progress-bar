@@ -381,7 +381,7 @@ const QuoteWatcher = ({ onSwitchToFlowA, onViewChecklist, onReminderSet }: Quote
         <p style={{ fontFamily: "'Jost', sans-serif", fontSize: 28, fontWeight: 700, letterSpacing: "-0.02em", color: "hsl(0 0% 100%)" }}>
           Most homeowners decide whether to sign based on how the contractor made them feel.
         </p>
-        <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, fontWeight: 700, color: "hsl(36 77% 47%)", marginTop: 12 }}>
+        <p style={{ fontFamily: "'Jost', sans-serif", fontSize: 28, fontWeight: 800, letterSpacing: "-0.02em", color: "hsl(36 77% 47%)", marginTop: 12 }}>
           You'll decide based on what the data says.
         </p>
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "hsl(215 20% 65%)", marginTop: 20 }}>

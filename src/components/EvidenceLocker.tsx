@@ -46,7 +46,7 @@ const EvidenceLocker = ({
         <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: "#0099BB", letterSpacing: "0.1em", marginBottom: 16 }}>
           YOUR WINDOWMAN VAULT
         </p>
-        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(32px, 5vw, 40px)", color: "#0F1F35", fontWeight: 700 }}>
+        <h2 style={{ fontFamily: "'Jost', sans-serif", fontSize: "clamp(32px, 5vw, 40px)", color: "#0F1F35", fontWeight: 800, letterSpacing: "-0.02em" }}>
           Your analysis is saved. Here's what's inside.
         </h2>
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: "#6B7280", marginTop: 8, marginBottom: 40 }}>

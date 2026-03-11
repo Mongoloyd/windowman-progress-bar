@@ -429,9 +429,9 @@ const FlowBEntry = ({ onContinueToTool, onSwitchToFlowA }: FlowBEntryProps) => {
                       >
                         <p
                           style={{
-                            fontFamily: "'Playfair Display', serif",
+                            fontFamily: "'Jost', sans-serif",
                             fontSize: 40,
-                            fontWeight: 700,
+                            fontWeight: 800,
                             color: "hsl(24 95% 53%)",
                             filter: "blur(5px)",
                             userSelect: "none",

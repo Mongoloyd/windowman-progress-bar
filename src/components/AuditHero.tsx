@@ -262,9 +262,9 @@ const AuditHero = ({ onFlowBClick, onUploadQuote }: AuditHeroProps) => {
                 <div className="text-center">
                   <div
                     style={{
-                      fontFamily: "'Playfair Display', serif",
+                      fontFamily: "'Jost', sans-serif",
                       fontSize: 96,
-                      fontWeight: 700,
+                      fontWeight: 800,
                       color: "#F97316",
                       lineHeight: 1,
                     }}

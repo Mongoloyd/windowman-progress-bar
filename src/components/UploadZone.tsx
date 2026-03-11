@@ -85,7 +85,7 @@ const UploadZone = ({ isVisible, onScanStart }: UploadZoneProps) => {
               STEP 3 OF 3 — UPLOAD YOUR QUOTE
             </span>
 
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 26, color: "#0F1F35", fontWeight: 700, marginBottom: 8 }}>
+            <h2 style={{ fontFamily: "'Jost', sans-serif", fontSize: 26, color: "#0F1F35", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: 8 }}>
               Drop your quote to start the scan.
             </h2>
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "#6B7280", marginBottom: 28 }}>

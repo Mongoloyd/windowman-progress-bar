@@ -307,7 +307,7 @@ const MarketBaselineTool = ({ onLeadCaptured, onBaselineRevealed, onStepComplete
                   </span>
                 </div>
 
-                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 26, fontWeight: 700, color: "hsl(213 57% 14%)", marginBottom: 4 }}>
+                <h3 style={{ fontFamily: "'Jost', sans-serif", fontSize: 26, fontWeight: 800, letterSpacing: "-0.02em", color: "hsl(213 57% 14%)", marginBottom: 4 }}>
                   Your baseline is ready.
                 </h3>
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "hsl(220 9% 46%)", marginBottom: 24 }}>

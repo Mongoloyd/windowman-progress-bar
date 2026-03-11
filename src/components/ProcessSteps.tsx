@@ -38,7 +38,7 @@ const ProcessSteps = () => {
           <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: "#0099BB", letterSpacing: "0.1em", marginBottom: 16 }}>
             WHAT HAPPENS WHEN YOU SCAN
           </p>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(32px, 5vw, 42px)", color: "#0F1F35", fontWeight: 700, marginBottom: 48 }}>
+          <h2 style={{ fontFamily: "'Jost', sans-serif", fontSize: "clamp(32px, 5vw, 42px)", color: "#0F1F35", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: 48 }}>
             Upload your quote. In under 60 seconds, you'll know:
           </h2>
         </motion.div>

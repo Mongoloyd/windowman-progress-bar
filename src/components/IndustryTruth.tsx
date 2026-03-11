@@ -158,10 +158,11 @@ const IndustryTruth = () => {
           </p>
           <p
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Jost', sans-serif",
               fontSize: "clamp(22px, 3vw, 28px)",
               color: "#C8952A",
-              fontWeight: 700,
+              fontWeight: 800,
+              letterSpacing: "-0.02em",
             }}
           >
             It usually doesn't.
