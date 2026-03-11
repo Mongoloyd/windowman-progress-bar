@@ -1556,7 +1556,7 @@ function DemoReport({ lead, onUploadQuote, onClose }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // ORCHESTRATOR — DemoScanPage
 // ─────────────────────────────────────────────────────────────────────────────
-function DemoScanPage({ lead, onUploadQuote }) {
+function DemoScanPage({ lead, onUploadQuote, onClose }) {
   const [phase, setPhase] = useState("scanning");
   const [lines, setLines] = useState([]);
   const [progress, setProgress] = useState(0);
