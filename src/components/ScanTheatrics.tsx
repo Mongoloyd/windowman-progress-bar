@@ -201,7 +201,7 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
                 if (i > activeLogIndex) return null;
                 const isComplete = i < activeLogIndex;
                 const isLast = i === 6;
-                const dotColor = isComplete ? "#059669" : "#0099BB";
+                const dotColor = isComplete ? "hsl(var(--brand-lime))" : "hsl(var(--primary))";
                 const text = isComplete
                   ? step.done
                   : step.active.replace("{county}", county);
