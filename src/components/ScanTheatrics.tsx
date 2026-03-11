@@ -424,7 +424,7 @@ const ScanTheatrics = ({ isActive, selectedCounty = "your", onRevealComplete }: 
                     boxShadow: "0 0 40px hsl(var(--brand-amber) / 0.3)",
                   }}
                 >
-                  <span style={{ fontFamily: "'Jost', sans-serif", fontSize: 64, fontWeight: 900, color: "#F97316" }}>
+                  <span style={{ fontFamily: "'Jost', sans-serif", fontSize: 64, fontWeight: 900, color: "hsl(var(--brand-amber))" }}>
                     C
                   </span>
                 </div>
