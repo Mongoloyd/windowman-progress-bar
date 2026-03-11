@@ -240,7 +240,7 @@ const QuoteWatcher = ({ onSwitchToFlowA, onViewChecklist, onReminderSet }: Quote
                   </span>
                 </div>
 
-                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, fontWeight: 700, color: "hsl(213 57% 14%)" }}>
+                <h3 style={{ fontFamily: "'Jost', sans-serif", fontSize: 24, fontWeight: 800, letterSpacing: "-0.02em", color: "hsl(213 57% 14%)" }}>
                   When is your contractor visiting?
                 </h3>
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "hsl(220 9% 46%)", marginTop: 8, marginBottom: 28 }}>
