@@ -68,14 +68,15 @@ const UrgencyBadge = React.forwardRef<HTMLDivElement>((props, ref) => {
       <style>{`@keyframes ptf-urgency-pulse{0%,100%{opacity:1}50%{opacity:0.4}}`}</style>
     </div>
   );
-}
+});
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Inlined TrustFooter (was @/components/ds/TrustFooter)
 // ─────────────────────────────────────────────────────────────────────────────
-function TrustFooter() {
+const TrustFooter = React.forwardRef<HTMLDivElement>((props, ref) => {
   return (
     <div
+      ref={ref}
       style={{
         display: "flex",
         justifyContent: "center",
