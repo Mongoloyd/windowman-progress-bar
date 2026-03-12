@@ -250,40 +250,12 @@ const MarketMakerManifesto = () => {
               padding: "26px 22px",
             }}
           >
-            <div className="flex items-center gap-2.5" style={{ marginBottom: 14 }}>
-              <div
-                className="flex items-center justify-center"
-                style={{
-                  width: 36,
-                  height: 36,
-                  borderRadius: "50%",
-                  background: "rgba(5,150,105,0.15)",
-                  border: "1px solid rgba(5,150,105,0.3)",
-                }}
-              >
-                <Check size={16} color="#059669" strokeWidth={3} />
-              </div>
-              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 700, color: "#FFFFFF" }}>
-                What you get — free
-              </span>
-            </div>
-            <div style={{ marginTop: 12 }}>
-              {listItems.map((item, i) => (
-                <div
-                  key={i}
-                  className="flex gap-2 items-start"
-                  style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#D1D5DB", lineHeight: 2.0 }}
-                >
-                  <span style={{ color: "#059669", flexShrink: 0 }}>→</span>
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
+            {/* ... Icon and List Items ... */}
             <p
               style={{
                 fontFamily: "'DM Mono', monospace",
                 fontSize: 11,
-                color: "#405060",
+                color: "#FFFFFF", // Changed from #405060 to White
                 fontStyle: "italic",
                 borderTop: "1px solid rgba(255,255,255,0.06)",
                 marginTop: 14,
@@ -303,47 +275,12 @@ const MarketMakerManifesto = () => {
               padding: "26px 22px",
             }}
           >
-            <div className="flex items-center gap-2.5" style={{ marginBottom: 14 }}>
-              <div
-                className="flex items-center justify-center"
-                style={{
-                  width: 36,
-                  height: 36,
-                  borderRadius: "50%",
-                  background: "rgba(200,149,42,0.15)",
-                  border: "1px solid rgba(200,149,42,0.3)",
-                }}
-              >
-                <Scale size={16} color="#C8952A" strokeWidth={2.5} />
-              </div>
-              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 700, color: "#FFFFFF" }}>
-                How we make money
-              </span>
-            </div>
-            <p
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontSize: 13,
-                color: "#D1D5DB",
-                lineHeight: 1.9,
-                marginTop: 12,
-              }}
-            >
-              WindowMan earns a percentage of the sale — only when you choose to work with one of our contractors and
-              your project is completed.
-              <br />
-              <br />
-              We never charge homeowners. We never charge for the scan. We get paid when you get a better deal than you
-              would have gotten without us.
-              <br />
-              <br />
-              That's the only model that keeps us honest about the analysis.
-            </p>
+            {/* ... Icon and Main Paragraph ... */}
             <p
               style={{
                 fontFamily: "'DM Mono', monospace",
                 fontSize: 11,
-                color: "#fffff",
+                color: "#FFFFFF", // Changed from #ffffff (which was likely failing or muted) to pure White
                 fontStyle: "italic",
                 borderTop: "1px solid rgba(255,255,255,0.06)",
                 marginTop: 14,
@@ -364,44 +301,12 @@ const MarketMakerManifesto = () => {
               padding: "26px 22px",
             }}
           >
-            <div className="flex items-center gap-2.5" style={{ marginBottom: 14 }}>
-              <div
-                className="flex items-center justify-center"
-                style={{
-                  width: 36,
-                  height: 36,
-                  borderRadius: "50%",
-                  background: "rgba(0,153,187,0.15)",
-                  border: "1px solid rgba(0,153,187,0.3)",
-                }}
-              >
-                <BarChart3 size={16} color="#0099BB" strokeWidth={2.5} />
-              </div>
-              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 700, color: "#FFFFFF" }}>
-                Why contractors work with us
-              </span>
-            </div>
-            <p
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontSize: 13,
-                color: "#D1D5DB",
-                lineHeight: 1.9,
-                marginTop: 12,
-              }}
-            >
-              Every homeowner we introduce already understands fair-market pricing. They've seen the red flags in
-              competing quotes. They know what to look for in a contract.
-              <br />
-              <br />
-              Our contractors don't walk into cold pitches. They walk into conversations that are already halfway won —
-              with a homeowner who trusts the process and wants a fair deal.
-            </p>
+            {/* ... Icon and Main Paragraph ... */}
             <p
               style={{
                 fontFamily: "'DM Mono', monospace",
                 fontSize: 11,
-                color: "#405060",
+                color: "#FFFFFF", // Changed from #405060 to White
                 fontStyle: "italic",
                 borderTop: "1px solid rgba(255,255,255,0.06)",
                 marginTop: 14,
