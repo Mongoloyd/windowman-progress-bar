@@ -298,6 +298,7 @@ const Index = () => {
           window.scrollTo({ top: 0, behavior: "smooth" });
         }}
         leadCaptured={leadCaptured}
+        isDevMode={IS_DEV_MODE}
       />
     </div>
   );

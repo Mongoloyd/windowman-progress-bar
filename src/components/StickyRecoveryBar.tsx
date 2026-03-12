@@ -125,8 +125,8 @@ const StickyRecoveryBar = ({
   const { line1, line2 } = getStatusCopy(stepsCompleted, flowMode, flowBLeadCaptured);
   const urgentLine1 = isUrgent && flowMode === 'A' ? "Your configured scan expires in 24 hours." : line1;
 
-  // Hide for completed Flow B
-  if (flowMode === 'B' && quoteWatcherSet) return null;
+  // Hide for completed Flow B (disabled in dev mode)
+  if (!isDevMode && flowMode === 'B' && quoteWatcherSet) return null;
 
   const showDemoButton = !leadCaptured && flowMode === 'A';
 
