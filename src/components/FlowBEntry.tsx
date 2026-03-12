@@ -138,7 +138,7 @@ const FlowBEntry = ({ onContinueToTool, onSwitchToFlowA }: FlowBEntryProps) => {
               maxWidth: 580,
             }}
           >
-            In 4 minutes, we'll generate your county-specific fair-market baseline. So when the contractor opens their
+            In 2 minutes, we'll generate your county-specific fair-market baseline. So when the contractor opens their
             briefcase, you already know the number they're hoping you don't.
           </p>
 
