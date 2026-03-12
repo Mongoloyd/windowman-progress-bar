@@ -256,7 +256,7 @@ const MarketMakerManifesto = () => {
                 <Check size={16} color="#059669" strokeWidth={3} />
               </div>
               <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 700, color: "#FFFFFF" }}>
-                What you get — free
+                What Do You Get — Free
               </span>
             </div>
             <div style={{ marginTop: 12 }}>
