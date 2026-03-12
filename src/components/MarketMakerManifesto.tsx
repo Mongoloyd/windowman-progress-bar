@@ -393,14 +393,14 @@ const MarketMakerManifesto = () => {
               style={{
                 fontFamily: "'DM Mono', monospace",
                 fontSize: 11,
-                color: "#405060",
+                color: "#f2ef2c",
                 fontStyle: "italic",
                 borderTop: "1px solid rgba(255,255,255,0.06)",
                 marginTop: 14,
                 paddingTop: 12,
               }}
             >
-              We work with a limited number of contractors per county to protect the quality of every introduction.
+              I work with a select number of contractors per county to protect the quality of every introduction.
             </p>
           </div>
         </motion.div>
