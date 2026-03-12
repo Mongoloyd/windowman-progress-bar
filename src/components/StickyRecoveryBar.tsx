@@ -11,6 +11,7 @@ interface StickyRecoveryBarProps {
   quoteWatcherSet?: boolean;
   onDemoCTAClick?: () => void;
   leadCaptured?: boolean;
+  isDevMode?: boolean;
 }
 
 const getStatusCopy = (steps: number, flowMode: string, flowBLeadCaptured: boolean) => {
