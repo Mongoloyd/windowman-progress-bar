@@ -4,11 +4,13 @@ import { motion, useInView } from "framer-motion";
 const stories = [
   {
     initial: "M",
-    initialColor: "hsl(var(--primary))",
+    initialBg: "#E8F7FB",
+    initialColor: "#0099BB",
     name: "Maria",
     location: "Pembroke Pines, FL",
     grade: "C",
-    gradeColor: "hsl(var(--brand-amber))",
+    gradeColor: "#F97316",
+    gradeBg: "#FEF2F2",
     narrative: [
       "She got three quotes. They all looked similar — professional letterhead, detailed line items. She uploaded the highest one to WindowMan before calling the contractor back.",
       "The scan flagged the window brand as unspecified — meaning the contractor could legally install any brand at any quality level.",
@@ -19,11 +21,13 @@ const stories = [
   },
   {
     initial: "D",
-    initialColor: "hsl(var(--brand-amber))",
+    initialBg: "#FDF3E3",
+    initialColor: "#C8952A",
     name: "David",
     location: "Coral Springs, FL",
     grade: "D",
-    gradeColor: "hsl(var(--brand-ruby))",
+    gradeColor: "#DC2626",
+    gradeBg: "#FEF2F2",
     narrative: [
       "His quote was $17,400. He uploaded it because he wasn't sure the price was right — not because he suspected anything specific.",
       "The scan put his quote at 26% above fair market for Broward County.",
@@ -43,7 +47,7 @@ const NarrativeProof = () => {
   };
 
   return (
-    <section className="bg-background border-t border-white/5">
+    <section style={{ backgroundColor: "#FFFFFF" }}>
       <div ref={ref} className="mx-auto max-w-5xl px-4 md:px-8 py-20 md:py-28">
         {/* Header */}
         <motion.div
@@ -52,13 +56,13 @@ const NarrativeProof = () => {
           transition={{ duration: 0.4 }}
           className="text-center"
         >
-          <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "hsl(var(--primary))", letterSpacing: "0.1em", marginBottom: 16 }}>
+          <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: "#0099BB", letterSpacing: "0.1em", marginBottom: 16 }}>
             REAL RESULTS FROM FLORIDA HOMEOWNERS
           </p>
-          <h2 className="text-foreground" style={{ fontFamily: "'Jost', sans-serif", fontSize: "clamp(32px, 5vw, 42px)", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: 12 }}>
+          <h2 style={{ fontFamily: "'Jost', sans-serif", fontSize: "clamp(32px, 5vw, 42px)", color: "#0F1F35", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: 12 }}>
             What happens when you know the truth.
           </h2>
-          <p className="text-muted-foreground mb-12" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: "#6B7280", marginBottom: 48 }}>
             These aren't reviews. These are outcomes.
           </p>
         </motion.div>
@@ -71,50 +75,56 @@ const NarrativeProof = () => {
               initial={{ opacity: 0, y: 24 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.45, delay: i * 0.15 }}
-              className="glass-card rounded-2xl p-7"
+              style={{
+                background: "#FFFFFF",
+                border: "1.5px solid #E5E7EB",
+                borderRadius: 16,
+                padding: "32px 28px",
+                boxShadow: "0 4px 20px rgba(15, 31, 53, 0.07)",
+              }}
             >
               {/* Card Header */}
               <div className="flex justify-between items-start">
                 <div className="flex items-center gap-3">
                   <div
                     className="flex items-center justify-center"
-                    style={{ width: 40, height: 40, borderRadius: "50%", backgroundColor: `${story.initialColor}15` }}
+                    style={{ width: 40, height: 40, borderRadius: "50%", backgroundColor: story.initialBg }}
                   >
                     <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 700, color: story.initialColor }}>
                       {story.initial}
                     </span>
                   </div>
                   <div>
-                    <p className="text-foreground" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 700 }}>{story.name}</p>
-                    <p className="text-muted-foreground" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>{story.location}</p>
+                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 700, color: "#0F1F35" }}>{story.name}</p>
+                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#6B7280" }}>{story.location}</p>
                   </div>
                 </div>
                 <div className="text-center">
                   <div
                     className="flex items-center justify-center"
-                    style={{ width: 44, height: 44, borderRadius: "50%", backgroundColor: `${story.gradeColor}15`, border: `2px solid ${story.gradeColor}` }}
+                    style={{ width: 44, height: 44, borderRadius: "50%", backgroundColor: story.gradeBg, border: `2px solid ${story.gradeColor}` }}
                   >
-                    <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 20, fontWeight: 700, color: story.gradeColor }}>
+                    <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 20, fontWeight: 700, color: story.gradeColor }}>
                       {story.grade}
                     </span>
                   </div>
-                  <p className="text-muted-foreground/60 mt-1" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10 }}>Before scan</p>
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, color: "#9CA3AF", marginTop: 4 }}>Before scan</p>
                 </div>
               </div>
 
               {/* Narrative */}
               <div style={{ marginTop: 20 }}>
                 {story.narrative.map((p, j) => (
-                  <p key={j} className="text-muted-foreground" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, lineHeight: 1.8, marginTop: j > 0 ? 12 : 0 }}>
+                  <p key={j} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "#374151", lineHeight: 1.8, marginTop: j > 0 ? 12 : 0 }}>
                     {p}
                   </p>
                 ))}
               </div>
 
               {/* Result */}
-              <div className="flex items-center gap-3 rounded-lg mt-5" style={{ background: "hsl(var(--brand-lime) / 0.08)", padding: "16px 20px" }}>
-                <span style={{ color: "hsl(var(--brand-lime))", fontSize: 20 }}>✓</span>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "hsl(var(--brand-lime))", fontWeight: 600 }}>{story.result}</p>
+              <div className="flex items-center gap-3" style={{ background: "#ECFDF5", borderRadius: 10, padding: "16px 20px", marginTop: 20 }}>
+                <span style={{ color: "#059669", fontSize: 20 }}>✓</span>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#065F46", fontWeight: 600 }}>{story.result}</p>
               </div>
 
               {/* Flag Tag */}
@@ -122,12 +132,12 @@ const NarrativeProof = () => {
                 <span
                   style={{
                     display: "inline-flex",
-                    background: "hsl(var(--brand-ruby) / 0.1)",
+                    background: "#FEF2F2",
                     borderRadius: 999,
                     padding: "4px 12px",
                     fontFamily: "'DM Sans', sans-serif",
                     fontSize: 12,
-                    color: "hsl(var(--brand-ruby))",
+                    color: "#DC2626",
                     fontWeight: 600,
                   }}
                 >
@@ -138,13 +148,13 @@ const NarrativeProof = () => {
           ))}
         </div>
 
-        {/* Rotation Indicator */}
+        {/* Rotation Indicator — desktop only */}
         <div className="hidden md:flex flex-col items-center mt-8 gap-2">
           <div className="flex gap-2">
-            <span style={{ width: 8, height: 8, borderRadius: "50%", backgroundColor: "hsl(var(--primary))", display: "inline-block" }} />
-            <span style={{ width: 8, height: 8, borderRadius: "50%", backgroundColor: "rgba(255,255,255,0.1)", display: "inline-block" }} />
+            <span style={{ width: 8, height: 8, borderRadius: "50%", backgroundColor: "#0F1F35", display: "inline-block" }} />
+            <span style={{ width: 8, height: 8, borderRadius: "50%", backgroundColor: "#D1D5DB", display: "inline-block" }} />
           </div>
-          <p className="text-muted-foreground" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "#9CA3AF" }}>
             2 of thousands of homeowners who found red flags this year.
           </p>
         </div>
@@ -154,30 +164,36 @@ const NarrativeProof = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.4, delay: 0.4 }}
-          className="text-center mt-12 glass-card rounded-2xl p-8"
+          className="text-center mt-12"
+          style={{ backgroundColor: "#F9FAFB", borderRadius: 16, padding: 32 }}
         >
-          <h3 className="text-foreground" style={{ fontFamily: "'Jost', sans-serif", fontSize: 24, fontWeight: 800, letterSpacing: "-0.02em" }}>
+          <h3 style={{ fontFamily: "'Jost', sans-serif", fontSize: 24, color: "#0F1F35", fontWeight: 800, letterSpacing: "-0.02em" }}>
             Your quote is either priced fairly or it isn't.
           </h3>
-          <p className="text-muted-foreground italic mt-3" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, color: "#374151", fontStyle: "italic", marginTop: 12 }}>
             Right now, the contractor knows which one. You don't.
           </p>
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => scrollTo("truth-gate")}
-            className="mt-6 bg-primary text-primary-foreground font-bold rounded-lg transition-shadow hover:shadow-[0_0_24px_hsl(var(--brand-cyan)/0.4)]"
             style={{
+              marginTop: 24,
+              background: "#C8952A",
+              color: "#FFFFFF",
               fontFamily: "'DM Sans', sans-serif",
               fontSize: 16,
+              fontWeight: 700,
               padding: "16px 32px",
+              borderRadius: 10,
               border: "none",
+              boxShadow: "0 4px 14px rgba(200, 149, 42, 0.35)",
               cursor: "pointer",
             }}
           >
             Show Me My Grade →
           </motion.button>
-          <p className="text-muted-foreground mt-3" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#9CA3AF", marginTop: 12 }}>
             The scan takes 60 seconds. What you find out could change what you pay.
           </p>
         </motion.div>

@@ -84,12 +84,17 @@ const StickyRecoveryBar = ({
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 80, opacity: 0 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className="fixed bottom-0 left-0 right-0 z-[8000] px-5 py-3.5 sm:px-8 sm:py-4 glass-card border-t"
           style={{
-            borderTopColor: isUrgent && flowMode === 'A' ? "hsl(var(--destructive))" : "hsl(var(--primary))",
-            borderTopWidth: 2,
-            boxShadow: "0 -4px 24px hsla(0 0% 0% / 0.4)",
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            zIndex: 8000,
+            background: "#FFFFFF",
+            borderTop: `2px solid ${isUrgent && flowMode === 'A' ? "#DC2626" : "#C8952A"}`,
+            boxShadow: "0 -4px 24px rgba(15, 31, 53, 0.14)",
           }}
+          className="px-5 py-3.5 sm:px-8 sm:py-4"
         >
           <div className="max-w-4xl mx-auto flex items-center justify-between gap-4 flex-wrap relative">
             {/* Left — Status */}
@@ -99,22 +104,25 @@ const StickyRecoveryBar = ({
                 {(flowMode === 'A' ? [0, 1, 2, 3] : [0, 1, 2]).map((i) => (
                   <div
                     key={i}
-                    className="w-2.5 h-2.5 rounded-full transition-colors"
                     style={{
-                      background: i < stepsCompleted ? "hsl(var(--primary))" : "hsla(0 0% 100% / 0.1)",
-                      border: i < stepsCompleted ? "none" : "1.5px solid hsla(0 0% 100% / 0.15)",
+                      width: 10,
+                      height: 10,
+                      borderRadius: "50%",
+                      background: i < stepsCompleted ? "#C8952A" : "#E5E7EB",
+                      border: i < stepsCompleted ? "none" : "1.5px solid #D1D5DB",
+                      transition: "background 0.2s",
                     }}
                   />
                 ))}
               </div>
 
               <div>
-                <p className="text-foreground" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 700 }}>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 700, color: "#0F1F35" }}>
                   {urgentLine1}
                 </p>
                 <p
-                  className="hidden sm:block text-muted-foreground"
-                  style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12 }}
+                  className="hidden sm:block"
+                  style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "#6B7280" }}
                 >
                   {line2}
                 </p>
@@ -122,9 +130,9 @@ const StickyRecoveryBar = ({
             </div>
 
             {/* Center — Mini progress bar (desktop) */}
-            <div className="hidden md:block" style={{ width: 160, height: 4, background: "hsla(0 0% 100% / 0.05)", borderRadius: 2 }}>
+            <div className="hidden md:block" style={{ width: 160, height: 4, background: "#E5E7EB", borderRadius: 2 }}>
               <motion.div
-                style={{ height: "100%", background: "hsl(var(--primary))", borderRadius: 2 }}
+                style={{ height: "100%", background: "#C8952A", borderRadius: 2 }}
                 animate={{ width: `${(stepsCompleted / (flowMode === 'A' ? 4 : 3)) * 100}%` }}
                 transition={{ type: "spring", stiffness: 200, damping: 20 }}
               />
@@ -134,18 +142,18 @@ const StickyRecoveryBar = ({
             <div className="flex items-center gap-2.5">
               <button
                 onClick={handleCta}
-                className="whitespace-nowrap"
                 style={{
-                  background: "hsl(var(--primary))",
-                  color: "hsl(var(--primary-foreground))",
+                  background: "#C8952A",
+                  color: "#FFFFFF",
                   fontFamily: "'DM Sans', sans-serif",
                   fontSize: 14,
                   fontWeight: 700,
                   padding: "10px 22px",
                   borderRadius: 8,
                   border: "none",
-                  boxShadow: "0 2px 10px hsla(185 100% 50% / 0.3)",
+                  boxShadow: "0 2px 10px rgba(200,149,42,0.3)",
                   cursor: "pointer",
+                  whiteSpace: "nowrap",
                 }}
               >
                 {getCtaText(stepsCompleted, flowMode, flowBLeadCaptured)}
@@ -153,15 +161,27 @@ const StickyRecoveryBar = ({
 
               <button
                 onClick={handleClose}
-                className="flex items-center justify-center rounded-full transition-colors hover:bg-white/5"
                 style={{
                   background: "transparent",
                   border: "none",
                   width: 28,
                   height: 28,
-                  color: "hsl(var(--muted-foreground))",
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#9CA3AF",
                   fontSize: 16,
                   cursor: "pointer",
+                  transition: "background 0.15s, color 0.15s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "#F3F4F6";
+                  e.currentTarget.style.color = "#374151";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.color = "#9CA3AF";
                 }}
                 aria-label="Dismiss"
               >

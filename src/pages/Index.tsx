@@ -19,7 +19,6 @@ import NarrativeProof from "@/components/NarrativeProof";
 import ClosingManifesto from "@/components/ClosingManifesto";
 import MarketMakerManifesto from "@/components/MarketMakerManifesto";
 import StickyRecoveryBar from "@/components/StickyRecoveryBar";
-import InteractiveDemoScan from "@/components/InteractiveDemoScan";
 
 const mockAuditResult = {
   grade: "C",
@@ -184,7 +183,6 @@ const Index = () => {
 
           {flowMode === 'A' && (
             <>
-              <InteractiveDemoScan />
               <SocialProofStrip />
               <TruthGateFlow
                 onLeadCaptured={() => setLeadCaptured(true)}

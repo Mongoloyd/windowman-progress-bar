@@ -1,35 +1,37 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Shield } from "lucide-react";
-import "@fontsource/jost/800.css";
-import "@fontsource/ibm-plex-mono/400.css";
-import "@fontsource/ibm-plex-mono/700.css";
-import handScannerImg from "@/assets/hand_scanner.jpg";
 
-const PowerToolFlow = React.lazy(() => import("./PowerToolDemo"));
+
+const PowerToolFlow = React.lazy(() => import('./PowerToolDemo'));
 
 const flagCards = [
   {
-    stripe: "hsl(var(--brand-ruby))",
+    stripe: "#DC2626",
     icon: "⚠",
     label: "No Window Brand Specified",
-    labelColor: "hsl(var(--brand-ruby))",
+    labelColor: "#DC2626",
     sub: "Contractor can install any quality level",
   },
   {
-    stripe: "hsl(var(--brand-amber))",
+    stripe: "#F59E0B",
     icon: "⚡",
     label: "Labor Warranty: 1 Year Only",
-    labelColor: "hsl(var(--brand-amber))",
+    labelColor: "#D97706",
     sub: "Industry standard is 2–5 years",
   },
   {
-    stripe: "hsl(var(--brand-lime))",
+    stripe: "#059669",
     icon: "✓",
     label: "Permit Cost Included",
-    labelColor: "hsl(var(--brand-lime))",
+    labelColor: "#059669",
     sub: "This is correctly structured",
   },
+];
+
+const trustItems = [
+  "No account required",
+  "Your contractor never knows",
+  "Results in 60 seconds",
 ];
 
 interface AuditHeroProps {
@@ -43,130 +45,189 @@ const AuditHero = ({ onFlowBClick, onUploadQuote }: AuditHeroProps) => {
   };
 
   return (
-    <section className="bg-background">
-      <div className="mx-auto max-w-6xl px-4 md:px-8 pt-8 pb-16 md:pt-16 md:pb-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
-          {/* LEFT COLUMN */}
+    <section style={{ backgroundColor: "#FFFFFF" }}>
+      <div className="mx-auto max-w-6xl px-4 md:px-8 pt-12 pb-16 md:pt-20 md:pb-24">
+        {/* CSS Grid: 2 columns on md+, single column on mobile.
+            On mobile: left col order-1, power-tool order-2, right col order-3.
+            On desktop: left col spans col 1, right col + power-tool span col 2. */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+          {/* LEFT COLUMN — order-1 on all screens */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="order-2 md:order-1"
+            className="order-1"
           >
             {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2 mb-5 rounded-md border border-primary/30 bg-primary/5 px-3 py-1">
+            <div
+              className="inline-flex items-center gap-2 mb-5"
+              style={{
+                background: "#FDF3E3",
+                border: "1px solid #C8952A",
+                borderRadius: 6,
+                padding: "4px 12px",
+              }}
+            >
+              <span style={{ color: "#C8952A", fontSize: 14 }}>🛡</span>
               <span
-                className="font-mono text-[11px] font-semibold tracking-[0.08em] text-primary"
-                style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: 11,
+                  fontWeight: 600,
+                  letterSpacing: "0.08em",
+                  color: "#C8952A",
+                }}
               >
-                WINDOW QUOTE FORENSIC ANALYSIS
+                FOR FLORIDA HOMEOWNERS GETTING IMPACT WINDOW QUOTES
               </span>
             </div>
 
             {/* Headline */}
             <h1
-              className="text-foreground mb-5"
               style={{
                 fontFamily: "'Jost', sans-serif",
-                fontSize: "clamp(32px, 5vw, 54px)",
+                fontSize: "clamp(40px, 5vw, 54px)",
                 fontWeight: 800,
                 letterSpacing: "-0.02em",
+                color: "#0F1F35",
                 lineHeight: 1.15,
+                marginBottom: 20,
               }}
             >
-              Don't Sign Your Window Quote Until{" "}
-              <span className="text-primary">Window Man</span> Scans It.
+              Your Quote Looks Legitimate.
+              <br />
+              That's Exactly What{" "}
+              <span style={{ color: "#C8952A" }}>They're Counting On.</span>
             </h1>
 
-            {/* Forensic subhead */}
-            <div className="flex items-center gap-2 mb-4">
-              <Shield className="w-4 h-4 text-primary" />
-              <span
-                className="text-primary font-semibold tracking-[0.06em] text-xs"
-                style={{ fontFamily: "'IBM Plex Mono', monospace" }}
-              >
-                FORENSIC-GRADE AI ANALYSIS
-              </span>
-            </div>
-
-            {/* Body text */}
+            {/* Sub-headline */}
             <p
-              className="text-muted-foreground mb-8"
               style={{
                 fontFamily: "'DM Sans', sans-serif",
-                fontSize: "clamp(16px, 2vw, 19px)",
+                fontSize: "clamp(18px, 2vw, 20px)",
+                fontWeight: 400,
+                color: "#374151",
                 lineHeight: 1.7,
+                marginBottom: 32,
               }}
             >
-              Detect hidden fees, missing permits, vague scope, and warranty
-              traps in seconds.
+              The impact window industry has no pricing transparency standard.
+              <br />
+              WindowMan built one — and it reads your quote in{" "}
+              <strong style={{ color: "#0F1F35" }}>under 60 seconds</strong>.
             </p>
 
-            {/* CTAs */}
-            <div className="flex flex-col gap-3">
+            {/* Dual CTA */}
+            <div className="flex flex-col md:flex-row gap-3 md:gap-4 md:items-center">
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => scrollTo("truth-gate")}
-                className="relative w-full md:w-auto bg-primary text-primary-foreground font-bold py-4 px-8 rounded-lg overflow-hidden"
                 style={{
+                  background: "#C8952A",
+                  color: "#FFFFFF",
                   fontFamily: "'DM Sans', sans-serif",
                   fontSize: 16,
-                  backgroundImage: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%)",
-                  backgroundSize: "200% 100%",
-                  animation: "scan-line-shimmer 3s ease-in-out infinite",
-                  backgroundColor: "hsl(var(--primary))",
+                  fontWeight: 700,
+                  padding: "16px 32px",
+                  borderRadius: 10,
+                  border: "none",
+                  boxShadow: "0 4px 14px rgba(200, 149, 42, 0.35)",
+                  cursor: "pointer",
                 }}
+                className="hover:shadow-lg transition-shadow"
               >
-                Scan My Quote Free
+                Scan My Quote — It's Free
               </motion.button>
 
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => onFlowBClick?.()}
-                className="w-full md:w-auto border border-primary/40 text-primary bg-transparent font-medium py-3.5 px-6 rounded-lg transition-all hover:border-primary hover:bg-primary/5"
-                style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontSize: 15,
-                }}
-              >
-                I'm Getting Quotes →
-              </motion.button>
+              <div className="flex flex-col">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => onFlowBClick?.()}
+                  className="relative"
+                  style={{
+                    background: "transparent",
+                    color: "#374151",
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: 15,
+                    fontWeight: 500,
+                    padding: "14px 24px",
+                    border: "1.5px solid #D1D5DB",
+                    borderRadius: 10,
+                    cursor: "pointer",
+                    transition: "border-color 0.2s, color 0.2s",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = "#0F1F35";
+                    e.currentTarget.style.color = "#0F1F35";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = "#D1D5DB";
+                    e.currentTarget.style.color = "#374151";
+                  }}
+                >
+                  <span
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: "#059669",
+                      color: "#FFFFFF",
+                      fontFamily: "'DM Mono', monospace",
+                      fontSize: 9,
+                      fontWeight: 700,
+                      letterSpacing: "0.05em",
+                      padding: "2px 6px",
+                      borderRadius: 4,
+                      marginRight: 8,
+                      verticalAlign: "middle",
+                    }}
+                  >
+                    NEW
+                  </span>
+                  Getting Quotes Soon? We Can Arm You First →
+                </motion.button>
+                <p
+                  style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: 12,
+                    color: "#6B7280",
+                    textAlign: "center",
+                    marginTop: 6,
+                  }}
+                >
+                  Generate your fair-market baseline before the contractor arrives
+                </p>
+              </div>
             </div>
 
-            {/* Trust line */}
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-5 text-muted-foreground text-[13px]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-              {["No account required", "Your contractor never knows", "Results in 60 seconds"].map((item, i) => (
+            {/* Trust Line */}
+            <div
+              className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-4"
+              style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: 13,
+                color: "#6B7280",
+              }}
+            >
+              {trustItems.map((item, i) => (
                 <span key={i} className="flex items-center gap-1">
-                  {i > 0 && <span className="mr-2 hidden sm:inline text-muted-foreground/40">·</span>}
-                  <span className="text-brand-lime">✓</span>
+                  {i > 0 && <span className="mr-2 hidden sm:inline">·</span>}
+                  <span style={{ color: "#059669" }}>✓</span>
                   {item}
                 </span>
               ))}
             </div>
           </motion.div>
 
-          {/* RIGHT COLUMN */}
-          <div className="order-1 md:order-2 flex flex-col items-center">
-            {/* Hand scanner hero image — breathing animation + hover glow */}
+          {/* RIGHT COLUMN — Grade C card + Power Tool below it
+              Desktop: order-2 (natural), column 2
+              Mobile: Grade C card is hidden, Power Tool shows as order-2 */}
+          <div className="order-2 flex flex-col items-center">
+            {/* Floating Grade C Card — desktop only */}
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="w-full max-w-[360px] md:max-w-none mb-6 md:mb-0"
-            >
-              <motion.img
-                src={handScannerImg}
-                alt="WindowMan forensic quote scanner"
-                className="w-full h-auto rounded-xl animate-breathing transition-all duration-300"
-                whileHover={{ filter: "drop-shadow(0 0 25px rgba(0, 242, 255, 0.4))" }}
-              />
-            </motion.div>
-
-            {/* Floating Grade Card — glassmorphic HUD */}
-            <motion.div
-              className="hidden md:block mt-8"
+              className="hidden md:block"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -174,21 +235,24 @@ const AuditHero = ({ onFlowBClick, onUploadQuote }: AuditHeroProps) => {
               <motion.div
                 animate={{ y: [-6, 0, -6] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="glass-card rounded-2xl p-7"
                 style={{
+                  background: "#FFFFFF",
+                  border: "1.5px solid #E5E7EB",
+                  borderRadius: 16,
+                  padding: 28,
+                  boxShadow: "0 8px 40px rgba(15, 31, 53, 0.12)",
                   maxWidth: 420,
                   width: "100%",
-                  boxShadow: "0 8px 40px hsl(var(--brand-cyan) / 0.08), inset 0 1px 0 rgba(255,255,255,0.06)",
-                  borderImage: "linear-gradient(135deg, hsl(var(--brand-cyan) / 0.4), hsl(var(--brand-amber) / 0.4)) 1",
                 }}
               >
                 {/* Card Header */}
                 <p
-                  className="text-muted-foreground mb-5"
                   style={{
-                    fontFamily: "'IBM Plex Mono', monospace",
+                    fontFamily: "'DM Mono', monospace",
                     fontSize: 10,
+                    color: "#6B7280",
                     letterSpacing: "0.12em",
+                    marginBottom: 20,
                   }}
                 >
                   SAMPLE GRADE REPORT
@@ -197,21 +261,22 @@ const AuditHero = ({ onFlowBClick, onUploadQuote }: AuditHeroProps) => {
                 {/* Grade */}
                 <div className="text-center">
                   <div
-                    className="text-brand-amber"
                     style={{
                       fontFamily: "'Jost', sans-serif",
                       fontSize: 96,
                       fontWeight: 800,
+                      color: "#F97316",
                       lineHeight: 1,
                     }}
                   >
                     C
                   </div>
                   <p
-                    className="text-muted-foreground mt-1"
                     style={{
-                      fontFamily: "'IBM Plex Mono', monospace",
+                      fontFamily: "'DM Mono', monospace",
                       fontSize: 11,
+                      color: "#6B7280",
+                      marginTop: 4,
                     }}
                   >
                     GRADE C — REVIEW BEFORE SIGNING
@@ -219,21 +284,30 @@ const AuditHero = ({ onFlowBClick, onUploadQuote }: AuditHeroProps) => {
                 </div>
 
                 {/* Dollar Delta */}
-                <div className="bg-destructive/10 rounded-lg px-4 py-3 mt-4">
+                <div
+                  style={{
+                    background: "#FEF2F2",
+                    borderRadius: 8,
+                    padding: "12px 16px",
+                    marginTop: 16,
+                  }}
+                >
                   <p
-                    className="text-destructive font-bold"
                     style={{
-                      fontFamily: "'IBM Plex Mono', monospace",
+                      fontFamily: "'DM Mono', monospace",
+                      color: "#DC2626",
+                      fontWeight: 700,
                       fontSize: 16,
                     }}
                   >
                     $4,800 above fair market
                   </p>
                   <p
-                    className="text-muted-foreground mt-0.5"
                     style={{
-                      fontFamily: "'IBM Plex Mono', monospace",
+                      fontFamily: "'DM Mono', monospace",
                       fontSize: 11,
+                      color: "#6B7280",
+                      marginTop: 2,
                     }}
                   >
                     Broward County benchmark · Q1 2025
@@ -245,25 +319,38 @@ const AuditHero = ({ onFlowBClick, onUploadQuote }: AuditHeroProps) => {
                   {flagCards.map((flag, i) => (
                     <div
                       key={i}
-                      className="flex overflow-hidden bg-card border border-white/5 rounded-lg"
+                      className="flex overflow-hidden"
+                      style={{
+                        background: "#FFFFFF",
+                        border: "1px solid #E5E7EB",
+                        borderRadius: 8,
+                      }}
                     >
                       <div
-                        className="w-[3px] shrink-0"
-                        style={{ backgroundColor: flag.stripe }}
+                        style={{
+                          width: 3,
+                          backgroundColor: flag.stripe,
+                          flexShrink: 0,
+                        }}
                       />
-                      <div className="px-3.5 py-2.5">
+                      <div style={{ padding: "10px 14px" }}>
                         <p
-                          className="text-[13px] font-bold"
                           style={{
                             fontFamily: "'DM Sans', sans-serif",
+                            fontSize: 13,
+                            fontWeight: 700,
                             color: flag.labelColor,
                           }}
                         >
                           {flag.icon} {flag.label}
                         </p>
                         <p
-                          className="text-muted-foreground text-[11px] mt-0.5"
-                          style={{ fontFamily: "'DM Sans', sans-serif" }}
+                          style={{
+                            fontFamily: "'DM Sans', sans-serif",
+                            fontSize: 11,
+                            color: "#6B7280",
+                            marginTop: 2,
+                          }}
                         >
                           {flag.sub}
                         </p>
@@ -273,15 +360,30 @@ const AuditHero = ({ onFlowBClick, onUploadQuote }: AuditHeroProps) => {
                 </div>
 
                 {/* Footer */}
-                <div className="text-center border-t border-white/5 mt-4 pt-3.5">
-                  <p className="text-muted-foreground/60 text-[12px] italic" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <div
+                  className="text-center"
+                  style={{
+                    borderTop: "1px solid #E5E7EB",
+                    marginTop: 16,
+                    paddingTop: 14,
+                  }}
+                >
+                  <p
+                    style={{
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontSize: 12,
+                      fontStyle: "italic",
+                      color: "#9CA3AF",
+                    }}
+                  >
                     This is a sample. Your quote will generate a real grade.
                   </p>
                 </div>
               </motion.div>
             </motion.div>
 
-            {/* Power Tool */}
+            {/* Power Tool — 3rd CTA, single instance for both mobile & desktop
+                1-second delayed reveal animation */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

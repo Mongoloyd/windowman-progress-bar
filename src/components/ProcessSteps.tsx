@@ -10,11 +10,11 @@ const steps = [
 ];
 
 const deliverables = [
-  { color: "hsl(var(--primary))", icon: "◎", text: "Whether your price is above, below, or at fair market for your specific county" },
-  { color: "hsl(var(--brand-ruby))", icon: "⚑", text: "Which line items are vague, missing, or potentially inflated" },
-  { color: "hsl(var(--brand-amber))", icon: "◈", text: "What window brand — if any — your contractor actually specified" },
-  { color: "hsl(var(--brand-lime))", icon: "◉", text: "A letter grade: A through F" },
-  { color: "hsl(var(--primary))", icon: "$", text: "The specific dollar amount you're over or under market", mono: true },
+  { bg: "#E8F7FB", color: "#0099BB", icon: "◎", text: "Whether your price is above, below, or at fair market for your specific county", mono: false },
+  { bg: "#FEF2F2", color: "#DC2626", icon: "⚑", text: "Which line items are vague, missing, or potentially inflated", mono: false },
+  { bg: "#FDF3E3", color: "#C8952A", icon: "◈", text: "What window brand — if any — your contractor actually specified", mono: false },
+  { bg: "#F0FDF4", color: "#059669", icon: "◉", text: "A letter grade: A through F", mono: false },
+  { bg: "#E8F7FB", color: "#0099BB", icon: "$", text: "The specific dollar amount you're over or under market", mono: true },
 ];
 
 const ProcessSteps = () => {
@@ -26,7 +26,7 @@ const ProcessSteps = () => {
   };
 
   return (
-    <section id="how-it-works" className="bg-background border-t border-white/5">
+    <section id="how-it-works" style={{ backgroundColor: "#F9FAFB" }}>
       <div ref={ref} className="mx-auto max-w-5xl px-4 md:px-8 py-20 md:py-28">
         {/* Header */}
         <motion.div
@@ -35,25 +35,18 @@ const ProcessSteps = () => {
           transition={{ duration: 0.4 }}
           className="text-center"
         >
-          <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "hsl(var(--primary))", letterSpacing: "0.1em", marginBottom: 16 }}>
+          <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: "#0099BB", letterSpacing: "0.1em", marginBottom: 16 }}>
             WHAT HAPPENS WHEN YOU SCAN
           </p>
-          <h2 className="text-foreground" style={{ fontFamily: "'Jost', sans-serif", fontSize: "clamp(32px, 5vw, 42px)", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: 48 }}>
+          <h2 style={{ fontFamily: "'Jost', sans-serif", fontSize: "clamp(32px, 5vw, 42px)", color: "#0F1F35", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: 48 }}>
             Upload your quote. In under 60 seconds, you'll know:
           </h2>
         </motion.div>
 
         {/* Desktop: horizontal timeline */}
         <div className="hidden md:block relative">
-          {/* Animated cyan connecting line */}
-          <div className="absolute top-5 left-0 right-0 h-[2px] bg-white/5" />
-          <motion.div
-            className="absolute top-5 left-0 h-[2px]"
-            style={{ background: "linear-gradient(90deg, hsl(var(--primary)), hsl(var(--brand-amber)))" }}
-            initial={{ width: "0%" }}
-            animate={inView ? { width: "100%" } : { width: "0%" }}
-            transition={{ duration: 1.5, delay: 0.3, ease: "easeOut" }}
-          />
+          {/* Connecting line */}
+          <div className="absolute top-5 left-0 right-0 h-[2px]" style={{ backgroundColor: "#E5E7EB" }} />
           <div className="grid grid-cols-5 gap-6">
             {steps.map((step, i) => (
               <motion.div
@@ -64,15 +57,15 @@ const ProcessSteps = () => {
                 className="relative text-center"
               >
                 <div
-                  className="mx-auto flex items-center justify-center relative z-10 bg-card border border-white/10"
-                  style={{ width: 40, height: 40, borderRadius: "50%" }}
+                  className="mx-auto flex items-center justify-center relative z-10"
+                  style={{ width: 40, height: 40, borderRadius: "50%", background: "#FFFFFF", border: "2px solid #E5E7EB" }}
                 >
-                  <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 15, fontWeight: 700, color: "hsl(var(--primary))" }}>{step.num}</span>
+                  <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 15, fontWeight: 700, color: "#0099BB" }}>{step.num}</span>
                 </div>
-                <h3 className="text-foreground" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 700, marginTop: 12 }}>
+                <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 700, color: "#0F1F35", marginTop: 12 }}>
                   {step.title}
                 </h3>
-                <p className="text-muted-foreground" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, lineHeight: 1.6, marginTop: 4 }}>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#6B7280", lineHeight: 1.6, marginTop: 4 }}>
                   {step.copy}
                 </p>
               </motion.div>
@@ -82,14 +75,8 @@ const ProcessSteps = () => {
 
         {/* Mobile: vertical timeline */}
         <div className="md:hidden relative pl-8">
-          <div className="absolute left-[19px] top-0 bottom-0 w-[2px] bg-white/5" />
-          <motion.div
-            className="absolute left-[19px] top-0 w-[2px]"
-            style={{ background: "linear-gradient(180deg, hsl(var(--primary)), hsl(var(--brand-amber)))" }}
-            initial={{ height: "0%" }}
-            animate={inView ? { height: "100%" } : { height: "0%" }}
-            transition={{ duration: 1.5, delay: 0.3, ease: "easeOut" }}
-          />
+          {/* Connecting line */}
+          <div className="absolute left-[19px] top-0 bottom-0 w-[2px]" style={{ backgroundColor: "#E5E7EB" }} />
           <div className="flex flex-col gap-8">
             {steps.map((step, i) => (
               <motion.div
@@ -100,15 +87,15 @@ const ProcessSteps = () => {
                 className="relative"
               >
                 <div
-                  className="absolute -left-8 flex items-center justify-center bg-card border border-white/10"
-                  style={{ width: 40, height: 40, borderRadius: "50%" }}
+                  className="absolute -left-8 flex items-center justify-center"
+                  style={{ width: 40, height: 40, borderRadius: "50%", background: "#FFFFFF", border: "2px solid #E5E7EB" }}
                 >
-                  <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 15, fontWeight: 700, color: "hsl(var(--primary))" }}>{step.num}</span>
+                  <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 15, fontWeight: 700, color: "#0099BB" }}>{step.num}</span>
                 </div>
-                <h3 className="text-foreground" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 700 }}>
+                <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 700, color: "#0F1F35" }}>
                   {step.title}
                 </h3>
-                <p className="text-muted-foreground" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, lineHeight: 1.6, marginTop: 4 }}>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#6B7280", lineHeight: 1.6, marginTop: 4 }}>
                   {step.copy}
                 </p>
               </motion.div>
@@ -123,30 +110,24 @@ const ProcessSteps = () => {
           transition={{ duration: 0.4, delay: 0.5 }}
           className="mt-14"
         >
-          <h3 className="text-foreground mb-6" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 20, fontWeight: 700 }}>
+          <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 20, fontWeight: 700, color: "#0F1F35", marginBottom: 24 }}>
             You'll walk away knowing:
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {deliverables.map((d, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -10 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.3, delay: 0.6 + i * 0.08 }}
-                className="flex items-start gap-3 glass-card rounded-lg p-3"
-              >
+              <div key={i} className="flex items-start gap-3">
                 <div
                   className="flex items-center justify-center flex-shrink-0"
-                  style={{ width: 28, height: 28, borderRadius: "50%", backgroundColor: `${d.color}20` }}
+                  style={{ width: 28, height: 28, borderRadius: "50%", backgroundColor: d.bg }}
                 >
-                  <span style={{ fontFamily: (d as any).mono ? "'IBM Plex Mono', monospace" : "inherit", fontSize: 14, color: d.color, fontWeight: 700 }}>
+                  <span style={{ fontFamily: d.mono ? "'DM Mono', monospace" : "inherit", fontSize: 14, color: d.color, fontWeight: 700 }}>
                     {d.icon}
                   </span>
                 </div>
-                <p className="text-muted-foreground" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, lineHeight: 1.6 }}>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#374151", lineHeight: 1.6 }}>
                   {d.text}
                 </p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </motion.div>
@@ -157,18 +138,22 @@ const ProcessSteps = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => scrollTo("truth-gate")}
-            className="bg-primary text-primary-foreground font-bold rounded-lg transition-shadow hover:shadow-[0_0_24px_hsl(var(--brand-cyan)/0.4)]"
             style={{
+              background: "#C8952A",
+              color: "#FFFFFF",
               fontFamily: "'DM Sans', sans-serif",
               fontSize: 16,
+              fontWeight: 700,
               padding: "16px 32px",
+              borderRadius: 10,
               border: "none",
+              boxShadow: "0 4px 14px rgba(200, 149, 42, 0.35)",
               cursor: "pointer",
             }}
           >
             Scan My Quote — It's Free
           </motion.button>
-          <p className="text-muted-foreground italic mt-3" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "#9CA3AF", fontStyle: "italic", marginTop: 12 }}>
             Most homeowners complete the entire process in under 4 minutes.
           </p>
         </div>

@@ -1,5 +1,5 @@
 import { motion, useInView } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 
 function useCountUp(end: number, start: number, duration: number, active: boolean) {
   const [value, setValue] = useState(start);
@@ -21,9 +21,9 @@ function useCountUp(end: number, start: number, duration: number, active: boolea
 }
 
 const stats = [
-  { icon: "📍", end: 4127, start: 4000, prefix: "", suffix: "", label: "Florida homeowners scanned this month", color: "hsl(var(--brand-amber))" },
-  { icon: "⚠", end: 4800, start: 0, prefix: "$", suffix: "", label: "average overage found per scan", color: "hsl(var(--brand-ruby))" },
-  { icon: "🕐", end: 993, start: 993, prefix: "", suffix: "%", label: "of scans completed in under 60 seconds", color: "hsl(var(--brand-lime))", fixed: true },
+  { icon: "📍", end: 4127, start: 4000, prefix: "", suffix: "", label: "Florida homeowners scanned this month", color: "#C8952A" },
+  { icon: "⚠", end: 4800, start: 0, prefix: "$", suffix: "", label: "average overage found per scan", color: "#DC2626" },
+  { icon: "🕐", end: 993, start: 993, prefix: "", suffix: "%", label: "of scans completed in under 60 seconds", color: "#059669", fixed: true },
 ];
 
 const SocialProofStrip = () => {
@@ -36,7 +36,7 @@ const SocialProofStrip = () => {
 
   const formatNumber = (idx: number) => {
     const s = stats[idx];
-    if ((s as any).fixed) return "99.3";
+    if (s.fixed) return "99.3";
     const val = counts[idx]!;
     return val.toLocaleString();
   };
@@ -47,8 +47,8 @@ const SocialProofStrip = () => {
       initial={{ opacity: 0, y: 10 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.4, delay: 0.3 }}
-      className="w-full py-4 px-4 md:py-5 md:px-8 flex items-center justify-start md:justify-center overflow-x-auto md:overflow-visible bg-background border-y border-white/5"
-      style={{ WebkitOverflowScrolling: "touch" }}
+      className="w-full py-4 px-4 md:py-5 md:px-8 flex items-center justify-start md:justify-center overflow-x-auto md:overflow-visible"
+      style={{ backgroundColor: "#0F1F35", WebkitOverflowScrolling: "touch" }}
     >
       <div className="flex items-center gap-6 md:gap-12 flex-nowrap">
         {stats.map((stat, i) => (
@@ -56,16 +56,16 @@ const SocialProofStrip = () => {
             {i > 0 && (
               <div
                 className="hidden md:block mr-6 md:mr-12"
-                style={{ width: 1, height: 28, backgroundColor: "rgba(255,255,255,0.1)", flexShrink: 0 }}
+                style={{ width: 1, height: 28, backgroundColor: "rgba(255,255,255,0.15)", flexShrink: 0 }}
               />
             )}
             <div className="flex items-center gap-2 flex-shrink-0">
               <span style={{ fontSize: 14 }}>{stat.icon === "⚠" ? <span style={{ color: stat.color, fontSize: 14 }}>⚠</span> : stat.icon}</span>
               <div>
-                <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 18, fontWeight: 700, color: stat.color, whiteSpace: "nowrap" }}>
+                <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 18, fontWeight: 700, color: stat.color, whiteSpace: "nowrap" }}>
                   {stat.prefix}{formatNumber(i)}{stat.suffix}
                 </p>
-                <p className="text-muted-foreground" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, whiteSpace: "nowrap" }}>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "#94A3B8", whiteSpace: "nowrap" }}>
                   {stat.label}
                 </p>
               </div>

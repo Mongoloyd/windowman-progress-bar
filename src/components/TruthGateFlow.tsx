@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+
 const stepConfig = [
   {
     question: "How many windows are in your project?",
@@ -65,32 +66,32 @@ const OptionButton = ({
 }) => (
   <button
     onClick={onClick}
-    className="transition-all duration-150"
     style={{
-      background: selected ? "hsl(var(--primary) / 0.1)" : "hsl(var(--card))",
-      border: `1.5px solid ${selected ? "hsl(var(--primary))" : "rgba(255,255,255,0.08)"}`,
+      background: selected ? "#FDF3E3" : "#FFFFFF",
+      border: `1.5px solid ${selected ? "#C8952A" : "#E5E7EB"}`,
       borderRadius: 10,
       padding: "18px 16px",
       fontFamily: "'DM Sans', sans-serif",
       fontSize: 15,
       fontWeight: 600,
-      color: selected ? "hsl(var(--primary))" : "hsl(var(--foreground))",
+      color: selected ? "#C8952A" : "#374151",
       textAlign: "center",
       cursor: "pointer",
-      boxShadow: selected ? "0 0 0 3px hsl(var(--primary) / 0.15)" : "none",
+      transition: "all 0.15s ease",
+      boxShadow: selected ? "0 0 0 3px rgba(200,149,42,0.15)" : "none",
     }}
     onMouseEnter={(e) => {
       if (!selected) {
-        e.currentTarget.style.borderColor = "hsl(185 100% 50%)";
-        e.currentTarget.style.background = "hsl(185 100% 50% / 0.08)";
-        e.currentTarget.style.color = "hsl(185 100% 50%)";
+        e.currentTarget.style.borderColor = "#C8952A";
+        e.currentTarget.style.background = "#FDF3E3";
+        e.currentTarget.style.color = "#C8952A";
       }
     }}
     onMouseLeave={(e) => {
       if (!selected) {
-        e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
-        e.currentTarget.style.background = "hsl(0 0% 6%)";
-        e.currentTarget.style.color = "hsl(0 0% 96%)";
+        e.currentTarget.style.borderColor = "#E5E7EB";
+        e.currentTarget.style.background = "#FFFFFF";
+        e.currentTarget.style.color = "#374151";
       }
     }}
   >
@@ -99,7 +100,7 @@ const OptionButton = ({
 );
 
 const Spinner = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" className="animate-spin" style={{ color: "hsl(var(--primary))" }}>
+  <svg width="20" height="20" viewBox="0 0 20 20" className="animate-spin" style={{ color: "#0099BB" }}>
     <circle cx="10" cy="10" r="8" stroke="currentColor" strokeWidth="2" fill="none" opacity="0.25" />
     <path d="M10 2a8 8 0 0 1 8 8" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" />
   </svg>
@@ -137,7 +138,9 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
             return next;
           });
         }, 300);
+
       } else {
+        // Step 4 → loading → estimate → lead gate
         setTimeout(() => {
           setTransitionState("loading");
           setTimeout(() => {
@@ -162,6 +165,7 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
   const progressWidth = currentStep <= 4 ? `${currentStep * 25}%` : "100%";
 
   const renderStepContent = () => {
+    // Loading state
     if (transitionState === "loading") {
       return (
         <motion.div
@@ -174,13 +178,14 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
           className="flex flex-col items-center justify-center py-12 gap-4"
         >
           <Spinner />
-          <p className="text-primary" style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 15 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "#0099BB" }}>
             Configuring your analysis...
           </p>
         </motion.div>
       );
     }
 
+    // Estimate state
     if (transitionState === "estimate") {
       return (
         <motion.div
@@ -191,17 +196,17 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
           exit="exit"
           transition={{ duration: 0.25 }}
         >
-          <div className="glass-card rounded-lg p-5">
-            <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: "hsl(var(--primary))", letterSpacing: "0.1em" }}>
+          <div style={{ background: "#E8F7FB", borderRadius: 10, padding: 20 }}>
+            <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 12, color: "#0099BB", letterSpacing: "0.1em" }}>
               BASED ON YOUR ANSWERS
             </p>
-            <p className="text-foreground font-bold mt-2" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16 }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: "#0F1F35", fontWeight: 700, marginTop: 8 }}>
               Quotes in {selectedCounty} in the {selectedRange} range...
             </p>
-            <p className="text-muted-foreground mt-1.5" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14 }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#374151", marginTop: 6 }}>
               ...score between C and D on average. 67% contain at least one red flag.
             </p>
-            <p className="text-muted-foreground/70 italic mt-2" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#6B7280", fontStyle: "italic", marginTop: 8 }}>
               Your actual grade requires your quote. But you're in a high-risk range.
             </p>
           </div>
@@ -209,6 +214,7 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
       );
     }
 
+    // Steps 1-4
     if (currentStep >= 1 && currentStep <= 4) {
       const cfg = stepConfig[currentStep - 1];
       return (
@@ -221,10 +227,10 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
           transition={{ duration: 0.25 }}
         >
           <h2
-            className="text-foreground"
             style={{
               fontFamily: "'Jost', sans-serif",
               fontSize: "clamp(26px, 4vw, 32px)",
+              color: "#0F1F35",
               fontWeight: 800,
               letterSpacing: "-0.02em",
               marginBottom: 8,
@@ -232,7 +238,7 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
           >
             {cfg.question}
           </h2>
-          <p className="text-muted-foreground mb-7" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#6B7280", marginBottom: 28 }}>
             {cfg.sub}
           </p>
           <div className="grid grid-cols-2 gap-3">
@@ -259,26 +265,27 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
         exit="exit"
         transition={{ duration: 0.25 }}
       >
+        {/* Badge */}
         <div
           className="inline-flex items-center mb-5"
           style={{
-            background: "hsl(var(--brand-lime) / 0.1)",
-            border: "1px solid hsl(var(--brand-lime))",
+            background: "#ECFDF5",
+            border: "1px solid #059669",
             borderRadius: 6,
             padding: "4px 12px",
             fontFamily: "'DM Sans', sans-serif",
             fontSize: 12,
-            color: "hsl(var(--brand-lime))",
+            color: "#059669",
           }}
         >
           ✓ Your scan is configured
         </div>
 
         <h2
-          className="text-foreground"
           style={{
             fontFamily: "'Jost', sans-serif",
             fontSize: "clamp(28px, 4vw, 34px)",
+            color: "#0F1F35",
             fontWeight: 800,
             letterSpacing: "-0.02em",
             marginBottom: 8,
@@ -286,11 +293,12 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
         >
           See What's In Your Quote.
         </h2>
-        <p className="text-muted-foreground mb-6" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15 }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "#6B7280", marginBottom: 24 }}>
           Enter your details to run the scan.
         </p>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          {/* First Name */}
           <div>
             <label style={labelStyle}>FIRST NAME</label>
             <input
@@ -304,9 +312,10 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
             />
           </div>
 
+          {/* Email */}
           <div>
             <label style={labelStyle}>
-              EMAIL ADDRESS <span className="text-muted-foreground/60" style={{ fontWeight: 400 }}>(your grade report is sent here)</span>
+              EMAIL ADDRESS <span style={{ color: "#9CA3AF", fontWeight: 400 }}>(your grade report is sent here)</span>
             </label>
             <input
               type="email"
@@ -319,9 +328,10 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
             />
           </div>
 
+          {/* Phone */}
           <div>
             <label style={labelStyle}>
-              MOBILE NUMBER <span className="text-muted-foreground/60" style={{ fontWeight: 400 }}>(one-time code to unlock your report)</span>
+              MOBILE NUMBER <span style={{ color: "#9CA3AF", fontWeight: 400 }}>(one-time code to unlock your report)</span>
             </label>
             <input
               type="tel"
@@ -334,21 +344,22 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
             />
           </div>
 
+          {/* Submit */}
           <motion.button
             type="submit"
-            whileHover={{ scale: 1.01 }}
+            whileHover={{ scale: 1.01, backgroundColor: "#047857" }}
             whileTap={{ scale: 0.98 }}
             style={{
               width: "100%",
               height: 54,
-              background: "hsl(var(--brand-lime))",
-              color: "hsl(var(--primary-foreground))",
+              background: "#059669",
+              color: "#FFFFFF",
               fontFamily: "'DM Sans', sans-serif",
               fontSize: 17,
               fontWeight: 700,
               borderRadius: 10,
               border: "none",
-              boxShadow: "0 4px 16px hsl(var(--brand-lime) / 0.35)",
+              boxShadow: "0 4px 16px rgba(5, 150, 105, 0.35)",
               cursor: "pointer",
               marginTop: 4,
             }}
@@ -357,28 +368,45 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
           </motion.button>
         </form>
 
-        <p className="text-muted-foreground/60 text-center mt-3.5" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, lineHeight: 1.8 }}>
+        {/* Micro Trust */}
+        <p
+          style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: 12,
+            color: "#9CA3AF",
+            lineHeight: 1.8,
+            textAlign: "center",
+            marginTop: 14,
+          }}
+        >
           No contractor will be contacted without your permission.
           <br />
           No sales calls. Your report is yours — we just help you read it.
         </p>
 
+        {/* Social Proof Ticker */}
         <div
-          className="flex items-center gap-2 mt-3 glass-card rounded-lg"
-          style={{ padding: "10px 14px" }}
+          className="flex items-center gap-2"
+          style={{
+            marginTop: 12,
+            padding: "10px 14px",
+            background: "#F9FAFB",
+            borderRadius: 8,
+            border: "1px solid #E5E7EB",
+          }}
         >
           <span
             className="animate-pulse-dot"
             style={{
               width: 8,
               height: 8,
-              backgroundColor: "hsl(var(--brand-lime))",
+              backgroundColor: "#059669",
               borderRadius: "50%",
               display: "inline-block",
               flexShrink: 0,
             }}
           />
-          <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: "hsl(var(--muted-foreground))" }}>
+          <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 12, color: "#6B7280" }}>
             14 homeowners in {selectedCounty} found red flags today
           </span>
         </div>
@@ -387,23 +415,23 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
   };
 
   return (
-    <section id="truth-gate" className="bg-background">
+    <section id="truth-gate" style={{ backgroundColor: "#FAFAFA" }}>
       <div className="mx-auto max-w-2xl px-4 md:px-8 py-16 md:py-24">
         {/* Eyebrow + Progress */}
         <p
           className="text-center mb-3"
           style={{
-            fontFamily: "'IBM Plex Mono', monospace",
+            fontFamily: "'DM Mono', monospace",
             fontSize: 11,
-            color: "hsl(var(--primary))",
+            color: "#0099BB",
             letterSpacing: "0.1em",
           }}
         >
           {eyebrowLabels[Math.min(currentStep - 1, 4)]}
         </p>
-        <div className="w-full h-1 bg-white/5 rounded-sm mb-8">
+        <div style={{ width: "100%", height: 4, backgroundColor: "#E5E7EB", borderRadius: 2, marginBottom: 32 }}>
           <motion.div
-            className="h-1 bg-primary rounded-sm"
+            style={{ height: 4, backgroundColor: "#C8952A", borderRadius: 2 }}
             animate={{ width: progressWidth }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           />
@@ -411,10 +439,14 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
 
         {/* Step Card */}
         <div
-          className="glass-card rounded-2xl overflow-hidden"
           style={{
+            background: "#FFFFFF",
+            border: "1.5px solid #E5E7EB",
+            borderRadius: 16,
             padding: "clamp(32px, 5vw, 40px)",
+            boxShadow: "0 4px 24px rgba(15, 31, 53, 0.08)",
             minHeight: 280,
+            overflow: "hidden",
           }}
         >
           <AnimatePresence mode="wait">{renderStepContent()}</AnimatePresence>
@@ -427,9 +459,9 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
 // Shared styles
 const labelStyle: React.CSSProperties = {
   display: "block",
-  fontFamily: "'IBM Plex Mono', monospace",
+  fontFamily: "'DM Mono', monospace",
   fontSize: 10,
-  color: "hsl(220 5% 64%)",
+  color: "#6B7280",
   letterSpacing: "0.08em",
   marginBottom: 6,
 };
@@ -437,25 +469,24 @@ const labelStyle: React.CSSProperties = {
 const inputStyle: React.CSSProperties = {
   width: "100%",
   height: 48,
-  border: "1.5px solid rgba(255,255,255,0.08)",
+  border: "1.5px solid #E5E7EB",
   borderRadius: 8,
   padding: "0 16px",
   fontFamily: "'DM Sans', sans-serif",
   fontSize: 15,
-  color: "hsl(0 0% 96%)",
-  background: "hsl(0 0% 6%)",
+  color: "#0F1F35",
   outline: "none",
   transition: "border-color 0.15s, box-shadow 0.15s",
   boxSizing: "border-box",
 };
 
 const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-  e.currentTarget.style.borderColor = "hsl(185 100% 50%)";
-  e.currentTarget.style.boxShadow = "0 0 0 3px hsl(185 100% 50% / 0.12)";
+  e.currentTarget.style.borderColor = "#C8952A";
+  e.currentTarget.style.boxShadow = "0 0 0 3px rgba(200,149,42,0.12)";
 };
 
 const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-  e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
+  e.currentTarget.style.borderColor = "#E5E7EB";
   e.currentTarget.style.boxShadow = "none";
 };
 
