@@ -54,6 +54,36 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        navy: {
+          DEFAULT: "hsl(var(--color-navy))",
+          light: "hsl(var(--color-navy-light))",
+          lighter: "hsl(var(--color-navy-lighter))",
+        },
+        cyan: {
+          DEFAULT: "hsl(var(--color-cyan))",
+          light: "hsl(var(--color-cyan-light))",
+          text: "hsl(var(--cyan-text))",
+        },
+        gold: {
+          DEFAULT: "hsl(var(--color-amber))",
+          light: "hsl(var(--color-gold-light))",
+        },
+        emerald: {
+          DEFAULT: "hsl(var(--color-emerald))",
+          light: "hsl(var(--color-green-light))",
+          text: "hsl(var(--emerald-text))",
+        },
+        danger: {
+          DEFAULT: "hsl(var(--color-danger))",
+          light: "hsl(var(--color-red-light))",
+          text: "hsl(var(--danger-text))",
+        },
+        warning: {
+          DEFAULT: "hsl(var(--color-warning))",
+        },
+        "amber-text": "hsl(var(--amber-text))",
+        "cyan-text": "hsl(var(--cyan-text))",
+        "emerald-text": "hsl(var(--emerald-text))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
