@@ -112,7 +112,7 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                   color: "#C8952A",
                 }}
               >
-                GETTING IMPACT WINDOW QUOTES WITHOUT AI
+                IMPACT WINDOW QUOTES WITH AI
               </span>
             </div>
 
