@@ -60,6 +60,7 @@ const Index = () => {
   });
 
   // ── Recovery bar state ──
+  const [powerToolTriggered, setPowerToolTriggered] = useState(false);
   const [stepsCompleted, setStepsCompleted] = useState(0);
   const [selectedCounty, setSelectedCounty] = useState("your county");
   const [recoveryBarDismissed, setRecoveryBarDismissed] = useState(() =>
