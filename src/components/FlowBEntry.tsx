@@ -274,8 +274,8 @@ const FlowBEntry = ({ onContinueToTool, onSwitchToFlowA }: FlowBEntryProps) => {
               marginBottom: 48,
             }}
           >
-            The contractor will arrive with information.
-            <br className="hidden md:block" /> Now you will too.
+            The Contractor Will Arrive Armed With Information.
+            <br className="hidden md:block" /> Now You Will Too.
           </h2>
 
           {/* Timeline */}
