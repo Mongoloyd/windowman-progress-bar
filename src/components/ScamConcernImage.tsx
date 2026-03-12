@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import homeownerImg from "@/assets/homeowner-scam-concern.webp";
+import homeownerImg from "@/assets/scam-concern.avif";
 
 const ScamConcernImage = () => {
   const ref = useRef<HTMLDivElement>(null);
