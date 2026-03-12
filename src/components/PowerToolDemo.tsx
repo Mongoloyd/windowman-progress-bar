@@ -34,42 +34,6 @@ const DS_PAGE_STYLES = `
   .ds-wrapper button:focus-visible { outline: 2px solid rgba(6,182,212,0.6); outline-offset: 2px; }
 `;
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Inlined UrgencyBadge (was @/components/ds/UrgencyBadge)
-// ─────────────────────────────────────────────────────────────────────────────
-const UrgencyBadge = React.forwardRef<HTMLDivElement>((props, ref) => {
-  return (
-    <div
-      ref={ref}
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: "7px",
-        background: "rgba(239,68,68,0.08)",
-        border: "1px solid rgba(239,68,68,0.22)",
-        borderRadius: "99px",
-        padding: "5px 14px",
-        fontSize: "11px",
-        fontWeight: 600,
-        color: "#ef4444",
-        fontFamily: "'Inter', system-ui, sans-serif",
-      }}
-    >
-      <span
-        style={{
-          width: "6px",
-          height: "6px",
-          borderRadius: "50%",
-          background: "#ef4444",
-          display: "inline-block",
-          animation: "ptf-urgency-pulse 1.5s ease-in-out infinite",
-        }}
-      />
-      {SCAN_COUNT.toLocaleString()}+ quotes scanned this month
-      <style>{`@keyframes ptf-urgency-pulse{0%,100%{opacity:1}50%{opacity:0.4}}`}</style>
-    </div>
-  );
-});
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Inlined TrustFooter (was @/components/ds/TrustFooter)
