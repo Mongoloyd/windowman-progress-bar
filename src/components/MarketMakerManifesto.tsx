@@ -370,7 +370,7 @@ const MarketMakerManifesto = () => {
                 <BarChart3 size={16} color="#0099BB" strokeWidth={2.5} />
               </div>
               <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 700, color: "#FFFFFF" }}>
-                Why contractors work with us
+                Why Work With Me    
               </span>
             </div>
             <p
