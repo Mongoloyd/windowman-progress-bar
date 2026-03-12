@@ -151,9 +151,9 @@ const StickyRecoveryBar = ({
             }}
             className="px-5 py-3.5 sm:px-8 sm:py-4"
           >
-            <div className="max-w-4xl mx-auto flex items-center justify-between gap-4 flex-wrap relative">
+            <div className="max-w-4xl mx-auto flex items-center justify-between gap-4 relative">
               {/* Left — Status */}
-              <div className="flex items-center gap-3.5">
+              <div className="hidden sm:flex items-center gap-3.5 min-w-0">
                 {/* Progress dots */}
                 <div className="flex items-center gap-1">
                   {(flowMode === 'A' ? [0, 1, 2, 3] : [0, 1, 2]).map((i) => (
@@ -194,7 +194,7 @@ const StickyRecoveryBar = ({
               </div>
 
               {/* Right — CTAs + Close */}
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2.5 flex-1 sm:flex-none justify-center sm:justify-end">
                 {showDemoButton && (
                   <button
                     onClick={handleDemoCta}
@@ -204,7 +204,7 @@ const StickyRecoveryBar = ({
                       fontFamily: "'DM Sans', sans-serif",
                       fontSize: 14,
                       fontWeight: 700,
-                      padding: "10px 22px",
+                      padding: "10px 16px",
                       borderRadius: 8,
                       border: "none",
                       boxShadow: "0 2px 10px rgba(0,184,212,0.3)",
@@ -224,7 +224,7 @@ const StickyRecoveryBar = ({
                     fontFamily: "'DM Sans', sans-serif",
                     fontSize: 14,
                     fontWeight: 700,
-                    padding: "10px 22px",
+                    padding: "10px 16px",
                     borderRadius: 8,
                     border: "none",
                     boxShadow: "0 2px 10px rgba(200,149,42,0.3)",
