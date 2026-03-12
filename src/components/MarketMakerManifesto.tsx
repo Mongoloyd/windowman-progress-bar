@@ -149,29 +149,19 @@ const MarketMakerManifesto = () => {
           </div>
 
           {/* Node 2 — WindowMan */}
-          <div className="flex flex-col items-center" style={{ minWidth: 120 }}>
-            <div
-              className="flex items-center justify-center"
-              style={{
-                width: 96,
-                height: 96,
-                borderRadius: "50%",
-                background: "rgba(200,149,42,0.12)",
-                border: "2px solid rgba(200,149,42,0.5)",
-                boxShadow: "0 0 24px rgba(200,149,42,0.15)",
-              }}
-            >
-              <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 22, fontWeight: 900, color: "#C8952A" }}>
-                WM
-              </span>
-            </div>
+          <div className="flex flex-col items-center" style={{ minWidth: 120, maxWidth: 200 }}>
+            <img
+              src={windowmanHero}
+              alt="WindowMan superhero holding a Truth Report"
+              style={{ width: "100%", maxWidth: 180, height: "auto" }}
+            />
             <span
               style={{
                 fontFamily: "'DM Sans', sans-serif",
                 fontSize: 15,
                 fontWeight: 700,
                 color: "#FFFFFF",
-                marginTop: 12,
+                marginTop: 8,
               }}
             >
               WindowMan
