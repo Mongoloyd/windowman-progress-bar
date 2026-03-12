@@ -290,6 +290,11 @@ const Index = () => {
         flowMode={flowMode}
         flowBLeadCaptured={flowBLeadCaptured}
         quoteWatcherSet={quoteWatcherSet}
+        onDemoCTAClick={() => {
+          setPowerToolTriggered(true);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+        leadCaptured={leadCaptured}
       />
     </div>
   );
