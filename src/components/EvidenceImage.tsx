@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Search } from "lucide-react";
 
 interface EvidenceImageProps {
   src: string;
@@ -20,10 +21,21 @@ const EvidenceImage = ({
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if ((e.key === "Enter" || e.key === " ") && onClick) {
+      e.preventDefault();
+      onClick();
+    }
+  };
+
   return (
     <div
-      className={`relative overflow-hidden ${className}`}
+      className={`relative overflow-hidden group cursor-pointer rounded-t-xl hover:shadow-lg transition-shadow duration-500 ${className}`}
       style={{ aspectRatio: "16/9" }}
+      role="button"
+      tabIndex={0}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
     >
       {/* Skeleton loader */}
       {!loaded && !error && (
@@ -46,14 +58,20 @@ const EvidenceImage = ({
           loading="lazy"
           decoding="async"
           fetchPriority="low"
-          className={`w-full h-full object-cover rounded-t-xl cursor-pointer transition-opacity duration-300 ${
+          className={`w-full h-full object-cover rounded-t-xl transition-all duration-500 transform-gpu group-hover:scale-110 group-hover:brightness-90 ${
             loaded ? "opacity-100" : "opacity-0"
           }`}
           style={{ aspectRatio: "16/9" }}
           onLoad={() => setLoaded(true)}
           onError={() => setError(true)}
-          onClick={onClick}
         />
+      )}
+
+      {/* Inspect badge */}
+      {!error && loaded && (
+        <div className="absolute bottom-3 right-3 bg-black/60 text-white p-2 rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <Search className="h-4 w-4" />
+        </div>
       )}
     </div>
   );
