@@ -224,7 +224,7 @@ const StickyRecoveryBar = ({
                     fontFamily: "'DM Sans', sans-serif",
                     fontSize: 14,
                     fontWeight: 700,
-                    padding: "10px 22px",
+                    padding: "10px 16px",
                     borderRadius: 8,
                     border: "none",
                     boxShadow: "0 2px 10px rgba(200,149,42,0.3)",
