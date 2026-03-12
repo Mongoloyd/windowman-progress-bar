@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 
@@ -34,6 +34,33 @@ const QUESTION_LABELS: Record<string, string> = {
   quoteStage: 'Quote stage',
 };
 
+const COUNTY_STATS: Record<string, { scanned: number; overcharge: number; redFlags: number }> = {
+  'Miami-Dade': { scanned: 312, overcharge: 5200, redFlags: 2.4 },
+  'Broward': { scanned: 287, overcharge: 4800, redFlags: 2.1 },
+  'Palm Beach': { scanned: 241, overcharge: 5600, redFlags: 2.3 },
+};
+
+const FLORIDA_FALLBACK = { scanned: 2400, overcharge: 4800, redFlags: 2.1 };
+
+function useCountUp(end: number, start: number, duration: number, active: boolean) {
+  const [value, setValue] = useState(start);
+  const hasRun = useRef(false);
+
+  useEffect(() => {
+    if (!active || hasRun.current) return;
+    hasRun.current = true;
+    const startTime = performance.now();
+    const step = (now: number) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      setValue(Math.round(start + (end - start) * progress));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [active, end, start, duration]);
+
+  return value;
+}
+
 const ExitIntentModal = ({
   stepsCompleted,
   flowMode,
@@ -51,6 +78,13 @@ const ExitIntentModal = ({
   const [phone, setPhone] = useState('');
   const [reminderDate, setReminderDate] = useState('');
   const [reminderTime, setReminderTime] = useState('');
+  const mountTime = useRef(Date.now());
+  const [liveViewers] = useState(() => 8 + Math.floor(Math.random() * 12));
+
+  // Resolve county stats
+  const resolvedCounty = county && county !== 'your county' ? county : null;
+  const stats = resolvedCounty && COUNTY_STATS[resolvedCounty] ? COUNTY_STATS[resolvedCounty] : FLORIDA_FALLBACK;
+  const locationLabel = resolvedCounty ? `in ${resolvedCounty} County` : 'across Florida';
 
   const getVariant = useCallback(() => {
     if (flowMode === 'B' && flowBLeadCaptured) return 'D';
@@ -83,6 +117,13 @@ const ExitIntentModal = ({
 
   const variant = getVariant();
   const pct = Math.round((stepsCompleted / 4) * 100);
+
+  // Animated stats for Variant A
+  const scannedCount = useCountUp(stats.scanned, Math.round(stats.scanned * 0.8), 1200, open && variant === 'A');
+  const overchargeCount = useCountUp(stats.overcharge, 0, 1200, open && variant === 'A');
+
+  // Elapsed time for Variant B
+  const elapsedSeconds = Math.max(Math.round((Date.now() - mountTime.current) / 1000), 10);
 
   const dismiss = () => {
     track({ event: 'wm_exit_modal_dismissed', variant });
@@ -125,25 +166,43 @@ const ExitIntentModal = ({
               <X size={16} />
             </button>
 
-            {/* VARIANT A */}
+            {/* VARIANT A — County Ledger */}
             {variant === 'A' && (
               <div className="text-center">
-                <span className="text-[40px] text-amber-text">?</span>
-                <h2 className="font-display text-[26px] font-extrabold text-navy mt-2 leading-[1.15]">Before you go — one question.</h2>
+                <h2 className="font-display text-[26px] font-extrabold text-navy mt-2 leading-[1.15]">
+                  Before you go — one question.
+                </h2>
                 <p className="font-body text-[16px] text-foreground leading-[1.7] mt-3">
-                  The average impact window quote in Florida is $4,800 above fair market.
-                  It takes 60 seconds to find out if yours is one of them.
+                  We've analyzed{' '}
+                  <span className="font-mono font-bold text-amber-text">{scannedCount.toLocaleString()}</span>{' '}
+                  quotes {locationLabel} this year. Average overcharge:{' '}
+                  <span className="font-mono font-bold text-destructive">${overchargeCount.toLocaleString()}</span>.{' '}
+                  Average red flags found:{' '}
+                  <span className="font-mono font-bold text-amber-text">{stats.redFlags}</span>.{' '}
+                  Yours takes 60 seconds.
                 </p>
+
+                {/* Micro-urgency pulse */}
+                <div className="flex items-center justify-center gap-2 mt-4">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+                  </span>
+                  <span className="font-body text-[12px] text-muted-foreground">
+                    {liveViewers} homeowners checking right now
+                  </span>
+                </div>
+
                 <button onClick={handleCTA} className="mt-6 w-full rounded-[10px] bg-gold py-3.5 font-body text-[16px] font-bold text-navy border-none cursor-pointer">
                   Check My Quote — It's Free
                 </button>
                 <p className="font-body text-[12px] text-muted-foreground mt-3 cursor-pointer" onClick={dismiss}>
-                  or leave without checking — your choice.
+                  I'll risk overpaying →
                 </p>
               </div>
             )}
 
-            {/* VARIANT B */}
+            {/* VARIANT B — Sunk Cost */}
             {variant === 'B' && (
               <div>
                 <div className="rounded-[10px] bg-gold-light p-3.5 mb-5">
@@ -177,7 +236,7 @@ const ExitIntentModal = ({
                 </div>
 
                 <p className="font-body text-[14px] text-foreground mt-4 text-center">
-                  Everything you've entered is still here. {4 - stepsCompleted} more answer{4 - stepsCompleted !== 1 ? 's' : ''} and we can run your grade.
+                  You've spent ~{elapsedSeconds} seconds configuring your scan. {4 - stepsCompleted} more answer{4 - stepsCompleted !== 1 ? 's' : ''} and your grade is ready.
                 </p>
                 <button onClick={handleCTA} className="mt-5 w-full rounded-[10px] bg-gold py-3.5 font-body text-[16px] font-bold text-navy border-none cursor-pointer">
                   {stepsCompleted === 1 && 'Continue My Scan →'}
@@ -185,12 +244,12 @@ const ExitIntentModal = ({
                   {stepsCompleted === 3 && 'One Question Left →'}
                 </button>
                 <p className="font-body text-[12px] text-muted-foreground mt-3 text-center cursor-pointer" onClick={dismiss}>
-                  or leave without your results — your choice.
+                  I'll risk overpaying →
                 </p>
               </div>
             )}
 
-            {/* VARIANT C */}
+            {/* VARIANT C — Report Ready (spinning ? kept) */}
             {variant === 'C' && (
               <div className="text-center">
                 <motion.div
@@ -235,12 +294,12 @@ const ExitIntentModal = ({
                 </div>
                 <p className="font-body text-[11px] text-muted-foreground mt-2">No sales calls. Report sent instantly. Unsubscribe any time.</p>
                 <p className="font-body text-[12px] text-muted-foreground mt-3 cursor-pointer" onClick={dismiss}>
-                  or leave without your results — your choice.
+                  I'll risk overpaying →
                 </p>
               </div>
             )}
 
-            {/* VARIANT D */}
+            {/* VARIANT D — Reminder (unchanged) */}
             {variant === 'D' && (
               <div className="text-center">
                 <h2 className="font-display text-[26px] font-extrabold text-navy leading-[1.15]">Your baseline is set. Don't let it sit unused.</h2>
