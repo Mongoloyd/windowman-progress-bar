@@ -37,9 +37,11 @@ const trustItems = [
 interface AuditHeroProps {
   onFlowBClick?: () => void;
   onUploadQuote?: () => void;
+  triggerPowerTool?: boolean;
+  onPowerToolClose?: () => void;
 }
 
-const AuditHero = ({ onFlowBClick, onUploadQuote }: AuditHeroProps) => {
+const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolClose }: AuditHeroProps) => {
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
@@ -391,7 +393,7 @@ const AuditHero = ({ onFlowBClick, onUploadQuote }: AuditHeroProps) => {
               className="mt-8 md:mt-10 w-full flex justify-center"
             >
               <React.Suspense fallback={<div className="h-[120px]" />}>
-                <PowerToolFlow onUploadQuote={onUploadQuote} />
+                <PowerToolFlow onUploadQuote={onUploadQuote} triggerOpen={triggerPowerTool} onToolClose={onPowerToolClose} />
               </React.Suspense>
             </motion.div>
           </div>

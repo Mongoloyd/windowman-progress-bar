@@ -19,6 +19,8 @@ import NarrativeProof from "@/components/NarrativeProof";
 import ClosingManifesto from "@/components/ClosingManifesto";
 import MarketMakerManifesto from "@/components/MarketMakerManifesto";
 import StickyRecoveryBar from "@/components/StickyRecoveryBar";
+import InteractiveDemoScan from "@/components/InteractiveDemoScan";
+import ExitIntentModal from "@/components/ExitIntentModal";
 
 const mockAuditResult = {
   grade: "C",
@@ -58,6 +60,7 @@ const Index = () => {
   });
 
   // ── Recovery bar state ──
+  const [powerToolTriggered, setPowerToolTriggered] = useState(false);
   const [stepsCompleted, setStepsCompleted] = useState(0);
   const [selectedCounty, setSelectedCounty] = useState("your county");
   const [recoveryBarDismissed, setRecoveryBarDismissed] = useState(() =>
@@ -123,6 +126,8 @@ const Index = () => {
                       document.getElementById("truth-gate")?.scrollIntoView({ behavior: "smooth" });
                     }, 100);
                   }}
+                  triggerPowerTool={powerToolTriggered}
+                  onPowerToolClose={() => setPowerToolTriggered(false)}
                 />
               </motion.div>
             ) : (
@@ -184,6 +189,7 @@ const Index = () => {
           {flowMode === 'A' && (
             <>
               <SocialProofStrip />
+              <InteractiveDemoScan />
               <TruthGateFlow
                 onLeadCaptured={() => setLeadCaptured(true)}
                 onStepChange={(step, county) => {
@@ -253,6 +259,28 @@ const Index = () => {
       <ProcessSteps />
       <NarrativeProof />
       <ClosingManifesto />
+
+      <ExitIntentModal
+        stepsCompleted={stepsCompleted}
+        flowMode={flowMode as 'A' | 'B' | 'C'}
+        leadCaptured={leadCaptured}
+        flowBLeadCaptured={flowBLeadCaptured}
+        county={selectedCounty}
+        answers={{
+          windowCount: null,
+          projectType: null,
+          county: selectedCounty !== "your county" ? selectedCounty : null,
+          quoteStage: null,
+          firstName: null,
+          email: null,
+          phone: null,
+        }}
+        onClose={() => {}}
+        onCTAClick={() => {
+          setPowerToolTriggered(true);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+      />
 
       <StickyRecoveryBar
         stepsCompleted={stepsCompleted}
