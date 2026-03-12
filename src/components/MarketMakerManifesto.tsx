@@ -88,7 +88,7 @@ const MarketMakerManifesto = () => {
         <motion.div
           {...fade(0.15)}
           className="mx-auto flex flex-col md:flex-row items-center justify-between"
-          style={{ maxWidth: 700, marginBottom: 56 }}
+          style={{ maxWidth: 800, marginBottom: 56 }}
         >
           {/* Node 1 — You */}
           <div className="flex flex-col items-center" style={{ minWidth: 110 }}>
@@ -149,11 +149,11 @@ const MarketMakerManifesto = () => {
           </div>
 
           {/* Node 2 — WindowMan */}
-          <div className="flex flex-col items-center" style={{ minWidth: 120, maxWidth: 200 }}>
+          <div className="flex flex-col items-center" style={{ minWidth: 140, maxWidth: 280 }}>
             <img
               src={windowmanHero}
               alt="WindowMan superhero holding a Truth Report"
-              style={{ width: "100%", maxWidth: 180, height: "auto" }}
+              style={{ width: "100%", maxWidth: 260, height: "auto" }}
             />
             <span
               style={{
