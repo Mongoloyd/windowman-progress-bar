@@ -466,7 +466,7 @@ const MarketBaselineTool = ({
                     marginBottom: 4,
                   }}
                 >
-                  Your baseline is ready.
+                  Your Baseline is Ready.
                 </h3>
                 <p
                   style={{
