@@ -21,6 +21,7 @@ import MarketMakerManifesto from "@/components/MarketMakerManifesto";
 import StickyRecoveryBar from "@/components/StickyRecoveryBar";
 import InteractiveDemoScan from "@/components/InteractiveDemoScan";
 import ExitIntentModal from "@/components/ExitIntentModal";
+import ScamConcernImage from "@/components/ScamConcernImage";
 
 const mockAuditResult = {
   grade: "C",
@@ -140,12 +141,13 @@ const Index = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
               >
-                <FlowBEntry
+              <FlowBEntry
                   onContinueToTool={() => {
                     document.getElementById("market-baseline")?.scrollIntoView({ behavior: "smooth" });
                   }}
                   onSwitchToFlowA={() => switchToFlowA('hero_switch')}
                 />
+                <ScamConcernImage />
                 <MarketBaselineTool
                   onStepComplete={(step, answer) => {
                     setStepsCompleted(step);
@@ -192,6 +194,7 @@ const Index = () => {
           {flowMode === 'A' && (
             <>
               <SocialProofStrip />
+              <ScamConcernImage />
               <InteractiveDemoScan />
               <TruthGateFlow
                 onLeadCaptured={() => setLeadCaptured(true)}
