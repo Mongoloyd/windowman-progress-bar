@@ -11,6 +11,7 @@ interface StickyRecoveryBarProps {
   quoteWatcherSet?: boolean;
   onDemoCTAClick?: () => void;
   leadCaptured?: boolean;
+  isDevMode?: boolean;
 }
 
 const getStatusCopy = (steps: number, flowMode: string, flowBLeadCaptured: boolean) => {
@@ -54,7 +55,7 @@ const getCtaTarget = (flowMode: string, flowBLeadCaptured: boolean) => {
 const StickyRecoveryBar = ({
   stepsCompleted, county, isVisible, onDismiss,
   flowMode = 'A', flowBLeadCaptured = false, quoteWatcherSet = false,
-  onDemoCTAClick, leadCaptured = false,
+  onDemoCTAClick, leadCaptured = false, isDevMode = false,
 }: StickyRecoveryBarProps) => {
   const [isUrgent, setIsUrgent] = useState(false);
   const controls = useAnimationControls();
@@ -107,22 +108,25 @@ const StickyRecoveryBar = ({
   const handleDemoCta = () => {
     console.log({ event: "wm_recovery_bar_demo_clicked", stepsCompleted, flowMode });
     onDemoCTAClick?.();
-    // Auto-dismiss the bar
-    localStorage.setItem("wm_recovery_bar_dismissed", "true");
-    onDismiss();
+    if (!isDevMode) {
+      localStorage.setItem("wm_recovery_bar_dismissed", "true");
+      onDismiss();
+    }
   };
 
   const handleClose = () => {
-    localStorage.setItem("wm_recovery_bar_dismissed", "true");
     console.log({ event: "wm_recovery_bar_dismissed", stepsCompleted, flowMode });
-    onDismiss();
+    if (!isDevMode) {
+      localStorage.setItem("wm_recovery_bar_dismissed", "true");
+      onDismiss();
+    }
   };
 
   const { line1, line2 } = getStatusCopy(stepsCompleted, flowMode, flowBLeadCaptured);
   const urgentLine1 = isUrgent && flowMode === 'A' ? "Your configured scan expires in 24 hours." : line1;
 
-  // Hide for completed Flow B
-  if (flowMode === 'B' && quoteWatcherSet) return null;
+  // Hide for completed Flow B (disabled in dev mode)
+  if (!isDevMode && flowMode === 'B' && quoteWatcherSet) return null;
 
   const showDemoButton = !leadCaptured && flowMode === 'A';
 

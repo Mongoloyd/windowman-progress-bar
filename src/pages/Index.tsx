@@ -38,6 +38,9 @@ const mockAuditResult = {
 };
 
 const Index = () => {
+  // SET TO FALSE BEFORE DEPLOYING TO PRODUCTION
+  const IS_DEV_MODE = true;
+
   // ── Flow mode ──
   const [flowMode, setFlowMode] = useState<'A' | 'B'>('A');
 
@@ -87,7 +90,7 @@ const Index = () => {
   const anyLeadCaptured = flowMode === 'A' ? leadCaptured : flowBLeadCaptured;
   const flowBComplete = flowMode === 'B' && quoteWatcherSet;
   const showRecoveryBar =
-    scrolledPast70 && !anyLeadCaptured && timeOnPage && !recoveryBarDismissed && !gradeRevealed && !flowBComplete;
+    IS_DEV_MODE || (scrolledPast70 && !anyLeadCaptured && timeOnPage && !recoveryBarDismissed && !gradeRevealed && !flowBComplete);
 
   // ── Flow A→B / B→A helpers ──
   const switchToFlowA = (triggeredFrom: string) => {
@@ -295,6 +298,7 @@ const Index = () => {
           window.scrollTo({ top: 0, behavior: "smooth" });
         }}
         leadCaptured={leadCaptured}
+        isDevMode={IS_DEV_MODE}
       />
     </div>
   );
