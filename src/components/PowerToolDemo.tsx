@@ -1621,7 +1621,7 @@ function DemoScanPage({ lead, onUploadQuote, onClose }) {
 // ROOT EXPORT — Drop <PowerToolFlow /> on your homepage
 // Style-isolated: all rendering wrapped in a protective container
 // ─────────────────────────────────────────────────────────────────────────────
-export default function PowerToolFlow({ onUploadQuote }: { onUploadQuote?: () => void }) {
+export default function PowerToolFlow({ onUploadQuote, triggerOpen, onToolClose }: { onUploadQuote?: () => void; triggerOpen?: boolean; onToolClose?: () => void }) {
   const [state, setState] = useState("idle");
   const [lead, setLead] = useState(null);
 
