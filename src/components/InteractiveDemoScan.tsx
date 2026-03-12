@@ -255,7 +255,7 @@ const InteractiveDemoScan = () => {
       </div>
 
       {/* FIXED HEIGHT CONTAINER */}
-      <div className="mx-auto max-w-[520px] rounded-2xl border-[1.5px] border-border bg-card p-6 md:p-8 shadow-[0_4px_24px_rgba(15,20,25,0.08)] h-[480px] flex flex-col relative">
+      <div className="mx-auto max-w-[520px] rounded-2xl border-[5px] border-cyan/30 bg-card p-6 md:p-8 h-[480px] flex flex-col relative">
         <AnimatePresence mode="wait">
           {/* ── PHASES 1 & 2: Full Document & Scan ───────── */}
           {(phase === "doc" || phase === "scan") &&
