@@ -106,9 +106,9 @@ const FlowBEntry = ({ onContinueToTool, onSwitchToFlowA }: FlowBEntryProps) => {
               marginBottom: 20,
             }}
           >
-            You don't have a quote yet.
+            You Don't Have a Quote Yet.
             <br />
-            <span style={{ color: "hsl(160 84% 39%)" }}>That means you still have all the power.</span>
+            <span style={{ color: "hsl(160 84% 39%)" }}>Perfect You Still Have All The Power.</span>
           </h1>
 
           {/* Sub-headline */}
@@ -122,9 +122,9 @@ const FlowBEntry = ({ onContinueToTool, onSwitchToFlowA }: FlowBEntryProps) => {
               maxWidth: 640,
             }}
           >
-            Contractors walk in knowing the market price.
+            Contractors Walk in Knowing The Market Price.
             <br />
-            Most homeowners don't. WindowMan fixes that.
+            Most Homeowners Don't. WindowMan Flips That.
           </p>
 
           {/* Explanation */}
