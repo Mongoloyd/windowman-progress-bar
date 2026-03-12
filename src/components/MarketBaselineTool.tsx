@@ -602,9 +602,9 @@ const MarketBaselineTool = ({
                     lineHeight: 1.8,
                   }}
                 >
-                  You'll receive your fair-market baseline and the 5-Question Forensic Checklist instantly.
+                  You'll Receive Your Fair-Market Baseline and the Forensic Question Checklist Instantly.
                   <br />
-                  When you have a quote, return here to scan it.
+                  When You Have a Quote, Return Here to Scan It.
                 </p>
               </motion.div>
             )}
