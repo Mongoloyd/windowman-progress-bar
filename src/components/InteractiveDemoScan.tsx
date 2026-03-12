@@ -149,10 +149,10 @@ const MockDocument = ({ activeScan, phase, scanText, scanProgress }: any) => {
 
           {/* Laser Sweep */}
           <motion.div
-          initial={{ top: "-10%" }}
-          animate={{ top: "110%" }}
+          initial={{ top: "0%" }}
+          animate={{ top: "100%" }}
           transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-          className="absolute left-0 right-0 h-[2px] bg-cyan shadow-[0_0_20px_4px_rgba(0,153,187,0.4)] z-10" />
+          className="absolute left-6 right-6 h-[2px] bg-cyan shadow-[0_0_20px_4px_rgba(0,153,187,0.4)] z-10" />
         
 
           {/* AI Status Box */}
