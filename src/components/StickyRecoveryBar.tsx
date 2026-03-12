@@ -115,9 +115,11 @@ const StickyRecoveryBar = ({
   };
 
   const handleClose = () => {
-    localStorage.setItem("wm_recovery_bar_dismissed", "true");
     console.log({ event: "wm_recovery_bar_dismissed", stepsCompleted, flowMode });
-    onDismiss();
+    if (!isDevMode) {
+      localStorage.setItem("wm_recovery_bar_dismissed", "true");
+      onDismiss();
+    }
   };
 
   const { line1, line2 } = getStatusCopy(stepsCompleted, flowMode, flowBLeadCaptured);
