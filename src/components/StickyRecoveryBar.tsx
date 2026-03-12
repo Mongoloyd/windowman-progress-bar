@@ -194,7 +194,7 @@ const StickyRecoveryBar = ({
               </div>
 
               {/* Right — CTAs + Close */}
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2.5 flex-1 sm:flex-none justify-center sm:justify-end">
                 {showDemoButton && (
                   <button
                     onClick={handleDemoCta}
