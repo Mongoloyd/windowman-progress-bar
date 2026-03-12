@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-import handScannerHero from "@/assets/hand-scanner-hero.webp";
 
 const PowerToolFlow = React.lazy(() => import("./PowerToolDemo"));
 
@@ -49,42 +48,6 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
             On mobile: left col order-1, power-tool order-2, right col order-3.
             On desktop: left col spans col 1, right col + power-tool span col 2. */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
-          {/* MOBILE HERO — order-0, visible only on mobile */}
-          <div className="md:hidden order-0 flex flex-col items-center text-center gap-3">
-            <h2
-              style={{
-                fontFamily: "'Jost', sans-serif",
-                fontSize: 28,
-                fontWeight: 800,
-                letterSpacing: "-0.01em",
-                color: "#0F1F35",
-                lineHeight: 1.1,
-              }}
-            >
-              WINDOW<span style={{ color: "#C8952A" }}>MAN</span>
-            </h2>
-            <img
-              src={handScannerHero}
-              alt="WindowMan forensic quote scanner"
-              style={{
-                maxWidth: "85vw",
-                maxHeight: "40vh",
-                objectFit: "contain",
-              }}
-            />
-            <p
-              style={{
-                fontFamily: "'DM Mono', monospace",
-                fontSize: 11,
-                fontWeight: 500,
-                letterSpacing: "0.18em",
-                color: "#6B7280",
-              }}
-            >
-              FORENSIC QUOTE ANALYSIS
-            </p>
-          </div>
-
           {/* LEFT COLUMN — order-1 on all screens */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -112,7 +75,7 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                   color: "#C8952A",
                 }}
               >
-                IMPACT WINDOW QUOTES WITH AI
+                GETTING IMPACT WINDOW QUOTES WITHOUT AI
               </span>
             </div>
 
@@ -139,7 +102,7 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                 fontFamily: "'DM Sans', sans-serif",
                 fontSize: "clamp(18px, 2vw, 20px)",
                 fontWeight: 400,
-                color: "#374151",
+                color: "#2ea5ff",
                 lineHeight: 1.7,
                 marginBottom: 32,
               }}
