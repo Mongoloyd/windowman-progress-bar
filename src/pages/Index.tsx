@@ -193,6 +193,7 @@ const Index = () => {
           {flowMode === 'A' && (
             <>
               <SocialProofStrip />
+              <ScamConcernImage />
               <InteractiveDemoScan />
               <TruthGateFlow
                 onLeadCaptured={() => setLeadCaptured(true)}
