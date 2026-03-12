@@ -88,7 +88,7 @@ const MarketMakerManifesto = () => {
         <motion.div
           {...fade(0.15)}
           className="mx-auto flex flex-col md:flex-row items-center justify-between"
-          style={{ maxWidth: 700, marginBottom: 56 }}
+          style={{ maxWidth: 800, marginBottom: 56 }}
         >
           {/* Node 1 — You */}
           <div className="flex flex-col items-center" style={{ minWidth: 110 }}>
