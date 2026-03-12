@@ -1,8 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-
-const PowerToolFlow = React.lazy(() => import('./PowerToolDemo'));
+const PowerToolFlow = React.lazy(() => import("./PowerToolDemo"));
 
 const flagCards = [
   {
@@ -28,11 +27,7 @@ const flagCards = [
   },
 ];
 
-const trustItems = [
-  "No account required",
-  "Your contractor never knows",
-  "Results in 60 seconds",
-];
+const trustItems = ["No account required", "Your contractor never knows", "Results in 60 seconds"];
 
 interface AuditHeroProps {
   onFlowBClick?: () => void;
@@ -80,7 +75,7 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                   color: "#C8952A",
                 }}
               >
-                FOR FLORIDA HOMEOWNERS GETTING IMPACT WINDOW QUOTES
+                GETTING IMPACT WINDOW QUOTES WITHOUT AI
               </span>
             </div>
 
@@ -98,8 +93,7 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
             >
               Your Quote Looks Legitimate.
               <br />
-              That's Exactly What{" "}
-              <span style={{ color: "#C8952A" }}>They're Counting On.</span>
+              That's Exactly What <span style={{ color: "#C8952A" }}>They're Counting On.</span>
             </h1>
 
             {/* Sub-headline */}
@@ -393,7 +387,11 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
               className="mt-8 md:mt-10 w-full flex justify-center"
             >
               <React.Suspense fallback={<div className="h-[120px]" />}>
-                <PowerToolFlow onUploadQuote={onUploadQuote} triggerOpen={triggerPowerTool} onToolClose={onPowerToolClose} />
+                <PowerToolFlow
+                  onUploadQuote={onUploadQuote}
+                  triggerOpen={triggerPowerTool}
+                  onToolClose={onPowerToolClose}
+                />
               </React.Suspense>
             </motion.div>
           </div>
