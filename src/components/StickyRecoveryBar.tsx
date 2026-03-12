@@ -155,11 +155,11 @@ const StickyRecoveryBar = ({
             }}
             className="px-5 py-3.5 sm:px-8 sm:py-4"
           >
-            <div className="max-w-4xl mx-auto flex items-center justify-between gap-4 relative">
+            <div className="max-w-4xl mx-auto flex flex-nowrap items-center justify-between gap-4 relative">
               {/* Left — Status */}
-              <div className="hidden sm:flex items-center gap-3.5 min-w-0">
-                {/* Progress dots */}
-                <div className="flex items-center gap-1">
+              <div className="hidden sm:flex items-center gap-3.5 min-w-0 flex-shrink">
+                {/* Progress dots — only on lg+ */}
+                <div className="hidden lg:flex items-center gap-1 flex-shrink-0">
                   {(flowMode === 'A' ? [0, 1, 2, 3] : [0, 1, 2]).map((i) => (
                     <div
                       key={i}
@@ -175,12 +175,12 @@ const StickyRecoveryBar = ({
                   ))}
                 </div>
 
-                <div>
-                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 700, color: "#0F1F35" }}>
+                <div className="min-w-0">
+                  <p className="whitespace-nowrap truncate" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 700, color: "#0F1F35" }}>
                     {urgentLine1}
                   </p>
                   <p
-                    className="hidden sm:block"
+                    className="hidden lg:block whitespace-nowrap truncate"
                     style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "#6B7280" }}
                   >
                     {line2}
@@ -188,8 +188,8 @@ const StickyRecoveryBar = ({
                 </div>
               </div>
 
-              {/* Center — Mini progress bar (desktop) */}
-              <div className="hidden md:block" style={{ width: 160, height: 4, background: "#E5E7EB", borderRadius: 2 }}>
+              {/* Center — Mini progress bar (lg+ only) */}
+              <div className="hidden lg:block flex-shrink-0" style={{ width: 160, height: 4, background: "#E5E7EB", borderRadius: 2 }}>
                 <motion.div
                   style={{ height: "100%", background: "#C8952A", borderRadius: 2 }}
                   animate={{ width: `${(stepsCompleted / (flowMode === 'A' ? 4 : 3)) * 100}%` }}
