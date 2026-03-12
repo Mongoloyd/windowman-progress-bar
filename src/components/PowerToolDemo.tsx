@@ -1669,9 +1669,6 @@ export default function PowerToolFlow({ onUploadQuote, triggerOpen, onToolClose 
       <div className="ds-wrapper" style={{ fontFamily: DS.fontUI }}>
         <style>{DS_PAGE_STYLES}</style>
         <PowerToolButton onClick={openModal} />
-        <div style={{ display: "flex", justifyContent: "center", padding: "12px 0" }}>
-          <UrgencyBadge />
-        </div>
         <TrustFooter />
       </div>
 
