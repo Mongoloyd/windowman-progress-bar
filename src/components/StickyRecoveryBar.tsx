@@ -108,9 +108,10 @@ const StickyRecoveryBar = ({
   const handleDemoCta = () => {
     console.log({ event: "wm_recovery_bar_demo_clicked", stepsCompleted, flowMode });
     onDemoCTAClick?.();
-    // Auto-dismiss the bar
-    localStorage.setItem("wm_recovery_bar_dismissed", "true");
-    onDismiss();
+    if (!isDevMode) {
+      localStorage.setItem("wm_recovery_bar_dismissed", "true");
+      onDismiss();
+    }
   };
 
   const handleClose = () => {
