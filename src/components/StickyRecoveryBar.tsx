@@ -153,7 +153,7 @@ const StickyRecoveryBar = ({
           >
             <div className="max-w-4xl mx-auto flex items-center justify-between gap-4 relative">
               {/* Left — Status */}
-              <div className="flex items-center gap-3.5">
+              <div className="hidden sm:flex items-center gap-3.5 min-w-0">
                 {/* Progress dots */}
                 <div className="flex items-center gap-1">
                   {(flowMode === 'A' ? [0, 1, 2, 3] : [0, 1, 2]).map((i) => (
