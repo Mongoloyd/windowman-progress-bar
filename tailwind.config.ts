@@ -16,6 +16,9 @@ export default {
       fontFamily: {
         sans: ['Jost', 'Inter', 'system-ui', 'sans-serif'],
         heading: ['Jost', 'sans-serif'],
+        display: ['Jost', 'sans-serif'],
+        body: ['Jost', 'Inter', 'system-ui', 'sans-serif'],
+        mono: ['IBM Plex Mono', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
