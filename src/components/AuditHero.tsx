@@ -393,7 +393,7 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
               className="mt-8 md:mt-10 w-full flex justify-center"
             >
               <React.Suspense fallback={<div className="h-[120px]" />}>
-                <PowerToolFlow onUploadQuote={onUploadQuote} />
+                <PowerToolFlow onUploadQuote={onUploadQuote} triggerOpen={triggerPowerTool} onToolClose={onPowerToolClose} />
               </React.Suspense>
             </motion.div>
           </div>
