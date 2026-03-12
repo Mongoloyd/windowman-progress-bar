@@ -335,15 +335,15 @@ const MarketMakerManifesto = () => {
               style={{
                 fontFamily: "'DM Mono', monospace",
                 fontSize: 11,
-                color: "#fffff",
+                color: "#f2ef2c",
                 fontStyle: "italic",
                 borderTop: "1px solid rgba(255,255,255,0.06)",
                 marginTop: 14,
                 paddingTop: 12,
               }}
             >
-              If your current quote is already fair, we'll tell you that too. Your trust is worth more to us than one
-              referral.
+              If your current quote is already great, It will be revealed by my scan. There's no bias, its the same
+              proprietary formula for every scan. Your trust is worth more to us than one referral.
             </p>
           </div>
 
