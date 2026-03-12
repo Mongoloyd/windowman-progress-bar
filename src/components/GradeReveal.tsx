@@ -242,7 +242,7 @@ const GradeReveal = ({
             Use this exact language when you call your contractor back.
           </p>
 
-          <div style={{ background: "#F9FAFB", border: "1px solid #E5E7EB", borderLeft: "4px solid #0099BB", borderRadius: 10, padding: "24px 28px", position: "relative" }}>
+          <div style={{ background: "#F9FAFB", border: "1px solid #E5E7EB", borderLeft: "4px solid #0099BB", borderRadius: 10, padding: "24px 28px", position: "relative", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
             <button
               onClick={handleCopy}
               style={{ position: "absolute", top: 16, right: 16, background: "white", border: "1px solid #E5E7EB", borderRadius: 6, padding: "6px 12px", fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "#6B7280", cursor: "pointer" }}
