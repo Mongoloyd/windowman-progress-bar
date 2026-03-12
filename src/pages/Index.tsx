@@ -90,7 +90,7 @@ const Index = () => {
   const anyLeadCaptured = flowMode === 'A' ? leadCaptured : flowBLeadCaptured;
   const flowBComplete = flowMode === 'B' && quoteWatcherSet;
   const showRecoveryBar =
-    scrolledPast70 && !anyLeadCaptured && timeOnPage && !recoveryBarDismissed && !gradeRevealed && !flowBComplete;
+    IS_DEV_MODE || (scrolledPast70 && !anyLeadCaptured && timeOnPage && !recoveryBarDismissed && !gradeRevealed && !flowBComplete);
 
   // ── Flow A→B / B→A helpers ──
   const switchToFlowA = (triggeredFrom: string) => {
