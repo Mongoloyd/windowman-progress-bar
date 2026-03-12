@@ -260,6 +260,28 @@ const Index = () => {
       <NarrativeProof />
       <ClosingManifesto />
 
+      <ExitIntentModal
+        stepsCompleted={stepsCompleted}
+        flowMode={flowMode as 'A' | 'B' | 'C'}
+        leadCaptured={leadCaptured}
+        flowBLeadCaptured={flowBLeadCaptured}
+        county={selectedCounty}
+        answers={{
+          windowCount: null,
+          projectType: null,
+          county: selectedCounty !== "your county" ? selectedCounty : null,
+          quoteStage: null,
+          firstName: null,
+          email: null,
+          phone: null,
+        }}
+        onClose={() => {}}
+        onCTAClick={() => {
+          setPowerToolTriggered(true);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+      />
+
       <StickyRecoveryBar
         stepsCompleted={stepsCompleted}
         county={selectedCounty}
