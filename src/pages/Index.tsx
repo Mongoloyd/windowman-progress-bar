@@ -126,6 +126,8 @@ const Index = () => {
                       document.getElementById("truth-gate")?.scrollIntoView({ behavior: "smooth" });
                     }, 100);
                   }}
+                  triggerPowerTool={powerToolTriggered}
+                  onPowerToolClose={() => setPowerToolTriggered(false)}
                 />
               </motion.div>
             ) : (
