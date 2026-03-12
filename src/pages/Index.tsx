@@ -38,6 +38,9 @@ const mockAuditResult = {
 };
 
 const Index = () => {
+  // SET TO FALSE BEFORE DEPLOYING TO PRODUCTION
+  const IS_DEV_MODE = true;
+
   // ── Flow mode ──
   const [flowMode, setFlowMode] = useState<'A' | 'B'>('A');
 
