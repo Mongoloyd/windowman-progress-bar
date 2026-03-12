@@ -55,7 +55,7 @@ const getCtaTarget = (flowMode: string, flowBLeadCaptured: boolean) => {
 const StickyRecoveryBar = ({
   stepsCompleted, county, isVisible, onDismiss,
   flowMode = 'A', flowBLeadCaptured = false, quoteWatcherSet = false,
-  onDemoCTAClick, leadCaptured = false,
+  onDemoCTAClick, leadCaptured = false, isDevMode = false,
 }: StickyRecoveryBarProps) => {
   const [isUrgent, setIsUrgent] = useState(false);
   const controls = useAnimationControls();
