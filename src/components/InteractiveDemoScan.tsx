@@ -149,10 +149,10 @@ const MockDocument = ({ activeScan, phase, scanText, scanProgress }: any) => {
 
           {/* Laser Sweep */}
           <motion.div
-          initial={{ top: "0%" }}
-          animate={{ top: "100%" }}
+          initial={{ top: "-10%" }}
+          animate={{ top: "110%" }}
           transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-          className="absolute left-6 right-6 h-[2px] bg-cyan shadow-[0_0_20px_4px_rgba(0,153,187,0.4)] z-10" />
+          className="absolute left-0 right-0 h-[2px] bg-cyan shadow-[0_0_20px_4px_rgba(0,153,187,0.4)] z-10" />
         
 
           {/* AI Status Box */}
@@ -255,7 +255,7 @@ const InteractiveDemoScan = () => {
       </div>
 
       {/* FIXED HEIGHT CONTAINER */}
-      <div className="mx-auto max-w-[520px] rounded-2xl border-[5px] border-cyan/30 bg-card p-6 md:p-8 h-[480px] flex flex-col relative">
+      <div className="mx-auto max-w-[520px] rounded-2xl border-[1.5px] border-border bg-card p-6 md:p-8 shadow-[0_4px_24px_rgba(15,20,25,0.08)] h-[480px] flex flex-col relative">
         <AnimatePresence mode="wait">
           {/* ── PHASES 1 & 2: Full Document & Scan ───────── */}
           {(phase === "doc" || phase === "scan") &&
