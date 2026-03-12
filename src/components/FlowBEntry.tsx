@@ -267,7 +267,7 @@ const FlowBEntry = ({ onContinueToTool, onSwitchToFlowA }: FlowBEntryProps) => {
               marginBottom: 48,
             }}
           >
-            The contractor will arrive with information.
+            The Contractor Will Arrive Armed With Information.
             <br className="hidden md:block" /> Now you will too.
           </h2>
 
@@ -443,7 +443,7 @@ const FlowBEntry = ({ onContinueToTool, onSwitchToFlowA }: FlowBEntryProps) => {
                             fontStyle: "italic",
                           }}
                         >
-                          Your grade waits here
+                          Your Grade Waits Here
                         </p>
                       </div>
                     )}
@@ -463,8 +463,8 @@ const FlowBEntry = ({ onContinueToTool, onSwitchToFlowA }: FlowBEntryProps) => {
                 fontStyle: "italic",
               }}
             >
-              Most contractors budget on the assumption you won't check.
-              <br className="hidden md:block" /> You're about to become the exception.
+              Most Contractors Budget on the Assumption You Won't Check.
+              <br className="hidden md:block" /> You're About to Become The UnExpected.
             </p>
             <p
               style={{
@@ -474,7 +474,7 @@ const FlowBEntry = ({ onContinueToTool, onSwitchToFlowA }: FlowBEntryProps) => {
                 marginTop: 8,
               }}
             >
-              4,127 Florida homeowners did this before their last window project.
+              4,127 Florida Homeowners Did This Before Their Last Window Project.
             </p>
           </div>
         </div>
