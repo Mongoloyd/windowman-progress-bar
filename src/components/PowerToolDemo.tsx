@@ -1640,7 +1640,15 @@ export default function PowerToolFlow({ onUploadQuote, triggerOpen, onToolClose 
     setState("modal");
   };
 
-  const closeAll = () => setState("idle");
+  const closeAll = () => {
+    setState("idle");
+    onToolClose?.();
+  };
+
+  // External trigger: open modal when triggerOpen transitions to true
+  useEffect(() => {
+    if (triggerOpen && state === "idle") openModal();
+  }, [triggerOpen]);
 
   const handleLeadComplete = (formData) => {
     setLead(formData);
