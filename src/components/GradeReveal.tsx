@@ -90,7 +90,17 @@ const GradeReveal = ({
   };
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      style={{
+        borderRadius: 16,
+        border: "1px solid rgba(0, 242, 255, 0.12)",
+        boxShadow: "0 4px 24px rgba(0, 242, 255, 0.08), 0 20px 60px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.06)",
+        overflow: "hidden",
+      }}
+    >
       {/* SECTION 1 — VERDICT HEADER */}
       <section style={{ background: "#FAFAFA" }} className="py-16 md:py-20 px-4 md:px-8">
         <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
