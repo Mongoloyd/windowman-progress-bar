@@ -237,7 +237,7 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
 
             {/* Trust Line */}
             <div
-              className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-4"
+              className="flex flex-col items-start w-fit mx-auto gap-y-1 mt-4"
               style={{
                 fontFamily: "'DM Sans', sans-serif",
                 fontSize: 13,
@@ -246,7 +246,6 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
             >
               {trustItems.map((item, i) => (
                 <span key={i} className="flex items-center gap-1">
-                  {i > 0 && <span className="mr-2 hidden sm:inline">·</span>}
                   <span style={{ color: "#059669" }}>✓</span>
                   {item}
                 </span>
