@@ -259,8 +259,9 @@ const IndustryTruth = () => {
       <EvidenceLightbox
         open={lightboxIndex !== null}
         onOpenChange={(open) => !open && setLightboxIndex(null)}
-        src={lightboxIndex !== null ? blocks[lightboxIndex].image : ""}
-        alt={lightboxIndex !== null ? blocks[lightboxIndex].alt : ""}
+        images={blocks.map((b) => ({ src: b.image, alt: b.alt }))}
+        currentIndex={lightboxIndex ?? 0}
+        onIndexChange={setLightboxIndex}
       />
     </section>
   );
