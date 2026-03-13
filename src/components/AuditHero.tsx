@@ -237,7 +237,7 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
 
             {/* Trust Line */}
             <div
-              className="flex flex-col items-start w-fit mx-auto gap-y-1 mt-4"
+              className="flex flex-col items-start w-fit ml-0 gap-y-1 mt-4"
               style={{
                 fontFamily: "'DM Sans', sans-serif",
                 fontSize: 13,
