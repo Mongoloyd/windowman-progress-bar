@@ -48,7 +48,7 @@ const TrustFooter = React.forwardRef<HTMLDivElement>((props, ref) => {
         padding: "10px 0 4px",
         fontFamily: "'Inter', system-ui, sans-serif",
         fontSize: "11px",
-        color: "rgba(241,245,249,0.9)",
+        color: "rgba(0, 0, 0, 0.9)",
       }}
     >
       {["🔒 256-bit Encrypted", "No Credit Card", "Results in 60s"].map((t) => (
