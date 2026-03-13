@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Home, Wrench, BarChart3, Check, Scale, ArrowRight, ArrowDown } from "lucide-react";
-import windowmanHero from "@/assets/windowman-hero.webp";
+import windowmanHero from "@/assets/windowman-truth.avif";
 
 const listItems = [
   "Free AI analysis of your quote",
