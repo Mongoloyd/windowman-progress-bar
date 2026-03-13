@@ -19,11 +19,13 @@ interface EvidenceLightboxProps {
 const EvidenceLightbox = ({
   open,
   onOpenChange,
-  images,
+  images = [],
   currentIndex,
   onIndexChange,
 }: EvidenceLightboxProps) => {
   const count = images.length;
+
+  if (!images || images.length === 0) return null;
 
   const goNext = useCallback(() => {
     onIndexChange((currentIndex + 1) % count);
