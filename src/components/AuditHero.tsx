@@ -5,28 +5,28 @@ import handScannerHero from "@/assets/hand-scanner-hero.webp";
 const PowerToolFlow = React.lazy(() => import("./PowerToolDemo"));
 
 const flagCards = [
-  {
-    stripe: "#DC2626",
-    icon: "⚠",
-    label: "No Window Brand Specified",
-    labelColor: "#DC2626",
-    sub: "Contractor can install any quality level",
-  },
-  {
-    stripe: "#F59E0B",
-    icon: "⚡",
-    label: "Labor Warranty: 1 Year Only",
-    labelColor: "#D97706",
-    sub: "Industry standard is 2–5 years",
-  },
-  {
-    stripe: "#059669",
-    icon: "✓",
-    label: "Permit Cost Included",
-    labelColor: "#059669",
-    sub: "This is correctly structured",
-  },
-];
+{
+  stripe: "#DC2626",
+  icon: "⚠",
+  label: "No Window Brand Specified",
+  labelColor: "#DC2626",
+  sub: "Contractor can install any quality level"
+},
+{
+  stripe: "#F59E0B",
+  icon: "⚡",
+  label: "Labor Warranty: 1 Year Only",
+  labelColor: "#D97706",
+  sub: "Industry standard is 2–5 years"
+},
+{
+  stripe: "#059669",
+  icon: "✓",
+  label: "Permit Cost Included",
+  labelColor: "#059669",
+  sub: "This is correctly structured"
+}];
+
 
 const trustItems = ["No account required", "Your contractor never knows", "Results in 60 seconds"];
 
@@ -46,8 +46,8 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
     <section style={{ backgroundColor: "#FFFFFF" }}>
       <div className="mx-auto max-w-6xl px-4 md:px-8 pt-12 pb-16 md:pt-20 md:pb-24">
         {/* CSS Grid: 2 columns on md+, single column on mobile.
-            On mobile: left col order-1, power-tool order-2, right col order-3.
-            On desktop: left col spans col 1, right col + power-tool span col 2. */}
+              On mobile: left col order-1, power-tool order-2, right col order-3.
+              On desktop: left col spans col 1, right col + power-tool span col 2. */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
           {/* MOBILE HERO — order-0, visible only on mobile */}
           <div className="md:hidden order-0 flex flex-col items-center text-center gap-3">
@@ -58,9 +58,9 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                 fontWeight: 800,
                 letterSpacing: "-0.01em",
                 color: "#0F1F35",
-                lineHeight: 1.1,
-              }}
-            >
+                lineHeight: 1.1
+              }}>
+              
               WINDOW<span style={{ color: "#C8952A" }}>MAN</span>
             </h2>
             <img
@@ -69,18 +69,18 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
               style={{
                 maxWidth: "85vw",
                 maxHeight: "40vh",
-                objectFit: "contain",
-              }}
-            />
+                objectFit: "contain"
+              }} />
+            
             <p
               style={{
                 fontFamily: "'DM Mono', monospace",
                 fontSize: 11,
                 fontWeight: 500,
                 letterSpacing: "0.18em",
-                color: "#6B7280",
-              }}
-            >
+                color: "#6B7280"
+              }} className="text-cyan-400 font-bold">
+              
               FORENSIC QUOTE ANALYSIS
             </p>
           </div>
@@ -90,8 +90,8 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="order-1"
-          >
+            className="order-1">
+            
             {/* Eyebrow */}
             <div
               className="inline-flex items-center gap-2 mb-5"
@@ -99,9 +99,9 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                 background: "#FDF3E3",
                 border: "1px solid #C8952A",
                 borderRadius: 6,
-                padding: "4px 12px",
-              }}
-            >
+                padding: "4px 12px"
+              }}>
+              
               <span style={{ color: "#C8952A", fontSize: 14 }}>🛡</span>
               <span
                 style={{
@@ -109,9 +109,9 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                   fontSize: 11,
                   fontWeight: 600,
                   letterSpacing: "0.08em",
-                  color: "#C8952A",
-                }}
-              >
+                  color: "#C8952A"
+                }}>
+                
                 IMPACT WINDOW QUOTES WITH AI
               </span>
             </div>
@@ -125,9 +125,9 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                 letterSpacing: "-0.02em",
                 color: "#0F1F35",
                 lineHeight: 1.15,
-                marginBottom: 20,
-              }}
-            >
+                marginBottom: 20
+              }}>
+              
               Your Quote Looks Legitimate.
               <br />
               That's Exactly What <span style={{ color: "#C8952A" }}>They're Counting On.</span>
@@ -141,9 +141,9 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                 fontWeight: 400,
                 color: "#374151",
                 lineHeight: 1.7,
-                marginBottom: 32,
-              }}
-            >
+                marginBottom: 32
+              }}>
+              
               The impact window industry has no pricing transparency standard.
               <br />
               WindowMan built one — and it reads your quote in{" "}
@@ -166,10 +166,10 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                   borderRadius: 10,
                   border: "none",
                   boxShadow: "0 4px 14px rgba(200, 149, 42, 0.35)",
-                  cursor: "pointer",
+                  cursor: "pointer"
                 }}
-                className="hover:shadow-lg transition-shadow"
-              >
+                className="hover:shadow-lg transition-shadow">
+                
                 Scan My Quote — It's Free
               </motion.button>
 
@@ -189,7 +189,7 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                     border: "1.5px solid #D1D5DB",
                     borderRadius: 10,
                     cursor: "pointer",
-                    transition: "border-color 0.2s, color 0.2s",
+                    transition: "border-color 0.2s, color 0.2s"
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.borderColor = "#0F1F35";
@@ -198,8 +198,8 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                   onMouseLeave={(e) => {
                     e.currentTarget.style.borderColor = "#D1D5DB";
                     e.currentTarget.style.color = "#374151";
-                  }}
-                >
+                  }}>
+                  
                   <span
                     style={{
                       display: "inline-flex",
@@ -214,9 +214,9 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                       padding: "2px 6px",
                       borderRadius: 4,
                       marginRight: 8,
-                      verticalAlign: "middle",
-                    }}
-                  >
+                      verticalAlign: "middle"
+                    }}>
+                    
                     NEW
                   </span>
                   Getting Quotes Soon? We Can Arm You First →
@@ -227,9 +227,9 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                     fontSize: 12,
                     color: "#6B7280",
                     textAlign: "center",
-                    marginTop: 6,
-                  }}
-                >
+                    marginTop: 6
+                  }}>
+                  
                   Generate your fair-market baseline before the contractor arrives
                 </p>
               </div>
@@ -237,33 +237,34 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
 
             {/* Trust Line */}
             <div
-              className="flex flex-col items-start w-fit ml-0 gap-y-1 mt-4"
+              className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-4"
               style={{
                 fontFamily: "'DM Sans', sans-serif",
                 fontSize: 13,
-                color: "#6B7280",
-              }}
-            >
-              {trustItems.map((item, i) => (
-                <span key={i} className="flex items-center gap-1">
+                color: "#6B7280"
+              }}>
+              
+              {trustItems.map((item, i) =>
+              <span key={i} className="flex items-center gap-1">
+                  {i > 0 && <span className="mr-2 hidden sm:inline">·</span>}
                   <span style={{ color: "#059669" }}>✓</span>
                   {item}
                 </span>
-              ))}
+              )}
             </div>
           </motion.div>
 
           {/* RIGHT COLUMN — Grade C card + Power Tool below it
-              Desktop: order-2 (natural), column 2
-              Mobile: Grade C card is hidden, Power Tool shows as order-2 */}
+                Desktop: order-2 (natural), column 2
+                Mobile: Grade C card is hidden, Power Tool shows as order-2 */}
           <div className="order-2 flex flex-col items-center">
             {/* Floating Grade C Card — desktop only */}
             <motion.div
               className="hidden md:block"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
+              transition={{ duration: 0.5, delay: 0.2 }}>
+              
               <motion.div
                 animate={{ y: [-6, 0, -6] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -274,9 +275,9 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                   padding: 28,
                   boxShadow: "0 8px 40px rgba(15, 31, 53, 0.12)",
                   maxWidth: 420,
-                  width: "100%",
-                }}
-              >
+                  width: "100%"
+                }}>
+                
                 {/* Card Header */}
                 <p
                   style={{
@@ -284,9 +285,9 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                     fontSize: 10,
                     color: "#6B7280",
                     letterSpacing: "0.12em",
-                    marginBottom: 20,
-                  }}
-                >
+                    marginBottom: 20
+                  }}>
+                  
                   SAMPLE GRADE REPORT
                 </p>
 
@@ -298,9 +299,9 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                       fontSize: 96,
                       fontWeight: 800,
                       color: "#F97316",
-                      lineHeight: 1,
-                    }}
-                  >
+                      lineHeight: 1
+                    }}>
+                    
                     C
                   </div>
                   <p
@@ -308,9 +309,9 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                       fontFamily: "'DM Mono', monospace",
                       fontSize: 11,
                       color: "#6B7280",
-                      marginTop: 4,
-                    }}
-                  >
+                      marginTop: 4
+                    }}>
+                    
                     GRADE C — REVIEW BEFORE SIGNING
                   </p>
                 </div>
@@ -321,17 +322,17 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                     background: "#FEF2F2",
                     borderRadius: 8,
                     padding: "12px 16px",
-                    marginTop: 16,
-                  }}
-                >
+                    marginTop: 16
+                  }}>
+                  
                   <p
                     style={{
                       fontFamily: "'DM Mono', monospace",
                       color: "#DC2626",
                       fontWeight: 700,
-                      fontSize: 16,
-                    }}
-                  >
+                      fontSize: 16
+                    }}>
+                    
                     $4,800 above fair market
                   </p>
                   <p
@@ -339,56 +340,56 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                       fontFamily: "'DM Mono', monospace",
                       fontSize: 11,
                       color: "#6B7280",
-                      marginTop: 2,
-                    }}
-                  >
+                      marginTop: 2
+                    }}>
+                    
                     Broward County benchmark · Q1 2025
                   </p>
                 </div>
 
                 {/* Flag Cards */}
                 <div className="flex flex-col gap-2 mt-4">
-                  {flagCards.map((flag, i) => (
-                    <div
-                      key={i}
-                      className="flex overflow-hidden"
-                      style={{
-                        background: "#FFFFFF",
-                        border: "1px solid #E5E7EB",
-                        borderRadius: 8,
-                      }}
-                    >
+                  {flagCards.map((flag, i) =>
+                  <div
+                    key={i}
+                    className="flex overflow-hidden"
+                    style={{
+                      background: "#FFFFFF",
+                      border: "1px solid #E5E7EB",
+                      borderRadius: 8
+                    }}>
+                    
                       <div
-                        style={{
-                          width: 3,
-                          backgroundColor: flag.stripe,
-                          flexShrink: 0,
-                        }}
-                      />
+                      style={{
+                        width: 3,
+                        backgroundColor: flag.stripe,
+                        flexShrink: 0
+                      }} />
+                    
                       <div style={{ padding: "10px 14px" }}>
                         <p
-                          style={{
-                            fontFamily: "'DM Sans', sans-serif",
-                            fontSize: 13,
-                            fontWeight: 700,
-                            color: flag.labelColor,
-                          }}
-                        >
+                        style={{
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontSize: 13,
+                          fontWeight: 700,
+                          color: flag.labelColor
+                        }}>
+                        
                           {flag.icon} {flag.label}
                         </p>
                         <p
-                          style={{
-                            fontFamily: "'DM Sans', sans-serif",
-                            fontSize: 11,
-                            color: "#6B7280",
-                            marginTop: 2,
-                          }}
-                        >
+                        style={{
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontSize: 11,
+                          color: "#6B7280",
+                          marginTop: 2
+                        }}>
+                        
                           {flag.sub}
                         </p>
                       </div>
                     </div>
-                  ))}
+                  )}
                 </div>
 
                 {/* Footer */}
@@ -397,46 +398,44 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                   style={{
                     borderTop: "1px solid #E5E7EB",
                     marginTop: 16,
-                    paddingTop: 14,
-                  }}
-                >
+                    paddingTop: 14
+                  }}>
+                  
                   <p
                     style={{
                       fontFamily: "'DM Sans', sans-serif",
                       fontSize: 12,
                       fontStyle: "italic",
-                      color: "#9CA3AF",
-                    }}
-                  >
-                    <span>This is a sample.</span>
-                    <br className="md:hidden" />
-                    <span> Your quote will generate a real grade.</span>
+                      color: "#9CA3AF"
+                    }}>
+                    
+                    This is a sample. Your quote will generate a real grade.
                   </p>
                 </div>
               </motion.div>
             </motion.div>
 
             {/* Power Tool — 3rd CTA, single instance for both mobile & desktop
-                1-second delayed reveal animation */}
+                  1-second delayed reveal animation */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1, duration: 0.6, ease: "easeOut" }}
-              className="mt-8 md:mt-10 w-full flex justify-center"
-            >
+              className="mt-8 md:mt-10 w-full flex justify-center">
+              
               <React.Suspense fallback={<div className="h-[120px]" />}>
                 <PowerToolFlow
                   onUploadQuote={onUploadQuote}
                   triggerOpen={triggerPowerTool}
-                  onToolClose={onPowerToolClose}
-                />
+                  onToolClose={onPowerToolClose} />
+                
               </React.Suspense>
             </motion.div>
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default AuditHero;
