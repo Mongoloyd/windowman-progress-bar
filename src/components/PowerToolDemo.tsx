@@ -34,7 +34,6 @@ const DS_PAGE_STYLES = `
   .ds-wrapper button:focus-visible { outline: 2px solid rgba(6,182,212,0.6); outline-offset: 2px; }
 `;
 
-
 // ─────────────────────────────────────────────────────────────────────────────
 // Inlined TrustFooter (was @/components/ds/TrustFooter)
 // ─────────────────────────────────────────────────────────────────────────────
@@ -49,7 +48,7 @@ const TrustFooter = React.forwardRef<HTMLDivElement>((props, ref) => {
         padding: "10px 0 4px",
         fontFamily: "'Inter', system-ui, sans-serif",
         fontSize: "11px",
-        color: "rgba(241,245,249,0.35)",
+        color: "rgba(241,245,249,0.9)",
       }}
     >
       {["🔒 256-bit Encrypted", "No Credit Card", "Results in 60s"].map((t) => (
@@ -163,7 +162,11 @@ const COMPLIANCE = [
   { label: "Missile Impact Rating", status: "warn", detail: "Not clearly stated — request NOA/approval sheet proof" },
   { label: "Design Pressure", status: "fail", detail: "DP not listed — compliance cannot be verified" },
   { label: "Miami-Dade NOA", status: "warn", detail: "No NOA numbers found — request product-specific approvals" },
-  { label: "FL Product Approval", status: "warn", detail: "Partial — FL12345 referenced, needs per-model verification" },
+  {
+    label: "FL Product Approval",
+    status: "warn",
+    detail: "Partial — FL12345 referenced, needs per-model verification",
+  },
 ];
 
 const NEXT_STEPS = [
@@ -1072,7 +1075,15 @@ function DemoReport({ lead, onUploadQuote, onClose }) {
           backdropFilter: "blur(12px)",
         }}
       >
-        <div style={{ maxWidth: "940px", margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div
+          style={{
+            maxWidth: "940px",
+            margin: "0 auto",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <span style={{ fontSize: "13px", color: "#fbbf24", fontWeight: 600 }}>
             ⚡ DEMO — Real Pompano Beach quote data.{" "}
             <a
@@ -1087,9 +1098,16 @@ function DemoReport({ lead, onUploadQuote, onClose }) {
             <button
               onClick={onClose}
               style={{
-                background: "rgba(245,158,11,0.1)", border: "1px solid rgba(245,158,11,0.3)",
-                color: "#fbbf24", padding: "6px 14px", borderRadius: "6px", cursor: "pointer",
-                fontSize: "12px", fontWeight: 700, whiteSpace: "nowrap", marginLeft: "12px",
+                background: "rgba(245,158,11,0.1)",
+                border: "1px solid rgba(245,158,11,0.3)",
+                color: "#fbbf24",
+                padding: "6px 14px",
+                borderRadius: "6px",
+                cursor: "pointer",
+                fontSize: "12px",
+                fontWeight: 700,
+                whiteSpace: "nowrap",
+                marginLeft: "12px",
               }}
             >
               Exit Demo ✕
@@ -1272,9 +1290,24 @@ function DemoReport({ lead, onUploadQuote, onClose }) {
           <SectionHead kicker="PRICING" title="Price Intelligence" />
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(190px,1fr))", gap: "12px" }}>
             {[
-              { label: "Total Project Price", value: fmt$(DEMO.totalPrice), note: "Total stated in document", tone: "warn" },
-              { label: "Openings (count)", value: `${DEMO.openings} openings`, note: "Used for comparison", tone: "neutral" },
-              { label: "Price Per Opening", value: fmt$(DEMO.pricePerOpening), note: "Best single comparison metric", tone: "warn" },
+              {
+                label: "Total Project Price",
+                value: fmt$(DEMO.totalPrice),
+                note: "Total stated in document",
+                tone: "warn",
+              },
+              {
+                label: "Openings (count)",
+                value: `${DEMO.openings} openings`,
+                note: "Used for comparison",
+                tone: "neutral",
+              },
+              {
+                label: "Price Per Opening",
+                value: fmt$(DEMO.pricePerOpening),
+                note: "Best single comparison metric",
+                tone: "warn",
+              },
               { label: "Market Check", value: "HIGH", note: "Elevated — request itemized lines", tone: "danger" },
             ].map((p) => (
               <Card key={p.label} style={{ padding: "16px 18px" }}>
@@ -1585,7 +1618,15 @@ function DemoScanPage({ lead, onUploadQuote, onClose }) {
 // ROOT EXPORT — Drop <PowerToolFlow /> on your homepage
 // Style-isolated: all rendering wrapped in a protective container
 // ─────────────────────────────────────────────────────────────────────────────
-export default function PowerToolFlow({ onUploadQuote, triggerOpen, onToolClose }: { onUploadQuote?: () => void; triggerOpen?: boolean; onToolClose?: () => void }) {
+export default function PowerToolFlow({
+  onUploadQuote,
+  triggerOpen,
+  onToolClose,
+}: {
+  onUploadQuote?: () => void;
+  triggerOpen?: boolean;
+  onToolClose?: () => void;
+}) {
   const [state, setState] = useState("idle");
   const [lead, setLead] = useState(null);
 
@@ -1596,7 +1637,9 @@ export default function PowerToolFlow({ onUploadQuote, triggerOpen, onToolClose 
     } else {
       document.body.style.overflow = "unset";
     }
-    return () => { document.body.style.overflow = "unset"; };
+    return () => {
+      document.body.style.overflow = "unset";
+    };
   }, [state]);
 
   const openModal = () => {
@@ -1637,21 +1680,26 @@ export default function PowerToolFlow({ onUploadQuote, triggerOpen, onToolClose 
       </div>
 
       {/* PORTAL: Lead Modal */}
-      {state === "modal" && createPortal(
-        <LeadModal onComplete={handleLeadComplete} onClose={closeAll} />,
-        document.body
-      )}
+      {state === "modal" &&
+        createPortal(<LeadModal onComplete={handleLeadComplete} onClose={closeAll} />, document.body)}
 
       {/* PORTAL: Full Screen Demo */}
-      {state === "demo" && createPortal(
-        <div style={{
-          position: "fixed", inset: 0, zIndex: 9999, overflowY: "auto",
-          background: T.bg, fontFamily: "'Inter', system-ui, sans-serif",
-        }}>
-          <DemoScanPage lead={lead} onUploadQuote={onUploadQuote} onClose={closeAll} />
-        </div>,
-        document.body
-      )}
+      {state === "demo" &&
+        createPortal(
+          <div
+            style={{
+              position: "fixed",
+              inset: 0,
+              zIndex: 9999,
+              overflowY: "auto",
+              background: T.bg,
+              fontFamily: "'Inter', system-ui, sans-serif",
+            }}
+          >
+            <DemoScanPage lead={lead} onUploadQuote={onUploadQuote} onClose={closeAll} />
+          </div>,
+          document.body,
+        )}
     </div>
   );
 }
