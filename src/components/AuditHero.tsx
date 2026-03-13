@@ -409,7 +409,9 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                       color: "#9CA3AF",
                     }}
                   >
-                    This is a sample. Your quote will generate a real grade.
+                    <span>This is a sample.</span>
+                    <br className="md:hidden" />
+                    <span> Your quote will generate a real grade.</span>
                   </p>
                 </div>
               </motion.div>
