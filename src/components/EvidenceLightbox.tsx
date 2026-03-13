@@ -25,13 +25,13 @@ const EvidenceLightbox = ({
 }: EvidenceLightboxProps) => {
   const count = images.length;
 
-  if (!images || images.length === 0) return null;
-
   const goNext = useCallback(() => {
+    if (count === 0) return;
     onIndexChange((currentIndex + 1) % count);
   }, [currentIndex, count, onIndexChange]);
 
   const goPrev = useCallback(() => {
+    if (count === 0) return;
     onIndexChange((currentIndex - 1 + count) % count);
   }, [currentIndex, count, onIndexChange]);
 
@@ -56,6 +56,8 @@ const EvidenceLightbox = ({
       img.src = images[i].src;
     });
   }, [open, currentIndex, count, images]);
+
+  if (count === 0) return null;
 
   const current = images[currentIndex] ?? images[0];
   if (!current) return null;
