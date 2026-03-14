@@ -124,6 +124,14 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
   });
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [transitionState, setTransitionState] = useState<TransitionState>("idle");
+  const [submitState, setSubmitState] = useState<SubmitState>("idle");
+  const [fieldStatus, setFieldStatus] = useState<Record<string, FieldStatus>>({
+    firstName: "untouched",
+    email: "untouched",
+    phone: "untouched",
+  });
+  const [tcpaConsent, setTcpaConsent] = useState(false);
+  const phoneInput = usePhoneInput();
 
   const selectedCounty = answers.county || "your county";
   const selectedRange = answers.quoteRange || "your";
