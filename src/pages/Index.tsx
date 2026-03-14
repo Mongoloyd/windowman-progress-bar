@@ -108,6 +108,7 @@ const Index = () => {
       setFlowMode('A');
     }
     pendingScrollRef.current = true;
+    setTruthGateHighlight(true);
     console.log({ event: 'wm_truth_gate_triggered', source });
   };
 
