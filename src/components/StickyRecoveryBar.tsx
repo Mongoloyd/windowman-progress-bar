@@ -103,6 +103,11 @@ const StickyRecoveryBar = ({
   }, [isVisible, stepsCompleted]);
 
   const handleCta = () => {
+    if (gradeRevealed && onContractorMatchClick) {
+      onContractorMatchClick();
+      console.log({ event: "wm_recovery_bar_contractor_clicked", flowMode });
+      return;
+    }
     const target = getCtaTarget(flowMode, flowBLeadCaptured);
     document.getElementById(target)?.scrollIntoView({ behavior: "smooth" });
     console.log({ event: "wm_recovery_bar_clicked", stepsCompleted, flowMode });
