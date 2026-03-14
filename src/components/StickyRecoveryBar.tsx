@@ -12,6 +12,8 @@ interface StickyRecoveryBarProps {
   onDemoCTAClick?: () => void;
   leadCaptured?: boolean;
   isDevMode?: boolean;
+  gradeRevealed?: boolean;
+  onContractorMatchClick?: () => void;
 }
 
 const getStatusCopy = (steps: number, flowMode: string, flowBLeadCaptured: boolean) => {
