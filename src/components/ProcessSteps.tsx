@@ -17,12 +17,20 @@ const deliverables = [
 { bg: "#E8F7FB", color: "#0099BB", icon: "$", text: "The specific dollar amount you're over or under market", mono: true }];
 
 
-const ProcessSteps = () => {
+interface ProcessStepsProps {
+  onScanClick?: () => void;
+}
+
+const ProcessSteps = ({ onScanClick }: ProcessStepsProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.1 });
 
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const handleScanClick = () => {
+    if (onScanClick) {
+      onScanClick();
+    } else {
+      document.getElementById("truth-gate")?.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
