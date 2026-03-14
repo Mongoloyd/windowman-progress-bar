@@ -51,7 +51,7 @@ const ClosingManifesto = () => {
             marginBottom: 24,
           }}
         >
-          The industry built a system where you need their expertise to understand their quote.
+          The Industry Built a System Where You Need Their Expertise to Understand Their Quote.
         </motion.p>
         <motion.p
           initial={{ opacity: 0, y: 16 }}
@@ -66,7 +66,7 @@ const ClosingManifesto = () => {
             lineHeight: 1.5,
           }}
         >
-          We built a system where you don't.
+          We Built a System Where You Don't.
         </motion.p>
 
         {/* Trust Checks */}
@@ -90,9 +90,7 @@ const ClosingManifesto = () => {
               >
                 <span style={{ color: "#FFFFFF", fontSize: 12, fontWeight: 700 }}>✓</span>
               </div>
-              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#D1D5DB" }}>
-                {text}
-              </span>
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: "#D1D5DB" }}>{text}</span>
             </div>
           ))}
         </motion.div>
@@ -125,17 +123,38 @@ const ClosingManifesto = () => {
               cursor: "pointer",
               transition: "box-shadow 0.2s",
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 6px 24px rgba(200, 149, 42, 0.55)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 6px 24px rgba(200, 149, 42, 0.4)"; }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = "0 6px 24px rgba(200, 149, 42, 0.55)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = "0 6px 24px rgba(200, 149, 42, 0.4)";
+            }}
           >
             Scan My Quote →
           </motion.button>
 
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#6B7280", fontStyle: "italic", marginTop: 14 }}>
+          <p
+            style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: 13,
+              color: "#6B7280",
+              fontStyle: "italic",
+              marginTop: 14,
+            }}
+          >
             Or explore a{" "}
             <button
               onClick={() => console.log({ event: "wm_sample_report_clicked" })}
-              style={{ fontFamily: "inherit", fontSize: "inherit", color: "#94A3B8", background: "none", border: "none", textDecoration: "underline", cursor: "pointer", fontStyle: "italic" }}
+              style={{
+                fontFamily: "inherit",
+                fontSize: "inherit",
+                color: "#94A3B8",
+                background: "none",
+                border: "none",
+                textDecoration: "underline",
+                cursor: "pointer",
+                fontStyle: "italic",
+              }}
             >
               sample report
             </button>{" "}
@@ -145,23 +164,50 @@ const ClosingManifesto = () => {
 
         {/* Footer */}
         <div style={{ paddingTop: 40, borderTop: "1px solid rgba(255,255,255,0.08)", marginTop: 56 }}>
-          <div className="flex justify-center items-center gap-6 flex-wrap" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "#4B5563" }}>
+          <div
+            className="flex justify-center items-center gap-6 flex-wrap"
+            style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "#4B5563" }}
+          >
             <span>© 2025 WindowMan.pro</span>
             <span>·</span>
             <button
               onClick={() => console.log("privacy")}
-              style={{ fontFamily: "inherit", fontSize: "inherit", color: "#4B5563", background: "none", border: "none", cursor: "pointer", textDecoration: "none" }}
-              onMouseEnter={(e) => { e.currentTarget.style.textDecoration = "underline"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.textDecoration = "none"; }}
+              style={{
+                fontFamily: "inherit",
+                fontSize: "inherit",
+                color: "#4B5563",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                textDecoration: "none",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.textDecoration = "underline";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.textDecoration = "none";
+              }}
             >
               Privacy Policy
             </button>
             <span>·</span>
             <button
               onClick={() => console.log("terms")}
-              style={{ fontFamily: "inherit", fontSize: "inherit", color: "#4B5563", background: "none", border: "none", cursor: "pointer", textDecoration: "none" }}
-              onMouseEnter={(e) => { e.currentTarget.style.textDecoration = "underline"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.textDecoration = "none"; }}
+              style={{
+                fontFamily: "inherit",
+                fontSize: "inherit",
+                color: "#4B5563",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                textDecoration: "none",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.textDecoration = "underline";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.textDecoration = "none";
+              }}
             >
               Terms of Service
             </button>
