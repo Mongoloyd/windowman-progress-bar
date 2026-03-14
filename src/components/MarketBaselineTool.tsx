@@ -149,6 +149,14 @@ const MarketBaselineTool = ({
   const [form, setForm] = useState({ firstName: "", email: "", phone: "" });
   const [blurAmount, setBlurAmount] = useState(7);
   const [showOverlay, setShowOverlay] = useState(true);
+  const [submitState, setSubmitState] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [fieldStatus, setFieldStatus] = useState<Record<string, "untouched" | "valid" | "invalid">>({
+    firstName: "untouched",
+    email: "untouched",
+    phone: "untouched",
+  });
+  const [tcpaConsent, setTcpaConsent] = useState(false);
+  const phoneInput = usePhoneInput();
   const calcCounterActive = step === "calc";
   const calcCount = useCounter(427, 800, calcCounterActive);
 
