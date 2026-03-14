@@ -1338,7 +1338,7 @@ function DemoReport({ lead, onUploadQuote, onClose }) {
                 Ready to scan YOUR actual quote?
               </div>
               <div style={{ fontSize: "14px", color: T.muted, marginBottom: "22px", lineHeight: 1.6 }}>
-                Upload it in 60 seconds. Get your real Truth Report — free. Every clause, every red flag, every risk
+                Upload it in 60 seconds. Get your real AI Truth Report — free. Every clause, every red flag, every risk
                 score.
               </div>
               <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>

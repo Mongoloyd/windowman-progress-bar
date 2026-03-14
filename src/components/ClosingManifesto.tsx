@@ -139,7 +139,7 @@ const ClosingManifesto = ({ onScanClick, onDemoClick }: ClosingManifestoProps) =
               e.currentTarget.style.boxShadow = "0 6px 24px rgba(200, 149, 42, 0.4)";
             }}
           >
-            Scan My Quote →
+            Scan My Quote — It's Free
           </motion.button>
 
           <p

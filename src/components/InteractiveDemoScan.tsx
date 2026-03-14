@@ -381,7 +381,7 @@ const InteractiveDemoScan = ({ onScanClick }: InteractiveDemoScanProps) => {
                   onClick={handleCtaClick}
                   className="mt-4 w-full rounded-lg border border-border bg-muted px-5 py-2.5 font-body text-[13px] font-semibold text-foreground cursor-pointer hover:bg-accent transition-colors"
                 >
-                  Scan My Quote — Free →
+                  Scan My Quote — It's Free →
                 </motion.button>
               )}
 

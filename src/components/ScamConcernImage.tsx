@@ -35,7 +35,7 @@ const ScamConcernImage = () => {
             className="text-sm text-cyan hover:text-cyan/80 transition-colors cursor-pointer font-extrabold md:text-xl"
             style={{ fontFamily: "'Jost', sans-serif" }}
           >
-            Don't Sign Until You've Got Your Free WindowMan Truth Report →
+            Don't Sign Until You've Got Your Free WindowMan AI Truth Report →
           </button>
         </figcaption>
       </motion.figure>
