@@ -236,7 +236,7 @@ const InteractiveDemoScan = ({ onScanClick }: InteractiveDemoScanProps) => {
           setPhase("doc");
           setCurrentScanIndex((prev) => (prev + 1) % SCANS.length);
         }
-      }, 4500);
+      }, 6000);
     }
 
     return () => { if (timerRef.current) clearTimeout(timerRef.current); };
