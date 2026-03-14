@@ -211,14 +211,9 @@ const InteractiveDemoScan = ({ onScanClick }: InteractiveDemoScanProps) => {
     }
   }, [onScanClick]);
 
-  // Pause on hover/touch
-  const handlePause = useCallback(() => setPaused(true), []);
-  const handleResume = useCallback(() => setPaused(false), []);
 
-  // Phase machine — pauses when user is engaged
+  // Phase machine — always auto-advances
   useEffect(() => {
-    if (paused) return;
-
     const set = (p: Phase, ms: number) => {
       timerRef.current = setTimeout(() => {
         if (mountedRef.current) setPhase(p);
