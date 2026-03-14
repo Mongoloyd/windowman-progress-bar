@@ -7,6 +7,7 @@ interface EvidenceLockerProps {
   county?: string;
   dollarDelta?: number;
   firstName?: string;
+  onSecondScan?: () => void;
   redFlagCount?: number;
   amberCount?: number;
   greenCount?: number;
