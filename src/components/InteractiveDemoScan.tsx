@@ -240,7 +240,7 @@ const InteractiveDemoScan = ({ onScanClick }: InteractiveDemoScanProps) => {
     }
 
     return () => { if (timerRef.current) clearTimeout(timerRef.current); };
-  }, [phase, paused]);
+  }, [phase]);
 
   // Scan text cycling
   useEffect(() => {
