@@ -268,11 +268,12 @@ const Index = () => {
             grade={mockAuditResult.grade}
             dollarDelta={mockAuditResult.dollarDelta}
           />
-          <EvidenceLocker
+           <EvidenceLocker
             grade={mockAuditResult.grade}
             county={mockAuditResult.county}
             dollarDelta={mockAuditResult.dollarDelta}
             firstName={mockAuditResult.firstName}
+            onSecondScan={() => triggerTruthGate('second_opinion_scan')}
             redFlagCount={mockAuditResult.flags.filter(f => f.severity === "red").length}
             amberCount={mockAuditResult.flags.filter(f => f.severity === "amber").length}
             greenCount={mockAuditResult.flags.filter(f => f.severity === "green").length}
