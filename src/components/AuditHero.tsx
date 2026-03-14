@@ -430,22 +430,6 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
               </motion.div>
             </motion.div>
 
-            {/* Power Tool — 3rd CTA, single instance for both mobile & desktop
-                  1-second delayed reveal animation */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1, duration: 0.6, ease: "easeOut" }}
-              className="mt-8 md:mt-10 w-full flex justify-center">
-              
-              <React.Suspense fallback={<div className="h-[120px]" />}>
-                <PowerToolFlow
-                  onUploadQuote={onUploadQuote}
-                  triggerOpen={triggerPowerTool}
-                  onToolClose={onPowerToolClose} />
-                
-              </React.Suspense>
-            </motion.div>
           </div>
         </div>
       </div>
