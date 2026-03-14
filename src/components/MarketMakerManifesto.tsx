@@ -14,7 +14,11 @@ const listItems = [
   </>];
 
 
-const MarketMakerManifesto = () => {
+interface MarketMakerManifestoProps {
+  onDemoClick?: () => void;
+}
+
+const MarketMakerManifesto = ({ onDemoClick }: MarketMakerManifestoProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.1 });
 
@@ -446,6 +450,30 @@ const MarketMakerManifesto = () => {
             That's Why I Show You The Math.
           </p>
         </motion.div>
+
+        {/* Demo CTA */}
+        {onDemoClick && (
+          <motion.div {...fade(0.4)} className="text-center mt-12">
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={onDemoClick}
+              style={{
+                background: "transparent",
+                color: "#0891B2",
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: 14,
+                fontWeight: 600,
+                padding: "12px 28px",
+                borderRadius: 10,
+                border: "2px solid #0891B2",
+                cursor: "pointer",
+              }}
+            >
+              See the AI in Action — No Upload Needed
+            </motion.button>
+          </motion.div>
+        )}
       </div>
     </section>);
 
