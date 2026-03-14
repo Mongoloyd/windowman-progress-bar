@@ -100,7 +100,12 @@ const UploadZone = ({ isVisible, onScanStart }: UploadZoneProps) => {
               }}
               onDragLeave={() => setIsDragOver(false)}
               onDrop={handleDrop}
-              onClick={() => inputRef.current?.click()}
+              onClick={() => {
+                if (inputRef.current) {
+                  inputRef.current.value = "";
+                  inputRef.current.click();
+                }
+              }}
               style={{
                 border: `2px dashed ${isDragOver ? "#C8952A" : "#D1D5DB"}`,
                 borderRadius: 12,
