@@ -42,9 +42,10 @@ const stories = [
 
 interface NarrativeProofProps {
   onScanClick?: () => void;
+  onDemoClick?: () => void;
 }
 
-const NarrativeProof = ({ onScanClick }: NarrativeProofProps) => {
+const NarrativeProof = ({ onScanClick, onDemoClick }: NarrativeProofProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.1 });
 
