@@ -200,13 +200,13 @@ const EvidenceLocker = ({
           <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#6B7280" }}>Last updated: Today</span>
           <div className="flex gap-3">
             <button
-              onClick={() => console.log({ event: "wm_vault_downloaded" })}
+              onClick={handleDownload}
               style={{ border: "1.5px solid #E5E7EB", background: "white", borderRadius: 8, padding: "8px 16px", fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 600, color: "#374151", cursor: "pointer" }}
             >
               ⬇ Download All
             </button>
             <button
-              onClick={() => console.log({ event: "wm_vault_shared" })}
+              onClick={handleShare}
               style={{ border: "1.5px solid #E5E7EB", background: "white", borderRadius: 8, padding: "8px 16px", fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 600, color: "#374151", cursor: "pointer" }}
             >
               ↗ Share
