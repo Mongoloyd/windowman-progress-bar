@@ -111,7 +111,19 @@ const Spinner = () => (
   </svg>
 );
 
-const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () => void; onStepChange?: (step: number, county: string) => void }) => {
+const TruthGateFlow = ({ onLeadCaptured, onStepChange, highlight, onHighlightDone }: { onLeadCaptured?: () => void; onStepChange?: (step: number, county: string) => void; highlight?: boolean; onHighlightDone?: () => void }) => {
+  const [glowing, setGlowing] = useState(false);
+
+  useEffect(() => {
+    if (highlight) {
+      setGlowing(true);
+      const timer = setTimeout(() => {
+        setGlowing(false);
+        onHighlightDone?.();
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [highlight, onHighlightDone]);
   const [currentStep, setCurrentStep] = useState(1);
   const [answers, setAnswers] = useState<Answers>({
     windowCount: "",
