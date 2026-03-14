@@ -32,6 +32,7 @@ const EvidenceLocker = ({
   county = "Broward",
   dollarDelta = 4800,
   firstName = "Your",
+  onSecondScan,
   redFlagCount = 1,
   amberCount = 2,
   greenCount = 1,
