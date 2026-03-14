@@ -220,7 +220,6 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
       setSubmitState("error");
     }
   };
-  };
 
   const progressWidth = currentStep <= 4 ? `${currentStep * 25}%` : "100%";
 
