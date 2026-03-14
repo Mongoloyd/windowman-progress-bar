@@ -200,37 +200,80 @@ const MarketBaselineTool = ({
     [step, answers, onStepComplete],
   );
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateField = useCallback((field: string, value: string) => {
+    switch (field) {
+      case "firstName": return isValidName(value) ? "valid" : "invalid";
+      case "email": return isValidEmail(value) ? "valid" : "invalid";
+      case "phone": return phoneInput.isValid ? "valid" : "invalid";
+      default: return "untouched" as const;
+    }
+  }, [phoneInput.isValid]);
+
+  const handleFieldBlur = useCallback((field: string, value: string) => {
+    if (value.trim().length > 0) {
+      setFieldStatus(prev => ({ ...prev, [field]: validateField(field, value) }));
+    }
+  }, [validateField]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({
-      event: "wm_flow_b_lead_captured",
-      county: answers.county,
-      windowCount: answers.windowCount,
-      windowType: answers.windowType,
+
+    const nameValid = isValidName(form.firstName);
+    const emailValid = isValidEmail(form.email);
+    const phoneValid = phoneInput.isValid;
+
+    setFieldStatus({
+      firstName: nameValid ? "valid" : "invalid",
+      email: emailValid ? "valid" : "invalid",
+      phone: phoneValid ? "valid" : "invalid",
     });
-    onLeadCaptured?.(answers);
-    // Animate reveal
-    setShowOverlay(false);
-    setTimeout(() => {
-      const animStart = performance.now();
-      const animBlur = (now: number) => {
-        const t = Math.min((now - animStart) / 800, 1);
-        setBlurAmount(7 * (1 - t));
-        if (t < 1) requestAnimationFrame(animBlur);
-        else {
-          setStep("reveal");
-          console.log({
-            event: "wm_baseline_revealed",
-            county: answers.county,
-            windowCount: answers.windowCount,
-            baselineLow: priceRange[0],
-            baselineHigh: priceRange[1],
-          });
-          onBaselineRevealed?.();
-        }
+
+    if (!nameValid || !emailValid || !phoneValid || !tcpaConsent) return;
+
+    setSubmitState("submitting");
+
+    try {
+      const payload = {
+        event: "wm_flow_b_lead_captured",
+        ...form,
+        phone: phoneInput.e164,
+        phoneDisplay: phoneInput.displayValue,
+        county: answers.county,
+        windowCount: answers.windowCount,
+        windowType: answers.windowType,
+        timestamp: new Date().toISOString(),
+        source: "market-baseline",
       };
-      requestAnimationFrame(animBlur);
-    }, 400);
+      console.log(payload);
+      await new Promise(resolve => setTimeout(resolve, 800));
+      setSubmitState("success");
+      onLeadCaptured?.(answers);
+
+      // Animate reveal
+      setShowOverlay(false);
+      setTimeout(() => {
+        const animStart = performance.now();
+        const animBlur = (now: number) => {
+          const t = Math.min((now - animStart) / 800, 1);
+          setBlurAmount(7 * (1 - t));
+          if (t < 1) requestAnimationFrame(animBlur);
+          else {
+            setStep("reveal");
+            console.log({
+              event: "wm_baseline_revealed",
+              county: answers.county,
+              windowCount: answers.windowCount,
+              baselineLow: priceRange[0],
+              baselineHigh: priceRange[1],
+            });
+            onBaselineRevealed?.();
+          }
+        };
+        requestAnimationFrame(animBlur);
+      }, 400);
+    } catch {
+      setSubmitState("error");
+    }
   };
 
   return (
