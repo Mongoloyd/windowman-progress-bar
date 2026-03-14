@@ -555,7 +555,7 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange, highlight, onHighlightDon
 
   return (
     <section id="truth-gate" style={{ backgroundColor: "#FAFAFA" }}>
-      <div className="mx-auto max-w-2xl px-4 md:px-8 py-16 md:py-24">
+      <div className={`mx-auto max-w-2xl px-4 md:px-8 py-16 md:py-24 transition-all duration-500 ${glowing ? 'ring-2 ring-[hsl(var(--gold))] shadow-lg shadow-[hsl(var(--gold))/0.2] rounded-xl' : ''}`}>
         {/* Eyebrow + Progress */}
         <p
           className="text-center mb-3"

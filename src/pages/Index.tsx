@@ -228,6 +228,8 @@ const Index = () => {
                   setStepsCompleted(step);
                   setSelectedCounty(county);
                 }}
+                highlight={truthGateHighlight}
+                onHighlightDone={() => setTruthGateHighlight(false)}
               />
               <UploadZone
                 isVisible={leadCaptured}
