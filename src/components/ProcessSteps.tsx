@@ -73,34 +73,32 @@ const ProcessSteps = () => {
           </div>
         </div>
 
-        {/* Mobile: vertical timeline */}
-        <div className="md:hidden relative pl-8">
-          {/* Connecting line */}
-          <div className="absolute left-[19px] top-0 bottom-0 w-[2px]" style={{ backgroundColor: "#E5E7EB" }} />
-          <div className="flex flex-col gap-8">
-            {steps.map((step, i) =>
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: -16 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.35, delay: i * 0.1 }}
-              className="relative">
+        {/* Mobile: numbered badge list */}
+        <div className="md:hidden flex flex-col gap-6">
+          {steps.map((step, i) =>
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 12 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.35, delay: i * 0.1 }}
+            className="flex items-start gap-4">
+            
+              <div
+              className="flex items-center justify-center flex-shrink-0"
+              style={{ width: 36, height: 36, borderRadius: "50%", backgroundColor: "hsl(var(--cyan))", color: "#FFFFFF" }}>
               
-                <div
-                className="absolute -left-8 flex items-center justify-center"
-                style={{ width: 40, height: 40, borderRadius: "50%", background: "#FFFFFF", border: "2px solid #E5E7EB" }}>
-                
-                  <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 15, fontWeight: 700, color: "#0099BB" }}>{step.num}</span>
-                </div>
+                <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 13, fontWeight: 700 }}>{step.num}</span>
+              </div>
+              <div>
                 <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 700, color: "#0F1F35" }}>
                   {step.title}
                 </h3>
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "#6B7280", lineHeight: 1.6, marginTop: 4 }}>
                   {step.copy}
                 </p>
-              </motion.div>
-            )}
-          </div>
+              </div>
+            </motion.div>
+          )}
         </div>
 
         {/* Deliverables */}
