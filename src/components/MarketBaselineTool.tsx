@@ -602,39 +602,109 @@ const MarketBaselineTool = ({
 
                 {/* Form */}
                 <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-                  <FormField
-                    label="FIRST NAME"
-                    value={form.firstName}
-                    onChange={(v) => setForm({ ...form, firstName: v })}
-                    placeholder="Your first name"
-                  />
+                  {/* First Name */}
+                  <div>
+                    <label style={formLabelStyle}>FIRST NAME</label>
+                    <div style={{ position: "relative" }}>
+                      <input
+                        type="text"
+                        autoComplete="given-name"
+                        value={form.firstName}
+                        onChange={(v) => setForm({ ...form, firstName: v.target.value })}
+                        placeholder="Your first name"
+                        required
+                        style={{
+                          ...formInputStyle,
+                          borderColor: fieldStatus.firstName === "invalid" ? "#EF4444" : fieldStatus.firstName === "valid" ? "#059669" : "hsl(220 13% 91%)",
+                          paddingRight: fieldStatus.firstName !== "untouched" ? 40 : 16,
+                        }}
+                        onFocus={(e) => { e.currentTarget.style.boxShadow = "0 0 0 3px hsla(160 84% 39% / 0.12)"; }}
+                        onBlur={(e) => { e.currentTarget.style.boxShadow = "none"; handleFieldBlur("firstName", form.firstName); }}
+                      />
+                      {fieldStatus.firstName === "valid" && <MBValidationIcon valid />}
+                      {fieldStatus.firstName === "invalid" && <MBValidationIcon valid={false} />}
+                    </div>
+                    {fieldStatus.firstName === "invalid" && <p style={formErrorStyle}>Please enter your first name (2+ characters)</p>}
+                  </div>
 
-                  <FormField
-                    label="EMAIL"
-                    sublabel="(your baseline + checklist sent here)"
-                    value={form.email}
-                    onChange={(v) => setForm({ ...form, email: v })}
-                    placeholder="your@email.com"
-                    type="email"
-                  />
+                  {/* Email */}
+                  <div>
+                    <label style={formLabelStyle}>
+                      EMAIL <span style={{ color: "hsl(220 9% 64%)", fontFamily: "'DM Sans', sans-serif", fontSize: 11, letterSpacing: "normal" }}>(your baseline + checklist sent here)</span>
+                    </label>
+                    <div style={{ position: "relative" }}>
+                      <input
+                        type="email"
+                        autoComplete="email"
+                        value={form.email}
+                        onChange={(v) => setForm({ ...form, email: v.target.value })}
+                        placeholder="your@email.com"
+                        required
+                        style={{
+                          ...formInputStyle,
+                          borderColor: fieldStatus.email === "invalid" ? "#EF4444" : fieldStatus.email === "valid" ? "#059669" : "hsl(220 13% 91%)",
+                          paddingRight: fieldStatus.email !== "untouched" ? 40 : 16,
+                        }}
+                        onFocus={(e) => { e.currentTarget.style.boxShadow = "0 0 0 3px hsla(160 84% 39% / 0.12)"; }}
+                        onBlur={(e) => { e.currentTarget.style.boxShadow = "none"; handleFieldBlur("email", form.email); }}
+                      />
+                      {fieldStatus.email === "valid" && <MBValidationIcon valid />}
+                      {fieldStatus.email === "invalid" && <MBValidationIcon valid={false} />}
+                    </div>
+                    {fieldStatus.email === "invalid" && <p style={formErrorStyle}>Please enter a valid email address</p>}
+                  </div>
 
-                  <FormField
-                    label="MOBILE NUMBER"
-                    sublabel="(for quote reminder when you're ready)"
-                    value={form.phone}
-                    onChange={(v) => setForm({ ...form, phone: v })}
-                    placeholder="(555) 000-0000"
-                    type="tel"
-                  />
+                  {/* Phone — masked */}
+                  <div>
+                    <label style={formLabelStyle}>
+                      MOBILE NUMBER <span style={{ color: "hsl(220 9% 64%)", fontFamily: "'DM Sans', sans-serif", fontSize: 11, letterSpacing: "normal" }}>(for quote reminder when you're ready)</span>
+                    </label>
+                    <div style={{ position: "relative" }}>
+                      <input
+                        type="tel"
+                        inputMode="numeric"
+                        autoComplete="tel"
+                        value={phoneInput.displayValue}
+                        onChange={(e) => { phoneInput.handleChange(e); setForm({ ...form, phone: e.target.value }); }}
+                        placeholder="(555) 000-0000"
+                        required
+                        style={{
+                          ...formInputStyle,
+                          borderColor: fieldStatus.phone === "invalid" ? "#EF4444" : fieldStatus.phone === "valid" ? "#059669" : "hsl(220 13% 91%)",
+                          paddingRight: fieldStatus.phone !== "untouched" ? 40 : 16,
+                        }}
+                        onFocus={(e) => { e.currentTarget.style.boxShadow = "0 0 0 3px hsla(160 84% 39% / 0.12)"; }}
+                        onBlur={(e) => { e.currentTarget.style.boxShadow = "none"; handleFieldBlur("phone", phoneInput.rawDigits); }}
+                      />
+                      {fieldStatus.phone === "valid" && <MBValidationIcon valid />}
+                      {fieldStatus.phone === "invalid" && <MBValidationIcon valid={false} />}
+                    </div>
+                    {fieldStatus.phone === "invalid" && <p style={formErrorStyle}>Please enter a valid 10-digit US phone number</p>}
+                  </div>
 
+                  {/* TCPA Consent */}
+                  <label className="flex items-start gap-2.5 cursor-pointer" style={{ marginTop: 4 }}>
+                    <input
+                      type="checkbox"
+                      checked={tcpaConsent}
+                      onChange={(e) => setTcpaConsent(e.target.checked)}
+                      style={{ width: 16, height: 16, marginTop: 2, accentColor: "#059669", flexShrink: 0 }}
+                    />
+                    <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "hsl(220 9% 46%)", lineHeight: 1.5 }}>
+                      By providing your number, you consent to receive one call regarding your quote analysis.
+                    </span>
+                  </label>
+
+                  {/* Submit */}
                   <motion.button
                     type="submit"
-                    whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.98 }}
+                    disabled={submitState === "submitting" || submitState === "success"}
+                    whileHover={submitState === "idle" || submitState === "error" ? { scale: 1.01 } : {}}
+                    whileTap={submitState === "idle" || submitState === "error" ? { scale: 0.98 } : {}}
                     style={{
                       width: "100%",
                       height: 54,
-                      background: "hsl(160 84% 39%)",
+                      background: submitState === "success" ? "#047857" : submitState === "error" ? "#DC2626" : "hsl(160 84% 39%)",
                       color: "hsl(0 0% 100%)",
                       fontFamily: "'DM Sans', sans-serif",
                       fontSize: 17,
@@ -642,11 +712,20 @@ const MarketBaselineTool = ({
                       borderRadius: 10,
                       border: "none",
                       boxShadow: "0 4px 16px hsla(160 84% 39% / 0.35)",
-                      cursor: "pointer",
+                      cursor: submitState === "submitting" ? "not-allowed" : "pointer",
                       marginTop: 8,
+                      opacity: submitState === "submitting" ? 0.85 : 1,
+                      transition: "background 0.2s, opacity 0.2s",
                     }}
                   >
-                    Unlock My Baseline + Checklist →
+                    {submitState === "idle" && "Unlock My Baseline + Checklist →"}
+                    {submitState === "submitting" && "Analyzing..."}
+                    {submitState === "success" && (
+                      <span className="inline-flex items-center gap-2">
+                        <Check size={18} /> Unlocked!
+                      </span>
+                    )}
+                    {submitState === "error" && "Something went wrong — Try Again"}
                   </motion.button>
                 </form>
 
