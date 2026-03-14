@@ -1,5 +1,8 @@
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePhoneInput } from "@/hooks/usePhoneInput";
+import { isValidEmail, isValidName } from "@/utils/formatPhone";
+import { Check } from "lucide-react";
 
 
 const stepConfig = [
@@ -48,6 +51,8 @@ type Answers = {
 };
 
 type TransitionState = "idle" | "loading" | "estimate" | "done";
+type SubmitState = "idle" | "submitting" | "success" | "error";
+type FieldStatus = "untouched" | "valid" | "invalid";
 
 const slideVariants = {
   enter: { x: 40, opacity: 0 },
@@ -119,6 +124,14 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
   });
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [transitionState, setTransitionState] = useState<TransitionState>("idle");
+  const [submitState, setSubmitState] = useState<SubmitState>("idle");
+  const [fieldStatus, setFieldStatus] = useState<Record<string, FieldStatus>>({
+    firstName: "untouched",
+    email: "untouched",
+    phone: "untouched",
+  });
+  const [tcpaConsent, setTcpaConsent] = useState(false);
+  const phoneInput = usePhoneInput();
 
   const selectedCounty = answers.county || "your county";
   const selectedRange = answers.quoteRange || "your";
@@ -156,10 +169,56 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
     [currentStep]
   );
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateField = useCallback((field: string, value: string) => {
+    switch (field) {
+      case "firstName": return isValidName(value) ? "valid" : "invalid";
+      case "email": return isValidEmail(value) ? "valid" : "invalid";
+      case "phone": return phoneInput.isValid ? "valid" : "invalid";
+      default: return "untouched";
+    }
+  }, [phoneInput.isValid]);
+
+  const handleFieldBlur = useCallback((field: string, value: string) => {
+    if (value.trim().length > 0) {
+      setFieldStatus(prev => ({ ...prev, [field]: validateField(field, value) }));
+    }
+  }, [validateField]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ event: "wm_lead_captured", ...answers });
-    onLeadCaptured?.();
+
+    // Validate all fields
+    const nameValid = isValidName(answers.firstName);
+    const emailValid = isValidEmail(answers.email);
+    const phoneValid = phoneInput.isValid;
+
+    setFieldStatus({
+      firstName: nameValid ? "valid" : "invalid",
+      email: emailValid ? "valid" : "invalid",
+      phone: phoneValid ? "valid" : "invalid",
+    });
+
+    if (!nameValid || !emailValid || !phoneValid || !tcpaConsent) return;
+
+    setSubmitState("submitting");
+
+    try {
+      const payload = {
+        event: "wm_lead_captured",
+        ...answers,
+        phone: phoneInput.e164, // E.164 format for webhook
+        phoneDisplay: phoneInput.displayValue,
+        timestamp: new Date().toISOString(),
+        source: "truth-gate",
+      };
+      console.log(payload);
+      // TODO: Replace with edge function call for Twilio validation + webhook dispatch
+      await new Promise(resolve => setTimeout(resolve, 800)); // Simulated async
+      setSubmitState("success");
+      onLeadCaptured?.();
+    } catch {
+      setSubmitState("error");
+    }
   };
 
   const progressWidth = currentStep <= 4 ? `${currentStep * 25}%` : "100%";
@@ -301,15 +360,27 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
           {/* First Name */}
           <div>
             <label style={labelStyle}>FIRST NAME</label>
-            <input
-              type="text"
-              placeholder="Your first name"
-              value={answers.firstName}
-              onChange={(e) => setAnswers((p) => ({ ...p, firstName: e.target.value }))}
-              style={inputStyle}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-            />
+            <div style={{ position: "relative" }}>
+              <input
+                type="text"
+                placeholder="Your first name"
+                autoComplete="given-name"
+                value={answers.firstName}
+                onChange={(e) => setAnswers((p) => ({ ...p, firstName: e.target.value }))}
+                style={{
+                  ...inputStyle,
+                  borderColor: fieldStatus.firstName === "invalid" ? "#EF4444" : fieldStatus.firstName === "valid" ? "#059669" : "#E5E7EB",
+                  paddingRight: fieldStatus.firstName !== "untouched" ? 40 : 16,
+                }}
+                onFocus={handleInputFocus}
+                onBlur={(e) => { handleInputBlur(e); handleFieldBlur("firstName", answers.firstName); }}
+              />
+              {fieldStatus.firstName === "valid" && <ValidationIcon valid />}
+              {fieldStatus.firstName === "invalid" && <ValidationIcon valid={false} />}
+            </div>
+            {fieldStatus.firstName === "invalid" && (
+              <p style={errorTextStyle}>Please enter your first name (2+ characters)</p>
+            )}
           </div>
 
           {/* Email */}
@@ -317,42 +388,85 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
             <label style={labelStyle}>
               EMAIL ADDRESS <span style={{ color: "#9CA3AF", fontWeight: 400 }}>(your grade report is sent here)</span>
             </label>
-            <input
-              type="email"
-              placeholder="your@email.com"
-              value={answers.email}
-              onChange={(e) => setAnswers((p) => ({ ...p, email: e.target.value }))}
-              style={inputStyle}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-            />
+            <div style={{ position: "relative" }}>
+              <input
+                type="email"
+                placeholder="your@email.com"
+                autoComplete="email"
+                value={answers.email}
+                onChange={(e) => setAnswers((p) => ({ ...p, email: e.target.value }))}
+                style={{
+                  ...inputStyle,
+                  borderColor: fieldStatus.email === "invalid" ? "#EF4444" : fieldStatus.email === "valid" ? "#059669" : "#E5E7EB",
+                  paddingRight: fieldStatus.email !== "untouched" ? 40 : 16,
+                }}
+                onFocus={handleInputFocus}
+                onBlur={(e) => { handleInputBlur(e); handleFieldBlur("email", answers.email); }}
+              />
+              {fieldStatus.email === "valid" && <ValidationIcon valid />}
+              {fieldStatus.email === "invalid" && <ValidationIcon valid={false} />}
+            </div>
+            {fieldStatus.email === "invalid" && (
+              <p style={errorTextStyle}>Please enter a valid email address</p>
+            )}
           </div>
 
-          {/* Phone */}
+          {/* Phone — masked input */}
           <div>
             <label style={labelStyle}>
               MOBILE NUMBER <span style={{ color: "#9CA3AF", fontWeight: 400 }}>(one-time code to unlock your report)</span>
             </label>
-            <input
-              type="tel"
-              placeholder="(555) 000-0000"
-              value={answers.phone}
-              onChange={(e) => setAnswers((p) => ({ ...p, phone: e.target.value }))}
-              style={inputStyle}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-            />
+            <div style={{ position: "relative" }}>
+              <input
+                type="tel"
+                inputMode="numeric"
+                autoComplete="tel"
+                placeholder="(555) 000-0000"
+                value={phoneInput.displayValue}
+                onChange={(e) => {
+                  phoneInput.handleChange(e);
+                  setAnswers((p) => ({ ...p, phone: e.target.value }));
+                }}
+                style={{
+                  ...inputStyle,
+                  borderColor: fieldStatus.phone === "invalid" ? "#EF4444" : fieldStatus.phone === "valid" ? "#059669" : "#E5E7EB",
+                  paddingRight: fieldStatus.phone !== "untouched" ? 40 : 16,
+                }}
+                onFocus={handleInputFocus}
+                onBlur={(e) => { handleInputBlur(e); handleFieldBlur("phone", phoneInput.rawDigits); }}
+              />
+              {fieldStatus.phone === "valid" && <ValidationIcon valid />}
+              {fieldStatus.phone === "invalid" && <ValidationIcon valid={false} />}
+            </div>
+            {fieldStatus.phone === "invalid" && (
+              <p style={errorTextStyle}>Please enter a valid 10-digit US phone number</p>
+            )}
           </div>
+
+          {/* TCPA Consent */}
+          <label className="flex items-start gap-2.5 cursor-pointer" style={{ marginTop: 4 }}>
+            <input
+              type="checkbox"
+              checked={tcpaConsent}
+              onChange={(e) => setTcpaConsent(e.target.checked)}
+              style={{ width: 16, height: 16, marginTop: 2, accentColor: "#059669", flexShrink: 0 }}
+            />
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "#6B7280", lineHeight: 1.5 }}>
+              By providing your number, you consent to receive one call regarding your quote analysis.
+              No spam, no contractor contact without permission.
+            </span>
+          </label>
 
           {/* Submit */}
           <motion.button
             type="submit"
-            whileHover={{ scale: 1.01, backgroundColor: "#047857" }}
-            whileTap={{ scale: 0.98 }}
+            disabled={submitState === "submitting" || submitState === "success"}
+            whileHover={submitState === "idle" || submitState === "error" ? { scale: 1.01, backgroundColor: "#047857" } : {}}
+            whileTap={submitState === "idle" || submitState === "error" ? { scale: 0.98 } : {}}
             style={{
               width: "100%",
               height: 54,
-              background: "#059669",
+              background: submitState === "success" ? "#047857" : submitState === "error" ? "#DC2626" : "#059669",
               color: "#FFFFFF",
               fontFamily: "'DM Sans', sans-serif",
               fontSize: 17,
@@ -360,11 +474,24 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
               borderRadius: 10,
               border: "none",
               boxShadow: "0 4px 16px rgba(5, 150, 105, 0.35)",
-              cursor: "pointer",
+              cursor: submitState === "submitting" ? "not-allowed" : "pointer",
               marginTop: 4,
+              opacity: submitState === "submitting" ? 0.85 : 1,
+              transition: "background 0.2s, opacity 0.2s",
             }}
           >
-            Show Me My Grade →
+            {submitState === "idle" && "Show Me My Grade →"}
+            {submitState === "submitting" && (
+              <span className="inline-flex items-center gap-2">
+                <Spinner /> Analyzing...
+              </span>
+            )}
+            {submitState === "success" && (
+              <span className="inline-flex items-center gap-2">
+                <Check size={18} /> Report Sent!
+              </span>
+            )}
+            {submitState === "error" && "Something went wrong — Try Again"}
           </motion.button>
         </form>
 
@@ -480,14 +607,35 @@ const inputStyle: React.CSSProperties = {
   boxSizing: "border-box",
 };
 
-const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-  e.currentTarget.style.borderColor = "#C8952A";
+const errorTextStyle: React.CSSProperties = {
+  fontFamily: "'DM Sans', sans-serif",
+  fontSize: 12,
+  color: "#EF4444",
+  marginTop: 4,
+};
+
+const handleInputFocus = (e: React.FocusEvent<HTMLInputElement>) => {
   e.currentTarget.style.boxShadow = "0 0 0 3px rgba(200,149,42,0.12)";
 };
 
-const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-  e.currentTarget.style.borderColor = "#E5E7EB";
+const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
   e.currentTarget.style.boxShadow = "none";
 };
+
+const ValidationIcon = ({ valid }: { valid: boolean }) => (
+  <span
+    style={{
+      position: "absolute",
+      right: 12,
+      top: "50%",
+      transform: "translateY(-50%)",
+      fontSize: 16,
+      lineHeight: 1,
+      color: valid ? "#059669" : "#EF4444",
+    }}
+  >
+    {valid ? "✓" : "✗"}
+  </span>
+);
 
 export default TruthGateFlow;
