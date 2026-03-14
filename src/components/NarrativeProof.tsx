@@ -40,12 +40,20 @@ const stories = [
   },
 ];
 
-const NarrativeProof = () => {
+interface NarrativeProofProps {
+  onScanClick?: () => void;
+}
+
+const NarrativeProof = ({ onScanClick }: NarrativeProofProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.1 });
 
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const handleScanClick = () => {
+    if (onScanClick) {
+      onScanClick();
+    } else {
+      document.getElementById("truth-gate")?.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
