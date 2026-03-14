@@ -187,7 +187,11 @@ const MockDocument = ({ activeScan, phase, scanText, scanProgress }: any) => {
 };
 
 /* ── Main component ────────────────────────────────────────── */
-const InteractiveDemoScan = () => {
+interface InteractiveDemoScanProps {
+  onScanClick?: () => void;
+}
+
+const InteractiveDemoScan = ({ onScanClick }: InteractiveDemoScanProps) => {
   const [phase, setPhase] = useState<Phase>("doc");
   const [currentScanIndex, setCurrentScanIndex] = useState(0);
   const [scanTextIndex, setScanTextIndex] = useState(0);
