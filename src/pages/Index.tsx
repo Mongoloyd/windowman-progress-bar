@@ -47,6 +47,7 @@ const Index = () => {
 
   // ── Flow A state ──
   const [leadCaptured, setLeadCaptured] = useState(false);
+  const [truthGateHighlight, setTruthGateHighlight] = useState(false);
   const [fileUploaded, setFileUploaded] = useState(false);
   const [gradeRevealed, setGradeRevealed] = useState(false);
   const [contractorMatchVisible, setContractorMatchVisible] = useState(false);
