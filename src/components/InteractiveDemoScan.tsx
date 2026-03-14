@@ -192,7 +192,6 @@ const InteractiveDemoScan = ({ onScanClick }: InteractiveDemoScanProps) => {
   const [currentScanIndex, setCurrentScanIndex] = useState(0);
   const [scanTextIndex, setScanTextIndex] = useState(0);
   const [scanProgress, setScanProgress] = useState(0);
-  const [paused, setPaused] = useState(false);
   const mountedRef = useRef(true);
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
@@ -212,14 +211,9 @@ const InteractiveDemoScan = ({ onScanClick }: InteractiveDemoScanProps) => {
     }
   }, [onScanClick]);
 
-  // Pause on hover/touch
-  const handlePause = useCallback(() => setPaused(true), []);
-  const handleResume = useCallback(() => setPaused(false), []);
 
-  // Phase machine — pauses when user is engaged
+  // Phase machine — always auto-advances
   useEffect(() => {
-    if (paused) return;
-
     const set = (p: Phase, ms: number) => {
       timerRef.current = setTimeout(() => {
         if (mountedRef.current) setPhase(p);
@@ -242,11 +236,11 @@ const InteractiveDemoScan = ({ onScanClick }: InteractiveDemoScanProps) => {
           setPhase("doc");
           setCurrentScanIndex((prev) => (prev + 1) % SCANS.length);
         }
-      }, 4500);
+      }, 6000);
     }
 
     return () => { if (timerRef.current) clearTimeout(timerRef.current); };
-  }, [phase, paused]);
+  }, [phase]);
 
   // Scan text cycling
   useEffect(() => {
@@ -269,10 +263,6 @@ const InteractiveDemoScan = ({ onScanClick }: InteractiveDemoScanProps) => {
       {/* CONTAINER — pause on hover/touch */}
       <div
         className="mx-auto max-w-[520px] rounded-2xl border-[1.5px] border-border bg-card p-6 md:p-8 shadow-[0_4px_24px_rgba(0,242,255,0.12),0_16px_48px_rgba(0,242,255,0.06),0_2px_8px_rgba(0,0,0,0.08)] min-h-[480px] flex flex-col relative"
-        onMouseEnter={handlePause}
-        onMouseLeave={handleResume}
-        onTouchStart={handlePause}
-        onTouchEnd={handleResume}
       >
         <AnimatePresence mode="wait">
           {/* ── PHASES 1 & 2: Document & Scan ───────── */}
