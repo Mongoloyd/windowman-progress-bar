@@ -765,74 +765,50 @@ const MarketBaselineTool = ({
   );
 };
 
-/* ── form field ── */
-const FormField = ({
-  label,
-  sublabel,
-  value,
-  onChange,
-  placeholder,
-  type = "text",
-}: {
-  label: string;
-  sublabel?: string;
-  value: string;
-  onChange: (v: string) => void;
-  placeholder: string;
-  type?: string;
-}) => (
-  <div>
-    <label
-      style={{
-        fontFamily: "'DM Mono', monospace",
-        fontSize: 10,
-        color: "hsl(220 9% 46%)",
-        letterSpacing: "0.08em",
-        display: "block",
-        marginBottom: 5,
-      }}
-    >
-      {label}{" "}
-      {sublabel && (
-        <span
-          style={{
-            color: "hsl(220 9% 64%)",
-            fontFamily: "'DM Sans', sans-serif",
-            fontSize: 11,
-            letterSpacing: "normal",
-          }}
-        >
-          {sublabel}
-        </span>
-      )}
-    </label>
-    <input
-      type={type}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      placeholder={placeholder}
-      required
-      style={{
-        width: "100%",
-        height: 48,
-        border: "1.5px solid hsl(220 13% 91%)",
-        borderRadius: 8,
-        padding: "0 16px",
-        fontFamily: "'DM Sans', sans-serif",
-        fontSize: 15,
-        outline: "none",
-        transition: "border-color 0.15s, box-shadow 0.15s",
-      }}
-      onFocus={(e) => {
-        e.currentTarget.style.borderColor = "hsl(160 84% 39%)";
-        e.currentTarget.style.boxShadow = "0 0 0 3px hsla(160 84% 39% / 0.12)";
-      }}
-      onBlur={(e) => {
-        e.currentTarget.style.borderColor = "hsl(220 13% 91%)";
-        e.currentTarget.style.boxShadow = "none";
-      }}
-    />
-  </div>
+/* ── form shared styles ── */
+const formLabelStyle: React.CSSProperties = {
+  fontFamily: "'DM Mono', monospace",
+  fontSize: 10,
+  color: "hsl(220 9% 46%)",
+  letterSpacing: "0.08em",
+  display: "block",
+  marginBottom: 5,
+};
+
+const formInputStyle: React.CSSProperties = {
+  width: "100%",
+  height: 48,
+  border: "1.5px solid hsl(220 13% 91%)",
+  borderRadius: 8,
+  padding: "0 16px",
+  fontFamily: "'DM Sans', sans-serif",
+  fontSize: 15,
+  outline: "none",
+  transition: "border-color 0.15s, box-shadow 0.15s",
+  boxSizing: "border-box",
+};
+
+const formErrorStyle: React.CSSProperties = {
+  fontFamily: "'DM Sans', sans-serif",
+  fontSize: 12,
+  color: "#EF4444",
+  marginTop: 4,
+};
+
+const MBValidationIcon = ({ valid }: { valid: boolean }) => (
+  <span
+    style={{
+      position: "absolute",
+      right: 12,
+      top: "50%",
+      transform: "translateY(-50%)",
+      fontSize: 16,
+      lineHeight: 1,
+      color: valid ? "#059669" : "#EF4444",
+    }}
+  >
+    {valid ? "✓" : "✗"}
+  </span>
 );
 
 /* ── revealed baseline ── */
