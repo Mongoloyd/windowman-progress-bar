@@ -1031,7 +1031,7 @@ function DemoReport({ lead, onUploadQuote, onClose }) {
           <div style={{ marginBottom: "40px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "9px", marginBottom: "13px" }}>
               <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: T.cyan }} />
-              <Kicker>WINDOW MAN TRUTH REPORT</Kicker>
+              <Kicker>WINDOW MAN AI TRUTH REPORT</Kicker>
             </div>
             <h1 style={{ fontSize: "38px", fontWeight: 800, lineHeight: 1.1, margin: "0 0 10px" }}>
               {firstName.charAt(0).toUpperCase() + firstName.slice(1)}'s Quote Safety Audit
