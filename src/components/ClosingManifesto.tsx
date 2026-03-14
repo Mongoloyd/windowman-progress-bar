@@ -10,9 +10,10 @@ const checks = [
 
 interface ClosingManifestoProps {
   onScanClick?: () => void;
+  onDemoClick?: () => void;
 }
 
-const ClosingManifesto = ({ onScanClick }: ClosingManifestoProps) => {
+const ClosingManifesto = ({ onScanClick, onDemoClick }: ClosingManifestoProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.2 });
 
