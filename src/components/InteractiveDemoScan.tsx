@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 type Phase = "doc" | "scan" | "reveal" | "hook";
@@ -31,6 +31,7 @@ const SCANS = [
     flag2Bg: "bg-gold-light",
     flag2Border: "border-l-gold",
     flag2Title: "Labor Warranty Gap",
+    hookCta: "Could you be overpaying $4,200+?",
   },
   {
     filename: "Estimate_Miami_Dade_2025.pdf",
@@ -51,6 +52,7 @@ const SCANS = [
     flag2Bg: "bg-cyan-light",
     flag2Border: "border-l-cyan",
     flag2Title: 'Permit Fees "TBD"',
+    hookCta: "How does your quote compare?",
   },
   {
     filename: "Proposal_PalmBeach_Glass.pdf",
@@ -71,6 +73,7 @@ const SCANS = [
     flag2Bg: "bg-gold-light",
     flag2Border: "border-l-gold",
     flag2Title: "25% Cancellation Fee",
+    hookCta: "Is yours worse than a D? Find out free.",
   },
 ];
 
@@ -82,10 +85,7 @@ const track = (event: string) => {
 function useCounter(target: number, duration: number, active: boolean) {
   const [val, setVal] = useState(0);
   useEffect(() => {
-    if (!active) {
-      setVal(0);
-      return;
-    }
+    if (!active) { setVal(0); return; }
     const start = Date.now();
     const tick = () => {
       const elapsed = Date.now() - start;
@@ -98,12 +98,19 @@ function useCounter(target: number, duration: number, active: boolean) {
   return val;
 }
 
-/* ── Full-Size Mock Document Component ─────────────────────── */
+/* ── Mock Document ─────────────────────────────────────────── */
 const MockDocument = ({ activeScan, phase, scanText, scanProgress }: any) => {
   const isScanning = phase === "scan";
 
   return (
     <div className="relative w-full h-full rounded-xl border border-border bg-background p-6 flex flex-col overflow-hidden shadow-inner">
+      {/* Sample badge */}
+      <div className="absolute top-3 right-3 z-30">
+        <span className="font-mono text-[9px] font-bold tracking-widest uppercase bg-muted text-muted-foreground px-2 py-0.5 rounded border border-border">
+          Sample
+        </span>
+      </div>
+
       {/* Header */}
       <div className="flex items-start justify-between border-b border-border pb-4 mb-4">
         <div>
@@ -125,14 +132,12 @@ const MockDocument = ({ activeScan, phase, scanText, scanProgress }: any) => {
         <div className="h-2.5 w-[92%] bg-muted rounded-full" />
         <div className="h-2.5 w-[78%] bg-muted rounded-full" />
         <div className="h-2.5 w-[88%] bg-muted rounded-full" />
-
         <div className="mt-4 border border-border rounded-md overflow-hidden">
           <div className="h-8 bg-muted/30 border-b border-border" />
           <div className="h-8 border-b border-border" />
           <div className="h-8 bg-muted/30 border-b border-border" />
           <div className="h-8" />
         </div>
-
         <div className="mt-4 h-2.5 w-[40%] bg-muted rounded-full" />
         <div className="h-2.5 w-[60%] bg-muted rounded-full" />
       </div>
@@ -140,22 +145,17 @@ const MockDocument = ({ activeScan, phase, scanText, scanProgress }: any) => {
       {/* Scanning Overlays */}
       {isScanning && (
         <>
-          {/* Blue tint */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="absolute inset-0 bg-cyan/5 mix-blend-multiply"
           />
-
-          {/* Laser Sweep */}
           <motion.div
             initial={{ top: "-10%" }}
             animate={{ top: "110%" }}
             transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
             className="absolute left-0 right-0 h-[2px] bg-cyan shadow-[0_0_20px_4px_rgba(0,153,187,0.4)] z-10"
           />
-
-          {/* AI Status Box */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -172,11 +172,7 @@ const MockDocument = ({ activeScan, phase, scanText, scanProgress }: any) => {
             <div className="h-1 w-full bg-muted rounded-full overflow-hidden">
               <div
                 className="h-full bg-cyan ease-linear"
-                style={{
-                  width: `${scanProgress}%`,
-                  transitionProperty: "width",
-                  transitionDuration: "1200ms",
-                }}
+                style={{ width: `${scanProgress}%`, transitionProperty: "width", transitionDuration: "1200ms" }}
               />
             </div>
           </motion.div>
@@ -196,6 +192,7 @@ const InteractiveDemoScan = ({ onScanClick }: InteractiveDemoScanProps) => {
   const [currentScanIndex, setCurrentScanIndex] = useState(0);
   const [scanTextIndex, setScanTextIndex] = useState(0);
   const [scanProgress, setScanProgress] = useState(0);
+  const [paused, setPaused] = useState(false);
   const mountedRef = useRef(true);
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
@@ -203,13 +200,26 @@ const InteractiveDemoScan = ({ onScanClick }: InteractiveDemoScanProps) => {
 
   useEffect(() => {
     track("wm_demo_scan_viewed");
-    return () => {
-      mountedRef.current = false;
-    };
+    return () => { mountedRef.current = false; };
   }, []);
 
-  // Phase machine
+  const handleCtaClick = useCallback(() => {
+    track("wm_demo_cta_clicked");
+    if (onScanClick) {
+      onScanClick();
+    } else {
+      document.getElementById("truth-gate")?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [onScanClick]);
+
+  // Pause on hover/touch
+  const handlePause = useCallback(() => setPaused(true), []);
+  const handleResume = useCallback(() => setPaused(false), []);
+
+  // Phase machine — pauses when user is engaged
   useEffect(() => {
+    if (paused) return;
+
     const set = (p: Phase, ms: number) => {
       timerRef.current = setTimeout(() => {
         if (mountedRef.current) setPhase(p);
@@ -235,10 +245,8 @@ const InteractiveDemoScan = ({ onScanClick }: InteractiveDemoScanProps) => {
       }, 4500);
     }
 
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, [phase]);
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+  }, [phase, paused]);
 
   // Scan text cycling
   useEffect(() => {
@@ -255,13 +263,19 @@ const InteractiveDemoScan = ({ onScanClick }: InteractiveDemoScanProps) => {
       <div className="text-center mb-9">
         <p className="font-mono text-[13px] text-cyan-text tracking-[0.1em] mb-3">LIVE DEMO — WATCH A REAL SCAN</p>
         <h2 className="font-display text-[28px] md:text-[34px] font-bold text-navy mb-1.5">See the AI at work.</h2>
-        <p className="font-body text-[15px] text-black">This runs automatically. No upload required.</p>
+        <p className="font-body text-[15px] text-foreground">This runs automatically. No upload required.</p>
       </div>
 
-      {/* FIXED HEIGHT CONTAINER */}
-      <div className="mx-auto max-w-[520px] rounded-2xl border-[1.5px] border-border bg-card p-6 md:p-8 shadow-[0_4px_24px_rgba(0,242,255,0.12),0_16px_48px_rgba(0,242,255,0.06),0_2px_8px_rgba(0,0,0,0.08)] h-[480px] flex flex-col relative">
+      {/* CONTAINER — pause on hover/touch */}
+      <div
+        className="mx-auto max-w-[520px] rounded-2xl border-[1.5px] border-border bg-card p-6 md:p-8 shadow-[0_4px_24px_rgba(0,242,255,0.12),0_16px_48px_rgba(0,242,255,0.06),0_2px_8px_rgba(0,0,0,0.08)] min-h-[480px] flex flex-col relative"
+        onMouseEnter={handlePause}
+        onMouseLeave={handleResume}
+        onTouchStart={handlePause}
+        onTouchEnd={handleResume}
+      >
         <AnimatePresence mode="wait">
-          {/* ── PHASES 1 & 2: Full Document & Scan ───────── */}
+          {/* ── PHASES 1 & 2: Document & Scan ───────── */}
           {(phase === "doc" || phase === "scan") && (
             <motion.div
               key="document-view"
@@ -269,7 +283,7 @@ const InteractiveDemoScan = ({ onScanClick }: InteractiveDemoScanProps) => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.02 }}
               transition={{ duration: 0.4 }}
-              className="w-full h-full"
+              className="w-full flex-1"
             >
               <MockDocument
                 activeScan={activeScan}
@@ -288,8 +302,15 @@ const InteractiveDemoScan = ({ onScanClick }: InteractiveDemoScanProps) => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4 }}
-              className="w-full h-full flex flex-col"
+              className="w-full flex-1 flex flex-col"
             >
+              {/* Sample badge */}
+              <div className="absolute top-4 right-4 z-30">
+                <span className="font-mono text-[9px] font-bold tracking-widest uppercase bg-muted text-muted-foreground px-2 py-0.5 rounded border border-border">
+                  Sample
+                </span>
+              </div>
+
               <div className="flex items-center justify-between mb-4">
                 <motion.div
                   initial={{ scale: 0 }}
@@ -323,12 +344,19 @@ const InteractiveDemoScan = ({ onScanClick }: InteractiveDemoScanProps) => {
                 <p className="font-body text-[13px] text-muted-foreground mt-1">{activeScan.flag1Desc}</p>
               </motion.div>
 
-              {/* Flag 2 (Masked) */}
+              {/* Flag 2 (Masked — clickable) */}
               <motion.div
                 initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.5, duration: 0.4 }}
-                className={`mt-4 w-full rounded-md border-l-[3px] ${activeScan.flag2Border} ${activeScan.flag2Bg} p-4 text-left shadow-sm`}
+                className={`mt-4 w-full rounded-md border-l-[3px] ${activeScan.flag2Border} ${activeScan.flag2Bg} p-4 text-left shadow-sm cursor-pointer hover:shadow-md transition-shadow`}
+                onClick={() => {
+                  track("wm_demo_unlock_clicked");
+                  handleCtaClick();
+                }}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => { if (e.key === "Enter") handleCtaClick(); }}
               >
                 <p className={`font-mono text-[10px] font-bold tracking-wider ${activeScan.flag2Color}`}>
                   {activeScan.flag2Label}
@@ -338,14 +366,29 @@ const InteractiveDemoScan = ({ onScanClick }: InteractiveDemoScanProps) => {
                   {Array.from({ length: 12 }).map((_, i) => (
                     <div key={i} className="h-2 w-2 rounded-[1px] bg-muted-foreground/30" />
                   ))}
-                  <span className="font-body text-[11px] text-muted-foreground ml-2">[unlock to read]</span>
+                  <span className="font-body text-[11px] text-cyan-text ml-2 underline underline-offset-2">
+                    Upload yours to unlock →
+                  </span>
                 </div>
               </motion.div>
 
-              {/* Flexible spacer to push CTA to the bottom */}
+              {/* Persistent mini-CTA during reveal phase */}
+              {phase === "reveal" && (
+                <motion.button
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.8 }}
+                  onClick={handleCtaClick}
+                  className="mt-4 w-full rounded-lg border border-border bg-muted px-5 py-2.5 font-body text-[13px] font-semibold text-foreground cursor-pointer hover:bg-accent transition-colors"
+                >
+                  Scan My Quote — Free →
+                </motion.button>
+              )}
+
+              {/* Flexible spacer */}
               <div className="flex-1" />
 
-              {/* Hook Phase */}
+              {/* Hook Phase — dynamic CTA */}
               <AnimatePresence>
                 {phase === "hook" && (
                   <motion.div
@@ -356,22 +399,15 @@ const InteractiveDemoScan = ({ onScanClick }: InteractiveDemoScanProps) => {
                     className="w-full pt-4 border-t border-border mt-4"
                   >
                     <p className="font-display text-[15px] italic text-navy text-center mb-3">
-                      This was a sample quote. What would yours say?
+                      {activeScan.hookCta}
                     </p>
                     <motion.button
                       animate={{ scale: [1, 1.02, 1] }}
                       transition={{ repeat: Infinity, duration: 2 }}
-                      onClick={() => {
-                        track("wm_demo_cta_clicked");
-                        if (onScanClick) {
-                          onScanClick();
-                        } else {
-                          document.getElementById("truth-gate")?.scrollIntoView({ behavior: "smooth" });
-                        }
-                      }}
+                      onClick={handleCtaClick}
                       className="w-full rounded-lg bg-gold px-7 py-3 font-body text-[14px] font-bold text-navy shadow-[0_3px_14px_rgba(245,158,11,0.35)] cursor-pointer border-none"
                     >
-                      Scan My Quote — It's Free →
+                      Upload My Real Quote — It's Free →
                     </motion.button>
                   </motion.div>
                 )}
