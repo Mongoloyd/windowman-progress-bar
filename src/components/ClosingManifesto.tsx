@@ -117,7 +117,7 @@ const ClosingManifesto = ({ onScanClick }: ClosingManifestoProps) => {
           <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            onClick={() => scrollTo("truth-gate")}
+            onClick={handleScanClick}
             style={{
               background: "#C8952A",
               color: "#FFFFFF",

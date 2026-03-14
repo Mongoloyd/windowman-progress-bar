@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import LinearHeader from "@/components/LinearHeader";
 import AuditHero from "@/components/AuditHero";

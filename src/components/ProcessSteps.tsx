@@ -143,7 +143,7 @@ const ProcessSteps = ({ onScanClick }: ProcessStepsProps) => {
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => scrollTo("truth-gate")}
+            onClick={handleScanClick}
             style={{
               background: "#C8952A",
               color: "#FFFFFF",

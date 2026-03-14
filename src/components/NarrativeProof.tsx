@@ -263,7 +263,7 @@ const NarrativeProof = ({ onScanClick }: NarrativeProofProps) => {
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => scrollTo("truth-gate")}
+            onClick={handleScanClick}
             style={{
               marginTop: 24,
               background: "#C8952A",
