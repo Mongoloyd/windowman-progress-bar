@@ -126,12 +126,17 @@ const StickyRecoveryBar = ({
   };
 
   const { line1, line2 } = getStatusCopy(stepsCompleted, flowMode, flowBLeadCaptured);
-  const urgentLine1 = isUrgent && flowMode === 'A' ? "Your configured scan expires in 24 hours." : line1;
+  const urgentLine1 = isUrgent && flowMode === 'A' && !gradeRevealed ? "Your configured scan expires in 24 hours." : line1;
 
   // Hide for completed Flow B (disabled in dev mode)
   if (!isDevMode && flowMode === 'B' && quoteWatcherSet) return null;
 
-  const showDemoButton = !leadCaptured && flowMode === 'A';
+  // Post-reveal state
+  const postReveal = gradeRevealed;
+  const displayLine1 = postReveal ? "Your grade report is ready." : urgentLine1;
+  const displayLine2 = postReveal ? "See how your quote compares to local pricing." : line2;
+  const displayCta = postReveal ? "Find a Contractor →" : getCtaText(stepsCompleted, flowMode, flowBLeadCaptured);
+  const showDemoButton = !leadCaptured && flowMode === 'A' && !postReveal;
 
   return (
     <AnimatePresence>
