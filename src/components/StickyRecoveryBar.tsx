@@ -244,7 +244,7 @@ const StickyRecoveryBar = ({
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {getCtaText(stepsCompleted, flowMode, flowBLeadCaptured)}
+                  {displayCta}
                 </button>
 
                 <button
