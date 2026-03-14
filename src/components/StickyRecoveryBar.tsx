@@ -185,13 +185,13 @@ const StickyRecoveryBar = ({
 
                 <div className="min-w-0">
                   <p className="whitespace-nowrap truncate" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 700, color: "#0F1F35" }}>
-                    {urgentLine1}
+                    {displayLine1}
                   </p>
                   <p
                     className="hidden lg:block whitespace-nowrap truncate"
                     style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "#6B7280" }}
                   >
-                    {line2}
+                    {displayLine2}
                   </p>
                 </div>
               </div>
