@@ -12,6 +12,8 @@ interface StickyRecoveryBarProps {
   onDemoCTAClick?: () => void;
   leadCaptured?: boolean;
   isDevMode?: boolean;
+  gradeRevealed?: boolean;
+  onContractorMatchClick?: () => void;
 }
 
 const getStatusCopy = (steps: number, flowMode: string, flowBLeadCaptured: boolean) => {
@@ -56,6 +58,7 @@ const StickyRecoveryBar = ({
   stepsCompleted, county, isVisible, onDismiss,
   flowMode = 'A', flowBLeadCaptured = false, quoteWatcherSet = false,
   onDemoCTAClick, leadCaptured = false, isDevMode = false,
+  gradeRevealed = false, onContractorMatchClick,
 }: StickyRecoveryBarProps) => {
   const [isUrgent, setIsUrgent] = useState(false);
   const controls = useAnimationControls();
@@ -100,6 +103,11 @@ const StickyRecoveryBar = ({
   }, [isVisible, stepsCompleted]);
 
   const handleCta = () => {
+    if (gradeRevealed && onContractorMatchClick) {
+      onContractorMatchClick();
+      console.log({ event: "wm_recovery_bar_contractor_clicked", flowMode });
+      return;
+    }
     const target = getCtaTarget(flowMode, flowBLeadCaptured);
     document.getElementById(target)?.scrollIntoView({ behavior: "smooth" });
     console.log({ event: "wm_recovery_bar_clicked", stepsCompleted, flowMode });
@@ -123,12 +131,17 @@ const StickyRecoveryBar = ({
   };
 
   const { line1, line2 } = getStatusCopy(stepsCompleted, flowMode, flowBLeadCaptured);
-  const urgentLine1 = isUrgent && flowMode === 'A' ? "Your configured scan expires in 24 hours." : line1;
+  const urgentLine1 = isUrgent && flowMode === 'A' && !gradeRevealed ? "Your configured scan expires in 24 hours." : line1;
 
   // Hide for completed Flow B (disabled in dev mode)
   if (!isDevMode && flowMode === 'B' && quoteWatcherSet) return null;
 
-  const showDemoButton = !leadCaptured && flowMode === 'A';
+  // Post-reveal state
+  const postReveal = gradeRevealed;
+  const displayLine1 = postReveal ? "Your grade report is ready." : urgentLine1;
+  const displayLine2 = postReveal ? "See how your quote compares to local pricing." : line2;
+  const displayCta = postReveal ? "Find a Contractor →" : getCtaText(stepsCompleted, flowMode, flowBLeadCaptured);
+  const showDemoButton = !leadCaptured && flowMode === 'A' && !postReveal;
 
   return (
     <AnimatePresence>
@@ -150,7 +163,7 @@ const StickyRecoveryBar = ({
             animate={controls}
             style={{
               background: "#FFFFFF",
-              borderTop: `2px solid ${isUrgent && flowMode === 'A' ? "#DC2626" : "#C8952A"}`,
+              borderTop: `2px solid ${isUrgent && flowMode === 'A' && !postReveal ? "#DC2626" : "#C8952A"}`,
               boxShadow: "0 -4px 24px rgba(15, 31, 53, 0.14)",
             }}
             className="px-5 py-3.5 sm:px-8 sm:py-4"
@@ -177,13 +190,13 @@ const StickyRecoveryBar = ({
 
                 <div className="min-w-0">
                   <p className="whitespace-nowrap truncate" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 700, color: "#0F1F35" }}>
-                    {urgentLine1}
+                    {displayLine1}
                   </p>
                   <p
                     className="hidden lg:block whitespace-nowrap truncate"
                     style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "#6B7280" }}
                   >
-                    {line2}
+                    {displayLine2}
                   </p>
                 </div>
               </div>
@@ -236,7 +249,7 @@ const StickyRecoveryBar = ({
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {getCtaText(stepsCompleted, flowMode, flowBLeadCaptured)}
+                  {displayCta}
                 </button>
 
                 <button

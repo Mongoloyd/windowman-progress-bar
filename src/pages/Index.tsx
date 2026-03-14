@@ -311,7 +311,7 @@ const Index = () => {
       <StickyRecoveryBar
         stepsCompleted={stepsCompleted}
         county={selectedCounty}
-        isVisible={showRecoveryBar}
+        isVisible={showRecoveryBar || (IS_DEV_MODE && gradeRevealed)}
         onDismiss={() => setRecoveryBarDismissed(true)}
         flowMode={flowMode}
         flowBLeadCaptured={flowBLeadCaptured}
@@ -322,6 +322,13 @@ const Index = () => {
         }}
         leadCaptured={leadCaptured}
         isDevMode={IS_DEV_MODE}
+        gradeRevealed={gradeRevealed}
+        onContractorMatchClick={() => {
+          setContractorMatchVisible(true);
+          setTimeout(() => {
+            document.getElementById("contractor-match")?.scrollIntoView({ behavior: "smooth" });
+          }, 100);
+        }}
       />
     </div>
   );
