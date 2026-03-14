@@ -7,6 +7,7 @@ interface EvidenceLockerProps {
   county?: string;
   dollarDelta?: number;
   firstName?: string;
+  onSecondScan?: () => void;
   redFlagCount?: number;
   amberCount?: number;
   greenCount?: number;
@@ -31,6 +32,7 @@ const EvidenceLocker = ({
   county = "Broward",
   dollarDelta = 4800,
   firstName = "Your",
+  onSecondScan,
   redFlagCount = 1,
   amberCount = 2,
   greenCount = 1,
@@ -128,7 +130,7 @@ const EvidenceLocker = ({
             <button
               onClick={() => {
                 console.log({ event: "wm_second_scan_initiated" });
-                document.getElementById("truth-gate")?.scrollIntoView({ behavior: "smooth" });
+                onSecondScan?.();
               }}
               style={{ border: "1.5px solid #E5E7EB", borderRadius: 6, padding: "4px 10px", fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: "#6B7280", background: "white", cursor: "pointer" }}
             >
