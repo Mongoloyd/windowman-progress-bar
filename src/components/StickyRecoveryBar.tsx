@@ -158,7 +158,7 @@ const StickyRecoveryBar = ({
             animate={controls}
             style={{
               background: "#FFFFFF",
-              borderTop: `2px solid ${isUrgent && flowMode === 'A' ? "#DC2626" : "#C8952A"}`,
+              borderTop: `2px solid ${isUrgent && flowMode === 'A' && !postReveal ? "#DC2626" : "#C8952A"}`,
               boxShadow: "0 -4px 24px rgba(15, 31, 53, 0.14)",
             }}
             className="px-5 py-3.5 sm:px-8 sm:py-4"
