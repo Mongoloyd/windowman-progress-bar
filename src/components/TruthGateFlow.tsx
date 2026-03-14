@@ -169,10 +169,57 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
     [currentStep]
   );
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateField = useCallback((field: string, value: string) => {
+    switch (field) {
+      case "firstName": return isValidName(value) ? "valid" : "invalid";
+      case "email": return isValidEmail(value) ? "valid" : "invalid";
+      case "phone": return phoneInput.isValid ? "valid" : "invalid";
+      default: return "untouched";
+    }
+  }, [phoneInput.isValid]);
+
+  const handleFieldBlur = useCallback((field: string, value: string) => {
+    if (value.trim().length > 0) {
+      setFieldStatus(prev => ({ ...prev, [field]: validateField(field, value) }));
+    }
+  }, [validateField]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ event: "wm_lead_captured", ...answers });
-    onLeadCaptured?.();
+
+    // Validate all fields
+    const nameValid = isValidName(answers.firstName);
+    const emailValid = isValidEmail(answers.email);
+    const phoneValid = phoneInput.isValid;
+
+    setFieldStatus({
+      firstName: nameValid ? "valid" : "invalid",
+      email: emailValid ? "valid" : "invalid",
+      phone: phoneValid ? "valid" : "invalid",
+    });
+
+    if (!nameValid || !emailValid || !phoneValid || !tcpaConsent) return;
+
+    setSubmitState("submitting");
+
+    try {
+      const payload = {
+        event: "wm_lead_captured",
+        ...answers,
+        phone: phoneInput.e164, // E.164 format for webhook
+        phoneDisplay: phoneInput.displayValue,
+        timestamp: new Date().toISOString(),
+        source: "truth-gate",
+      };
+      console.log(payload);
+      // TODO: Replace with edge function call for Twilio validation + webhook dispatch
+      await new Promise(resolve => setTimeout(resolve, 800)); // Simulated async
+      setSubmitState("success");
+      onLeadCaptured?.();
+    } catch {
+      setSubmitState("error");
+    }
+  };
   };
 
   const progressWidth = currentStep <= 4 ? `${currentStep * 25}%` : "100%";
