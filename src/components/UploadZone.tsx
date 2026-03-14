@@ -100,7 +100,12 @@ const UploadZone = ({ isVisible, onScanStart }: UploadZoneProps) => {
               }}
               onDragLeave={() => setIsDragOver(false)}
               onDrop={handleDrop}
-              onClick={() => inputRef.current?.click()}
+              onClick={() => {
+                if (inputRef.current) {
+                  inputRef.current.value = "";
+                  inputRef.current.click();
+                }
+              }}
               style={{
                 border: `2px dashed ${isDragOver ? "#C8952A" : "#D1D5DB"}`,
                 borderRadius: 12,
@@ -120,7 +125,7 @@ const UploadZone = ({ isVisible, onScanStart }: UploadZoneProps) => {
                   const f = e.target.files?.[0];
                   if (f) handleFile(f);
                 }}
-                style={{ position: "absolute", inset: 0, opacity: 0, cursor: "pointer" }}
+                style={{ display: "none" }}
               />
 
               {!file ? (
