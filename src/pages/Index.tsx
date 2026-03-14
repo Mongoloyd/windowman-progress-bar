@@ -93,13 +93,39 @@ const Index = () => {
   const showRecoveryBar =
     IS_DEV_MODE || (scrolledPast70 && !anyLeadCaptured && timeOnPage && !recoveryBarDismissed && !gradeRevealed && !flowBComplete);
 
+  // ── Pending scroll ref for race-condition-safe scrolling ──
+  const pendingScrollRef = useRef(false);
+
+  // ── Centralized conversion trigger ──
+  const triggerTruthGate = (source: string) => {
+    if (gradeRevealed) {
+      setGradeRevealed(false);
+      setFileUploaded(false);
+      setContractorMatchVisible(false);
+    }
+    if (flowMode !== 'A') {
+      setFlowMode('A');
+    }
+    pendingScrollRef.current = true;
+    console.log({ event: 'wm_truth_gate_triggered', source });
+  };
+
+  // ── Scroll to truth-gate after render ──
+  useEffect(() => {
+    if (pendingScrollRef.current && flowMode === 'A' && !gradeRevealed) {
+      const el = document.getElementById("truth-gate");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+        pendingScrollRef.current = false;
+      }
+    }
+  }, [flowMode, gradeRevealed]);
+
   // ── Flow A→B / B→A helpers ──
   const switchToFlowA = (triggeredFrom: string) => {
     setFlowMode('A');
     console.log({ event: 'wm_flow_b_to_a_transition', triggeredFrom });
-    setTimeout(() => {
-      document.getElementById("truth-gate")?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
+    pendingScrollRef.current = true;
   };
 
   return (

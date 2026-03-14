@@ -245,7 +245,7 @@ const IndustryTruth = ({ onScanClick }: IndustryTruthProps) => {
             Scan My Quote — It's Free
           </motion.button>
           <button
-            onClick={() => scrollTo("how-it-works")}
+            onClick={() => document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" })}
             style={{
               background: "none",
               border: "none",
