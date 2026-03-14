@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Lock, FileText, Flag, MessageSquare, Users, Plus } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 interface EvidenceLockerProps {
   grade?: string;
