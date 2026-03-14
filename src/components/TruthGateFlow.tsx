@@ -51,6 +51,8 @@ type Answers = {
 };
 
 type TransitionState = "idle" | "loading" | "estimate" | "done";
+type SubmitState = "idle" | "submitting" | "success" | "error";
+type FieldStatus = "untouched" | "valid" | "invalid";
 
 const slideVariants = {
   enter: { x: 40, opacity: 0 },
