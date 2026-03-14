@@ -125,7 +125,7 @@ const UploadZone = ({ isVisible, onScanStart }: UploadZoneProps) => {
                   const f = e.target.files?.[0];
                   if (f) handleFile(f);
                 }}
-                style={{ position: "absolute", inset: 0, opacity: 0, cursor: "pointer" }}
+                style={{ display: "none" }}
               />
 
               {!file ? (
