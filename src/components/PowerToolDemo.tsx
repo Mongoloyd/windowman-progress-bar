@@ -311,131 +311,40 @@ function PowerToolButton({ onClick }) {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       style={{
-        display: "block",
-        width: "100%",
-        maxWidth: "440px",
-        background: hover ? "linear-gradient(135deg, #0f1f35, #1a2d45)" : "linear-gradient(135deg, #0b1525, #0f1f35)",
-        border: `1px solid ${hover ? "rgba(6,182,212,0.6)" : "rgba(6,182,212,0.28)"}`,
-        borderRadius: "18px",
-        padding: "22px 24px",
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "10px",
+        background: "#0891B2",
+        color: "#FFFFFF",
+        fontFamily: "'DM Sans', sans-serif",
+        fontSize: 16,
+        fontWeight: 700,
+        padding: "16px 32px",
+        borderRadius: 10,
+        border: "none",
+        boxShadow: "0 4px 14px rgba(8,145,178,0.35)",
         cursor: "pointer",
-        textAlign: "left",
-        position: "relative",
-        overflow: "hidden",
-        boxShadow: hover
-          ? "0 0 60px rgba(6,182,212,0.16), inset 0 1px 0 rgba(255,255,255,0.07)"
-          : "0 0 30px rgba(6,182,212,0.06), inset 0 1px 0 rgba(255,255,255,0.04)",
-        transition: "all 0.22s ease",
-        transform: hover ? "translateY(-2px)" : "none",
-        fontFamily: T.fontSans,
+        width: "100%",
+        transform: hover ? "scale(1.02)" : "scale(1)",
+        transition: "transform 0.15s ease, box-shadow 0.2s ease",
       }}
     >
-      {/* CRT scanline texture */}
-      <div
+      <span style={{ flexShrink: 0, fontSize: 18 }}>✨</span>
+      <span style={{ flex: 1, textAlign: "left" }}>SEE THE AI IN ACTION</span>
+      <span
         style={{
-          position: "absolute",
-          inset: 0,
-          pointerEvents: "none",
-          backgroundImage:
-            "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(6,182,212,0.012) 3px, rgba(6,182,212,0.012) 4px)",
-        }}
-      />
-
-      {/* Top glow stripe */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: "30%",
-          right: "30%",
-          height: "1px",
-          background: "linear-gradient(90deg, transparent, rgba(6,182,212,0.7), transparent)",
-          opacity: hover ? 1 : 0.5,
-          transition: "opacity 0.2s",
-        }}
-      />
-
-      <div style={{ display: "flex", alignItems: "flex-start", gap: "16px", position: "relative" }}>
-        <div
-          style={{
-            width: "46px",
-            height: "46px",
-            borderRadius: "11px",
-            flexShrink: 0,
-            background: "rgba(6,182,212,0.1)",
-            border: "1px solid rgba(6,182,212,0.28)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: "22px",
-            boxShadow: hover ? "0 0 20px rgba(6,182,212,0.2)" : "none",
-            transition: "box-shadow 0.2s",
-          }}
-        >
-          🛡️
-        </div>
-
-        <div style={{ flex: 1 }}>
-          <div
-            style={{
-              fontSize: "10px",
-              fontWeight: 700,
-              letterSpacing: "2.5px",
-              color: "rgba(6,182,212,0.88)",
-              marginBottom: "5px",
-              fontFamily: T.fontMono,
-            }}
-          >
-            FREE POWER TOOL
-          </div>
-          <div style={{ fontSize: "17px", fontWeight: 800, color: T.text, lineHeight: 1.25, marginBottom: "7px" }}>
-            Prepare Before Your First Quote
-          </div>
-          <div style={{ fontSize: "13px", color: "#e2f3ff", lineHeight: 1.55 }}>
-            See what contractors hope you never find out — before you sit down with a single one of them.
-          </div>
-        </div>
-
-        <div
-          style={{
-            color: "rgba(6,182,212,0.75)",
-            fontSize: "22px",
-            alignSelf: "center",
-            flexShrink: 0,
-            transform: hover ? "translateX(3px)" : "none",
-            transition: "transform 0.2s",
-          }}
-        >
-          →
-        </div>
-      </div>
-
-      {/* Trust strip */}
-      <div
-        style={{
-          marginTop: "14px",
-          paddingTop: "12px",
-          borderTop: "1px solid rgba(255,255,255,0.055)",
-          display: "flex",
-          gap: "18px",
-          position: "relative",
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: 28,
+          height: 28,
+          borderRadius: "50%",
+          background: "rgba(255,255,255,0.2)",
+          flexShrink: 0,
         }}
       >
-        {["4,200+ Scans & Counting", "Free Forensic Analysis", "Less Than 60 Seconds"].map((tag) => (
-          <div
-            key={tag}
-            style={{
-              fontSize: "11px",
-              color: "#e2f3ff",
-              display: "flex",
-              alignItems: "center",
-              gap: "5px",
-            }}
-          >
-            <span style={{ color: "rgb(229, 239, 252)", fontWeight: 700 }}>✓</span> {tag}
-          </div>
-        ))}
-      </div>
+        ▶
+      </span>
     </button>
   );
 }
