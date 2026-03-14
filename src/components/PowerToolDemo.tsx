@@ -421,7 +421,7 @@ function LeadModal({ onComplete, onClose }: { onComplete: (form: any) => void; o
       eyebrow: "ONE MORE THING",
       headline: `One more thing, ${form.name.split(" ")[0] || "friend"}`,
       sub: "",
-      cta: "Show Me a Sample Truth Report →",
+      cta: "Show Me a Sample AI Truth Report →",
     },
   };
 
