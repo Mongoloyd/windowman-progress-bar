@@ -608,14 +608,35 @@ const inputStyle: React.CSSProperties = {
   boxSizing: "border-box",
 };
 
-const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-  e.currentTarget.style.borderColor = "#C8952A";
+const errorTextStyle: React.CSSProperties = {
+  fontFamily: "'DM Sans', sans-serif",
+  fontSize: 12,
+  color: "#EF4444",
+  marginTop: 4,
+};
+
+const handleInputFocus = (e: React.FocusEvent<HTMLInputElement>) => {
   e.currentTarget.style.boxShadow = "0 0 0 3px rgba(200,149,42,0.12)";
 };
 
-const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-  e.currentTarget.style.borderColor = "#E5E7EB";
+const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
   e.currentTarget.style.boxShadow = "none";
 };
+
+const ValidationIcon = ({ valid }: { valid: boolean }) => (
+  <span
+    style={{
+      position: "absolute",
+      right: 12,
+      top: "50%",
+      transform: "translateY(-50%)",
+      fontSize: 16,
+      lineHeight: 1,
+      color: valid ? "#059669" : "#EF4444",
+    }}
+  >
+    {valid ? "✓" : "✗"}
+  </span>
+);
 
 export default TruthGateFlow;
