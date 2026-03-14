@@ -51,9 +51,10 @@ const blocks = [
 
 interface IndustryTruthProps {
   onScanClick?: () => void;
+  onDemoClick?: () => void;
 }
 
-const IndustryTruth = ({ onScanClick }: IndustryTruthProps) => {
+const IndustryTruth = ({ onScanClick, onDemoClick }: IndustryTruthProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.15 });
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
