@@ -280,11 +280,11 @@ const Index = () => {
         </>
       )}
 
-      <IndustryTruth />
+      <IndustryTruth onScanClick={() => triggerTruthGate('industry_truth')} />
       <MarketMakerManifesto />
-      <ProcessSteps />
-      <NarrativeProof />
-      <ClosingManifesto />
+      <ProcessSteps onScanClick={() => triggerTruthGate('process_steps')} />
+      <NarrativeProof onScanClick={() => triggerTruthGate('narrative_proof')} />
+      <ClosingManifesto onScanClick={() => triggerTruthGate('closing_manifesto')} />
 
       <ExitIntentModal
         stepsCompleted={stepsCompleted}
