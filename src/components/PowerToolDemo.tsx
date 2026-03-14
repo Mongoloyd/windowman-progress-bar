@@ -303,11 +303,13 @@ function FadeIn({ children, delay = 0 }) {
 // COMPONENT 1 — Homepage Button
 // ─────────────────────────────────────────────────────────────────────────────
 function PowerToolButton({ onClick }) {
+  const [hover, setHover] = useState(false);
+
   return (
-    <motion.button
+    <button
       onClick={onClick}
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
       style={{
         display: "inline-flex",
         alignItems: "center",
@@ -323,10 +325,11 @@ function PowerToolButton({ onClick }) {
         boxShadow: "0 4px 14px rgba(8,145,178,0.35)",
         cursor: "pointer",
         width: "100%",
+        transform: hover ? "scale(1.02)" : "scale(1)",
+        transition: "transform 0.15s ease, box-shadow 0.2s ease",
       }}
-      className="hover:shadow-lg transition-shadow"
     >
-      <Sparkles size={18} style={{ flexShrink: 0 }} />
+      <span style={{ flexShrink: 0, fontSize: 18 }}>✨</span>
       <span style={{ flex: 1, textAlign: "left" }}>SEE THE AI IN ACTION</span>
       <span
         style={{
@@ -340,9 +343,9 @@ function PowerToolButton({ onClick }) {
           flexShrink: 0,
         }}
       >
-        <Play size={14} fill="#FFFFFF" />
+        ▶
       </span>
-    </motion.button>
+    </button>
   );
 }
 

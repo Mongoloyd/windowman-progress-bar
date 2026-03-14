@@ -150,8 +150,8 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
               <strong style={{ color: "#0F1F35" }}>under 60 seconds</strong>.
             </p>
 
-            {/* Dual CTA */}
-            <div className="flex flex-col md:flex-row gap-3 md:gap-4 md:items-center">
+            {/* Dual CTA — Row 1: Scan + Demo side by side */}
+            <div className="flex flex-col md:flex-row gap-3 md:gap-4">
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -169,70 +169,85 @@ const AuditHero = ({ onFlowBClick, onUploadQuote, triggerPowerTool, onPowerToolC
                   cursor: "pointer"
                 }}
                 className="hover:shadow-lg transition-shadow">
-                
                 Scan My Quote — It's Free
               </motion.button>
 
-              <div className="flex flex-col">
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => onFlowBClick?.()}
-                  className="relative"
+              <React.Suspense fallback={<div className="h-[54px]" />}>
+                <PowerToolFlow
+                  onUploadQuote={onUploadQuote}
+                  triggerOpen={triggerPowerTool}
+                  onToolClose={onPowerToolClose} />
+              </React.Suspense>
+            </div>
+
+            {/* Sub-line for demo button */}
+            <p
+              style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: 12,
+                color: "#6B7280",
+                marginTop: 4
+              }}>
+              No upload needed • Watch a live scan in 30 seconds
+            </p>
+
+            {/* Row 2: Getting Quotes Soon — tertiary ghost */}
+            <div className="flex flex-col mt-2">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => onFlowBClick?.()}
+                className="relative"
+                style={{
+                  background: "transparent",
+                  color: "#374151",
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: 15,
+                  fontWeight: 500,
+                  padding: "14px 24px",
+                  border: "1.5px solid #D1D5DB",
+                  borderRadius: 10,
+                  cursor: "pointer",
+                  transition: "border-color 0.2s, color 0.2s"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = "#0F1F35";
+                  e.currentTarget.style.color = "#0F1F35";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = "#D1D5DB";
+                  e.currentTarget.style.color = "#374151";
+                }}>
+                <span
                   style={{
-                    background: "transparent",
-                    color: "#374151",
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontSize: 15,
-                    fontWeight: 500,
-                    padding: "14px 24px",
-                    border: "1.5px solid #D1D5DB",
-                    borderRadius: 10,
-                    cursor: "pointer",
-                    transition: "border-color 0.2s, color 0.2s"
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = "#0F1F35";
-                    e.currentTarget.style.color = "#0F1F35";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "#D1D5DB";
-                    e.currentTarget.style.color = "#374151";
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: "#059669",
+                    color: "#FFFFFF",
+                    fontFamily: "'DM Mono', monospace",
+                    fontSize: 9,
+                    fontWeight: 700,
+                    letterSpacing: "0.05em",
+                    padding: "2px 6px",
+                    borderRadius: 4,
+                    marginRight: 8,
+                    verticalAlign: "middle"
                   }}>
-                  
-                  <span
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      background: "#059669",
-                      color: "#FFFFFF",
-                      fontFamily: "'DM Mono', monospace",
-                      fontSize: 9,
-                      fontWeight: 700,
-                      letterSpacing: "0.05em",
-                      padding: "2px 6px",
-                      borderRadius: 4,
-                      marginRight: 8,
-                      verticalAlign: "middle"
-                    }}>
-                    
-                    NEW
-                  </span>
-                  Getting Quotes Soon? We Can Arm You First →
-                </motion.button>
-                <p
-                  style={{
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontSize: 12,
-                    color: "#6B7280",
-                    textAlign: "center",
-                    marginTop: 6
-                  }}>
-                  
-                  Generate your fair-market baseline before the contractor arrives
-                </p>
-              </div>
+                  NEW
+                </span>
+                Getting Quotes Soon? We Can Arm You First →
+              </motion.button>
+              <p
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: 12,
+                  color: "#6B7280",
+                  textAlign: "center",
+                  marginTop: 6
+                }}>
+                Generate your fair-market baseline before the contractor arrives
+              </p>
             </div>
 
             {/* Trust Line */}
