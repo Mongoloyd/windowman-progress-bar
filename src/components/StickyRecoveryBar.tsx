@@ -58,6 +58,7 @@ const StickyRecoveryBar = ({
   stepsCompleted, county, isVisible, onDismiss,
   flowMode = 'A', flowBLeadCaptured = false, quoteWatcherSet = false,
   onDemoCTAClick, leadCaptured = false, isDevMode = false,
+  gradeRevealed = false, onContractorMatchClick,
 }: StickyRecoveryBarProps) => {
   const [isUrgent, setIsUrgent] = useState(false);
   const controls = useAnimationControls();
