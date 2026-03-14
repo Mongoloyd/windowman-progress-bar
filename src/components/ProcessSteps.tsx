@@ -22,7 +22,7 @@ interface ProcessStepsProps {
   onDemoClick?: () => void;
 }
 
-const ProcessSteps = ({ onScanClick }: ProcessStepsProps) => {
+const ProcessSteps = ({ onScanClick, onDemoClick }: ProcessStepsProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.1 });
 
