@@ -215,7 +215,7 @@ const Index = () => {
             <>
               <SocialProofStrip />
               <ScamConcernImage />
-              <InteractiveDemoScan />
+              <InteractiveDemoScan onScanClick={() => triggerTruthGate('demo_scan')} />
               <TruthGateFlow
                 onLeadCaptured={() => setLeadCaptured(true)}
                 onStepChange={(step, county) => {
