@@ -192,7 +192,6 @@ const InteractiveDemoScan = ({ onScanClick }: InteractiveDemoScanProps) => {
   const [currentScanIndex, setCurrentScanIndex] = useState(0);
   const [scanTextIndex, setScanTextIndex] = useState(0);
   const [scanProgress, setScanProgress] = useState(0);
-  const [paused, setPaused] = useState(false);
   const mountedRef = useRef(true);
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
