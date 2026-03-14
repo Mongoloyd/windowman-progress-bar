@@ -1000,7 +1000,7 @@ function DemoReport({ lead, onUploadQuote, onClose }) {
               onClick={handleUploadClick}
               style={{ color: T.cyan, textDecoration: "underline", fontWeight: 700 }}
             >
-              Upload YOUR quote to get your real Truth Report →
+              Upload YOUR quote to get your real AI Truth Report →
             </a>
           </span>
           {onClose && (
