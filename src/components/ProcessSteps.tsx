@@ -19,6 +19,7 @@ const deliverables = [
 
 interface ProcessStepsProps {
   onScanClick?: () => void;
+  onDemoClick?: () => void;
 }
 
 const ProcessSteps = ({ onScanClick }: ProcessStepsProps) => {
