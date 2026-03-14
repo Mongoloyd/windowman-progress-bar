@@ -49,13 +49,21 @@ const blocks = [
   },
 ];
 
-const IndustryTruth = () => {
+interface IndustryTruthProps {
+  onScanClick?: () => void;
+}
+
+const IndustryTruth = ({ onScanClick }: IndustryTruthProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.15 });
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const handleScanClick = () => {
+    if (onScanClick) {
+      onScanClick();
+    } else {
+      document.getElementById("truth-gate")?.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -220,7 +228,7 @@ const IndustryTruth = () => {
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => scrollTo("truth-gate")}
+            onClick={handleScanClick}
             style={{
               background: "#C8952A",
               color: "#FFFFFF",
@@ -237,7 +245,7 @@ const IndustryTruth = () => {
             Scan My Quote — It's Free
           </motion.button>
           <button
-            onClick={() => scrollTo("how-it-works")}
+            onClick={() => document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" })}
             style={{
               background: "none",
               border: "none",

@@ -187,7 +187,11 @@ const MockDocument = ({ activeScan, phase, scanText, scanProgress }: any) => {
 };
 
 /* ── Main component ────────────────────────────────────────── */
-const InteractiveDemoScan = () => {
+interface InteractiveDemoScanProps {
+  onScanClick?: () => void;
+}
+
+const InteractiveDemoScan = ({ onScanClick }: InteractiveDemoScanProps) => {
   const [phase, setPhase] = useState<Phase>("doc");
   const [currentScanIndex, setCurrentScanIndex] = useState(0);
   const [scanTextIndex, setScanTextIndex] = useState(0);
@@ -359,7 +363,11 @@ const InteractiveDemoScan = () => {
                       transition={{ repeat: Infinity, duration: 2 }}
                       onClick={() => {
                         track("wm_demo_cta_clicked");
-                        document.getElementById("truth-gate")?.scrollIntoView({ behavior: "smooth" });
+                        if (onScanClick) {
+                          onScanClick();
+                        } else {
+                          document.getElementById("truth-gate")?.scrollIntoView({ behavior: "smooth" });
+                        }
                       }}
                       className="w-full rounded-lg bg-gold px-7 py-3 font-body text-[14px] font-bold text-navy shadow-[0_3px_14px_rgba(245,158,11,0.35)] cursor-pointer border-none"
                     >
