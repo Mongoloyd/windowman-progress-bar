@@ -285,11 +285,11 @@ const Index = () => {
         </>
       )}
 
-      <IndustryTruth onScanClick={() => triggerTruthGate('industry_truth')} />
-      <MarketMakerManifesto />
-      <ProcessSteps onScanClick={() => triggerTruthGate('process_steps')} />
-      <NarrativeProof onScanClick={() => triggerTruthGate('narrative_proof')} />
-      <ClosingManifesto onScanClick={() => triggerTruthGate('closing_manifesto')} />
+      <IndustryTruth onScanClick={() => triggerTruthGate('industry_truth')} onDemoClick={() => { setPowerToolTriggered(true); window.scrollTo({ top: 0, behavior: 'smooth' }); }} />
+      <MarketMakerManifesto onDemoClick={() => { setPowerToolTriggered(true); window.scrollTo({ top: 0, behavior: 'smooth' }); }} />
+      <ProcessSteps onScanClick={() => triggerTruthGate('process_steps')} onDemoClick={() => { setPowerToolTriggered(true); window.scrollTo({ top: 0, behavior: 'smooth' }); }} />
+      <NarrativeProof onScanClick={() => triggerTruthGate('narrative_proof')} onDemoClick={() => { setPowerToolTriggered(true); window.scrollTo({ top: 0, behavior: 'smooth' }); }} />
+      <ClosingManifesto onScanClick={() => triggerTruthGate('closing_manifesto')} onDemoClick={() => { setPowerToolTriggered(true); window.scrollTo({ top: 0, behavior: 'smooth' }); }} />
 
       <ExitIntentModal
         stepsCompleted={stepsCompleted}

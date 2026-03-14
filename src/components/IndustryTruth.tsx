@@ -261,6 +261,26 @@ const IndustryTruth = ({ onScanClick, onDemoClick }: IndustryTruthProps) => {
           >
             Show me how it works first →
           </button>
+          {onDemoClick && (
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={onDemoClick}
+              style={{
+                background: "transparent",
+                color: "#0891B2",
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: 14,
+                fontWeight: 600,
+                padding: "12px 28px",
+                borderRadius: 10,
+                border: "2px solid #0891B2",
+                cursor: "pointer",
+              }}
+            >
+              See the AI in Action — No Upload Needed
+            </motion.button>
+          )}
         </div>
       </div>
 
