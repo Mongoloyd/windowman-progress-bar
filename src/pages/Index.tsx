@@ -110,14 +110,18 @@ const Index = () => {
     console.log({ event: 'wm_truth_gate_triggered', source });
   };
 
-  // ── Scroll to truth-gate after render ──
+  // ── Scroll to truth-gate after render (double rAF ensures paint is complete) ──
   useEffect(() => {
     if (pendingScrollRef.current && flowMode === 'A' && !gradeRevealed) {
-      const el = document.getElementById("truth-gate");
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-        pendingScrollRef.current = false;
-      }
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const el = document.getElementById("truth-gate");
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth" });
+            pendingScrollRef.current = false;
+          }
+        });
+      });
     }
   }, [flowMode, gradeRevealed]);
 
