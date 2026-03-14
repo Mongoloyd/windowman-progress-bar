@@ -14,7 +14,11 @@ const listItems = [
   </>];
 
 
-const MarketMakerManifesto = () => {
+interface MarketMakerManifestoProps {
+  onDemoClick?: () => void;
+}
+
+const MarketMakerManifesto = ({ onDemoClick }: MarketMakerManifestoProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.1 });
 
