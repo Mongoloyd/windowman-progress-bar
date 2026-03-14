@@ -412,8 +412,8 @@ function LeadModal({ onComplete, onClose }: { onComplete: (form: any) => void; o
 
   const STEPS = {
     1: {
-      eyebrow: "WINDOW MAN POWER TOOL",
-      headline: "Unlock the Truth Report",
+      eyebrow: "WINDOW MAN AI AUDIT",
+      headline: "See a Sample AI Truth Report",
       sub: "Get the same AI scanner contractors don't want you to have. Every clause, every compliance gap, every price red flag — exposed before you sign anything.",
       cta: "Get Instant Access →",
     },
