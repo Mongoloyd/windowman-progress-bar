@@ -8,12 +8,20 @@ const checks = [
   "Used by 4,127+ Florida homeowners this year",
 ];
 
-const ClosingManifesto = () => {
+interface ClosingManifestoProps {
+  onScanClick?: () => void;
+}
+
+const ClosingManifesto = ({ onScanClick }: ClosingManifestoProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.2 });
 
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const handleScanClick = () => {
+    if (onScanClick) {
+      onScanClick();
+    } else {
+      document.getElementById("truth-gate")?.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
