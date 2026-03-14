@@ -47,6 +47,7 @@ const Index = () => {
 
   // ── Flow A state ──
   const [leadCaptured, setLeadCaptured] = useState(false);
+  const [truthGateHighlight, setTruthGateHighlight] = useState(false);
   const [fileUploaded, setFileUploaded] = useState(false);
   const [gradeRevealed, setGradeRevealed] = useState(false);
   const [contractorMatchVisible, setContractorMatchVisible] = useState(false);
@@ -107,6 +108,7 @@ const Index = () => {
       setFlowMode('A');
     }
     pendingScrollRef.current = true;
+    setTruthGateHighlight(true);
     console.log({ event: 'wm_truth_gate_triggered', source });
   };
 
@@ -226,6 +228,8 @@ const Index = () => {
                   setStepsCompleted(step);
                   setSelectedCounty(county);
                 }}
+                highlight={truthGateHighlight}
+                onHighlightDone={() => setTruthGateHighlight(false)}
               />
               <UploadZone
                 isVisible={leadCaptured}

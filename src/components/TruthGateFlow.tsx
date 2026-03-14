@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePhoneInput } from "@/hooks/usePhoneInput";
 import { isValidEmail, isValidName } from "@/utils/formatPhone";
@@ -111,7 +111,19 @@ const Spinner = () => (
   </svg>
 );
 
-const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () => void; onStepChange?: (step: number, county: string) => void }) => {
+const TruthGateFlow = ({ onLeadCaptured, onStepChange, highlight, onHighlightDone }: { onLeadCaptured?: () => void; onStepChange?: (step: number, county: string) => void; highlight?: boolean; onHighlightDone?: () => void }) => {
+  const [glowing, setGlowing] = useState(false);
+
+  useEffect(() => {
+    if (highlight) {
+      setGlowing(true);
+      const timer = setTimeout(() => {
+        setGlowing(false);
+        onHighlightDone?.();
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [highlight, onHighlightDone]);
   const [currentStep, setCurrentStep] = useState(1);
   const [answers, setAnswers] = useState<Answers>({
     windowCount: "",
@@ -543,7 +555,7 @@ const TruthGateFlow = ({ onLeadCaptured, onStepChange }: { onLeadCaptured?: () =
 
   return (
     <section id="truth-gate" style={{ backgroundColor: "#FAFAFA" }}>
-      <div className="mx-auto max-w-2xl px-4 md:px-8 py-16 md:py-24">
+      <div className={`mx-auto max-w-2xl px-4 md:px-8 py-16 md:py-24 transition-all duration-500 rounded-xl ${glowing ? 'ring-2 ring-gold shadow-lg shadow-gold/20' : ''}`}>
         {/* Eyebrow + Progress */}
         <p
           className="text-center mb-3"
