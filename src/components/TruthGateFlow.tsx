@@ -1,5 +1,8 @@
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePhoneInput } from "@/hooks/usePhoneInput";
+import { isValidEmail, isValidName } from "@/utils/formatPhone";
+import { Check } from "lucide-react";
 
 
 const stepConfig = [
