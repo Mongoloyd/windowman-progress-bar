@@ -421,7 +421,7 @@ function LeadModal({ onComplete, onClose }: { onComplete: (form: any) => void; o
       eyebrow: "ONE MORE THING",
       headline: `One more thing, ${form.name.split(" ")[0] || "friend"}`,
       sub: "",
-      cta: "Show Me a Sample Truth Report →",
+      cta: "Show Me a Sample AI Truth Report →",
     },
   };
 
@@ -1000,7 +1000,7 @@ function DemoReport({ lead, onUploadQuote, onClose }) {
               onClick={handleUploadClick}
               style={{ color: T.cyan, textDecoration: "underline", fontWeight: 700 }}
             >
-              Upload YOUR quote to get your real Truth Report →
+              Upload YOUR quote to get your real AI Truth Report →
             </a>
           </span>
           {onClose && (
@@ -1031,7 +1031,7 @@ function DemoReport({ lead, onUploadQuote, onClose }) {
           <div style={{ marginBottom: "40px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "9px", marginBottom: "13px" }}>
               <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: T.cyan }} />
-              <Kicker>WINDOW MAN TRUTH REPORT</Kicker>
+              <Kicker>WINDOW MAN AI TRUTH REPORT</Kicker>
             </div>
             <h1 style={{ fontSize: "38px", fontWeight: 800, lineHeight: 1.1, margin: "0 0 10px" }}>
               {firstName.charAt(0).toUpperCase() + firstName.slice(1)}'s Quote Safety Audit
@@ -1338,7 +1338,7 @@ function DemoReport({ lead, onUploadQuote, onClose }) {
                 Ready to scan YOUR actual quote?
               </div>
               <div style={{ fontSize: "14px", color: T.muted, marginBottom: "22px", lineHeight: 1.6 }}>
-                Upload it in 60 seconds. Get your real Truth Report — free. Every clause, every red flag, every risk
+                Upload it in 60 seconds. Get your real AI Truth Report — free. Every clause, every red flag, every risk
                 score.
               </div>
               <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
