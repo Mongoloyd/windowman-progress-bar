@@ -49,13 +49,21 @@ const blocks = [
   },
 ];
 
-const IndustryTruth = () => {
+interface IndustryTruthProps {
+  onScanClick?: () => void;
+}
+
+const IndustryTruth = ({ onScanClick }: IndustryTruthProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.15 });
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const handleScanClick = () => {
+    if (onScanClick) {
+      onScanClick();
+    } else {
+      document.getElementById("truth-gate")?.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
