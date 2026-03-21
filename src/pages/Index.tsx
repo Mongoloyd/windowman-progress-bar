@@ -249,14 +249,13 @@ const Index = () => {
           isActive={true}
           selectedCounty={mockAuditResult.county}
           onRevealComplete={() => {
-            setGradeRevealed(true);
-            window.scrollTo({ top: 0, behavior: "smooth" });
             console.log({
               event: "wm_grade_revealed",
               grade: mockAuditResult.grade,
               dollarDelta: mockAuditResult.dollarDelta,
               flagCount: mockAuditResult.flags.length,
             });
+            navigate("/report/demo");
           }}
         />
       )}
