@@ -1,0 +1,393 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#0A0A0A;--surf:#111418;--elev:#161C28;--panel:#0D1B35;
+--b1:#1C1C1C;--b2:#2E3A50;
+--sco:#1D4ED8;--scov:#3B82F6;--bco:#1A6FD4;
+--fo:#F97316;--co:#BB2D00;
+--cy:#00D9FF;--cyt:#006B8E;
+--am:#F59E0B;--amt:#92400E;
+--re:#DC2626;--ret:#C41919;
+--em:#10B981;
+--t1:#FFFFFF;--t2:#C8DEFF;--t3:#A0B8D8;--t4:#7D9DBB;
+--FD:'Barlow Condensed',sans-serif;
+--FB:'DM Sans',sans-serif;
+--FM:'JetBrains Mono',monospace;
+--snap:0.12s ease;--fast:0.15s ease;
+}
+body{background:var(--bg);color:var(--t1);font-family:var(--FB);font-size:14px}
+
+.tabs{display:flex;gap:0;background:var(--surf);border-bottom:1px solid var(--b2);overflow-x:auto}
+.tab{font-family:var(--FM);font-size:10px;letter-spacing:0.1em;padding:10px 16px;border:none;background:transparent;color:var(--t4);cursor:pointer;white-space:nowrap;border-right:1px solid var(--b1);transition:all var(--fast)}
+.tab:hover{color:var(--t2);background:rgba(255,255,255,0.03)}
+.tab.on{color:var(--cy);border-bottom:1px solid var(--cy);background:rgba(0,217,255,0.04)}
+.pane{display:none;padding:20px 16px}
+.pane.on{display:block}
+.mono{font-family:var(--FM)}
+.disp{font-family:var(--FD);font-weight:900;text-transform:uppercase;line-height:1.0}
+.t1c{color:var(--t1)}.t2c{color:var(--t2)}.t3c{color:var(--t3)}.t4c{color:var(--t4)}
+.cyc{color:var(--cy)}.amc{color:var(--am)}.rec{color:var(--re)}.orc{color:var(--fo)}.emc{color:var(--em)}
+
+/* SHARP CARDS */
+.card{background:var(--surf);border:1px solid var(--b2);padding:16px;margin-bottom:10px}
+.card-co{background:rgba(29,78,216,0.06);border:1px solid rgba(29,78,216,0.25);border-left:2px solid var(--sco);padding:14px;margin-bottom:8px}
+.card-re{background:rgba(220,38,38,0.06);border:1px solid rgba(220,38,38,0.25);border-left:2px solid var(--re);padding:14px;margin-bottom:8px}
+.card-am{background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.25);border-left:2px solid var(--am);padding:14px;margin-bottom:8px}
+.card-cy{background:rgba(0,217,255,0.04);border:1px solid rgba(0,217,255,0.20);border-left:2px solid var(--cy);padding:14px;margin-bottom:8px}
+.card-em{background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.22);border-left:2px solid var(--em);padding:14px;margin-bottom:8px}
+
+/* BUTTONS */
+.btn{font-family:var(--FB);font-weight:700;font-size:13px;padding:10px 20px;border:none;cursor:pointer;transition:all var(--fast);display:inline-flex;align-items:center;gap:6px;letter-spacing:0.01em}
+.btn-primary{background:var(--co);color:#fff;border-radius:2px}
+.btn-primary:hover{background:#9B2400;transform:translateY(-1px)}
+.btn-co{background:var(--sco);color:#fff;border-radius:2px}
+.btn-co:hover{background:#1E40AF}
+.btn-ghost{background:transparent;color:var(--t3);border:1px solid var(--b2);border-radius:2px}
+.btn-ghost:hover{border-color:var(--sco);color:var(--t2)}
+
+/* BADGE */
+.bdg{font-family:var(--FM);font-size:9px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:3px 7px;border-radius:3px;display:inline-flex;align-items:center;gap:4px}
+.bdg-co{background:rgba(29,78,216,0.18);color:var(--scov);border:1px solid rgba(29,78,216,0.30)}
+.bdg-cy{background:rgba(0,217,255,0.10);color:var(--cy);border:1px solid rgba(0,217,255,0.25)}
+.bdg-am{background:rgba(245,158,11,0.14);color:var(--am);border:1px solid rgba(245,158,11,0.30)}
+.bdg-re{background:rgba(220,38,38,0.14);color:#F87171;border:1px solid rgba(220,38,38,0.30)}
+.bdg-em{background:rgba(16,185,129,0.14);color:#34D399;border:1px solid rgba(16,185,129,0.30)}
+.bdg-or{background:rgba(249,115,22,0.18);color:var(--fo);border:1px solid rgba(249,115,22,0.35)}
+
+/* INPUT */
+.inp{font-family:var(--FB);font-size:13px;background:var(--panel);border:1px solid var(--b2);color:var(--t1);padding:10px 12px;width:100%;outline:none;border-radius:0;transition:border-color var(--fast)}
+.inp:focus{border-color:var(--cy);box-shadow:0 0 0 1px rgba(0,217,255,0.15)}
+.inp::placeholder{color:var(--t4);font-size:12px}
+
+/* OPTION BTN */
+.opt{font-family:var(--FB);font-size:13px;font-weight:500;color:var(--t2);background:var(--elev);border:1px solid var(--b2);padding:13px 16px;width:100%;text-align:left;cursor:pointer;transition:all var(--snap);display:flex;align-items:center;gap:10px;margin-bottom:6px;border-radius:0}
+.opt:hover{border-color:var(--sco);background:rgba(29,78,216,0.08);color:var(--t1)}
+.opt.sel{border-color:var(--cy);background:rgba(0,217,255,0.06);color:var(--cy)}
+.opt .opt-dot{width:5px;height:5px;border:1px solid var(--b2);flex-shrink:0;transition:all var(--snap)}
+.opt.sel .opt-dot{background:var(--cy);border-color:var(--cy)}
+
+/* SCAN LOG */
+.log{font-family:var(--FM);font-size:11px;line-height:1.9;padding:14px;background:var(--bg);border:1px solid var(--b2);max-height:180px;overflow-y:auto}
+.log-sys{color:var(--sco);opacity:0.8}
+.log-ok{color:var(--t3)}
+.log-flag{color:var(--fo)}
+.log-verified{color:var(--em)}
+.log-crit{color:var(--re)}
+
+/* PROGRESS */
+.prog{height:2px;background:var(--b2);margin:8px 0;overflow:hidden}
+.prog-fill{height:100%;transition:width 1s ease;background:linear-gradient(90deg,var(--sco),var(--cy))}
+.prog-danger{background:linear-gradient(90deg,var(--sco),var(--fo))}
+
+/* GRADE */
+.grade-letter{font-family:var(--FD);font-weight:900;text-transform:uppercase;line-height:1;font-size:80px;letter-spacing:-0.04em}
+
+/* DIFF TABLE */
+.diff-row{display:grid;grid-template-columns:120px 1fr 1fr;gap:0;border-bottom:1px solid var(--b1)}
+.diff-cell{padding:10px 12px;font-size:12px}
+.diff-label{font-family:var(--FM);font-size:9px;color:var(--t4);letter-spacing:0.08em;background:rgba(0,0,0,0.3)}
+.diff-old{color:#EF4444;background:rgba(220,38,38,0.04)}
+.diff-new{color:#34D399;background:rgba(16,185,129,0.04)}
+
+/* HERO PREVIEW */
+.hero-prev{background:var(--bg);border:1px solid var(--b2);padding:24px 20px;position:relative;overflow:hidden;margin-bottom:12px}
+.hero-scanline{position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.008) 2px,rgba(255,255,255,0.008) 4px);pointer-events:none}
+.hero-vignette{position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at center,transparent 60%,rgba(0,0,0,0.6) 100%);pointer-events:none}
+</style>
+
+<div class="tabs">
+  <button class="tab on" onclick="sw('diff')">PLAN vs SYNTHESIS</button>
+  <button class="tab" onclick="sw('hero')">HERO PREVIEW</button>
+  <button class="tab" onclick="sw('gate')">TRUTH GATE</button>
+  <button class="tab" onclick="sw('scan')">SCAN TERMINAL</button>
+  <button class="tab" onclick="sw('grade')">GRADE REVEAL</button>
+  <button class="tab" onclick="sw('lovable')">LOVABLE P1</button>
+</div>
+
+<!-- DIFF TAB -->
+<div id="diff" class="pane on">
+  <div style="font-family:var(--FM);font-size:10px;color:var(--cy);letter-spacing:0.1em;margin-bottom:14px">◈ SYNTHESIS DECISIONS — 8 CALLS MADE</div>
+
+  <div style="font-family:var(--FM);font-size:9px;color:var(--t4);display:grid;grid-template-columns:120px 1fr 1fr;gap:0;border-bottom:1px solid var(--b2);margin-bottom:2px">
+    <div style="padding:6px 12px">DECISION</div>
+    <div style="padding:6px 12px;color:#F87171">NOIR PLAN</div>
+    <div style="padding:6px 12px;color:#34D399">SYNTHESIS</div>
+  </div>
+
+  ${[
+    ["Background","#0A0A0A flat void","#0A0A0A bg + #111418 cards + #0D1B35 panels"],
+    ["Radius","0px everywhere","0px cards · 2px buttons · 3px badges"],
+    ["Cobalt","#2563EB only","#1D4ED8 system · #1A6FD4 brand (mascot)"],
+    ["Orange","#F97316 flags only","#F97316 flags · #BB2D00 CTAs (WCAG 6.02:1)"],
+    ["Body font","DM Mono","DM Sans — mono is unreadable at paragraph"],
+    ["Motion","0.15s snap all","0.12s snap UI · 0.4s spring grade ONLY"],
+    ["Text on dark","#6B7280 gray (fails 5.39:1)","#C8DEFF T2 cobalt-white (12.5:1 ✓)"],
+    ["Amber/gold","Logo wordmark only","Forensic data moments · leverage badges"],
+  ].map(([d,o,n])=>`
+  <div class="diff-row">
+    <div class="diff-cell diff-label">${d}</div>
+    <div class="diff-cell diff-old">${o}</div>
+    <div class="diff-cell diff-new">${n}</div>
+  </div>`).join('')}
+
+  <div style="margin-top:16px" class="card-cy">
+    <div style="font-family:var(--FM);font-size:9px;color:var(--cy);letter-spacing:0.1em;margin-bottom:6px">THE THESIS IS CORRECT</div>
+    <div style="font-size:12px;color:var(--t3);line-height:1.65">The forensic noir aesthetic direction wins. Matte black, sharp edges, clinical, investigative. What the plan misses: text contrast rigor, depth layering, and semantic amber. The synthesis keeps the noir soul and fixes the technical failures.</div>
+  </div>
+
+  <div style="margin-top:8px" class="card-am">
+    <div style="font-family:var(--FM);font-size:9px;color:var(--am);letter-spacing:0.1em;margin-bottom:6px">THE ONE NON-NEGOTIABLE</div>
+    <div style="font-size:12px;color:var(--t3);line-height:1.65">The noir plan's <span style="color:#EF4444">#6B7280 on #0A0A0A = 5.39:1</span>. Fails WCAG 6:1 target. Fails in certain viewing conditions. In our system: <span style="color:#34D399">#7D9DBB (T4) on #0A0A0A = 6.3:1 ✓</span>. Same clinical distance. Zero compromise on legibility.</div>
+  </div>
+</div>
+
+<!-- HERO PREVIEW -->
+<div id="hero" class="pane">
+  <div style="font-family:var(--FM);font-size:10px;color:var(--cy);letter-spacing:0.1em;margin-bottom:14px">◈ FORENSIC NOIR HERO — SYNTHESIZED</div>
+
+  <div class="hero-prev">
+    <div class="hero-scanline"></div>
+    <div class="hero-vignette"></div>
+
+    <!-- Nav -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;position:relative">
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:26px;height:26px;background:var(--sco);display:flex;align-items:center;justify-content:center;font-family:var(--FD);font-weight:900;font-size:13px">WM</div>
+        <div>
+          <span style="font-family:var(--FD);font-weight:900;font-size:15px;color:var(--t1)">WINDOW</span><span style="font-family:var(--FD);font-weight:900;font-size:15px;color:var(--fo)">MAN</span>
+          <div style="font-family:var(--FM);font-size:8px;color:var(--t4);letter-spacing:0.1em">.PRO</div>
+        </div>
+      </div>
+      <button class="btn btn-ghost" style="font-size:11px;padding:6px 12px">SIGN IN</button>
+    </div>
+
+    <!-- Eyebrow -->
+    <div style="font-family:var(--FM);font-size:9px;color:var(--cy);letter-spacing:0.14em;margin-bottom:12px;display:flex;align-items:center;gap:8px">
+      <div style="width:16px;height:1px;background:var(--cy)"></div>
+      FLORIDA'S FORENSIC QUOTE ENGINE
+    </div>
+
+    <!-- Headline -->
+    <div class="disp" style="font-size:clamp(22px,5vw,38px);color:var(--t1);margin-bottom:4px">YOUR QUOTE LOOKS</div>
+    <div class="disp" style="font-size:clamp(22px,5vw,38px);color:var(--t1);margin-bottom:4px">LEGITIMATE.</div>
+    <div class="disp" style="font-size:clamp(18px,4vw,28px);color:var(--t3);margin-bottom:16px">THAT'S EXACTLY WHAT<br><span style="color:var(--fo)">THEY'RE COUNTING ON.</span></div>
+
+    <!-- Sub -->
+    <div style="font-size:13px;color:var(--t3);line-height:1.65;max-width:340px;margin-bottom:20px">AI scans your quote for hidden fees, missing protections, and overpriced scope — before you sign anything.</div>
+
+    <!-- CTA row -->
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <button class="btn btn-primary" style="font-size:14px;padding:12px 24px">SCAN MY QUOTE →</button>
+      <div style="font-size:11px;color:var(--t4)">No account required · 60 seconds</div>
+    </div>
+
+    <!-- Stats strip -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:20px;background:var(--b2)">
+      ${[["4,218","FL SCANS"],["$4,800","AVG FOUND"],["73%","FLAG RATE"]].map(([n,l])=>`
+      <div style="background:var(--surf);padding:10px 12px">
+        <div style="font-family:var(--FD);font-size:20px;font-weight:800;color:var(--cy)">${n}</div>
+        <div style="font-family:var(--FM);font-size:8px;color:var(--t4);letter-spacing:0.1em;margin-top:2px">${l}</div>
+      </div>`).join('')}
+    </div>
+  </div>
+
+  <div class="card-cy">
+    <div style="font-size:12px;color:var(--t3);line-height:1.65"><span style="color:var(--t2)">Scanline texture</span> (the repeating 4px gradient) adds a CRT/surveillance feel without a single image file. <span style="color:var(--t2)">Vignette</span> (radial gradient) draws the eye to center. Neither is visible at a glance — both make the aesthetic register as investigative.</div>
+  </div>
+</div>
+
+<!-- TRUTH GATE -->
+<div id="gate" class="pane">
+  <div style="font-family:var(--FM);font-size:10px;color:var(--cy);letter-spacing:0.1em;margin-bottom:14px">◈ TRUTH GATE — FORENSIC TERMINAL STYLE</div>
+
+  <div style="background:var(--surf);border:1px solid var(--b2);padding:16px;margin-bottom:12px">
+    <!-- Progress -->
+    <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+      <div style="font-family:var(--FM);font-size:9px;color:var(--cy);letter-spacing:0.08em">STEP 2 OF 4 — CONFIGURING SCOPE PARAMETERS</div>
+      <div style="font-family:var(--FM);font-size:9px;color:var(--t4)">50%</div>
+    </div>
+    <div class="prog"><div class="prog-fill" style="width:50%"></div></div>
+
+    <!-- Question -->
+    <div style="font-family:var(--FD);font-size:20px;font-weight:800;color:var(--t1);text-transform:uppercase;margin:14px 0 6px">What type of project?</div>
+    <div style="font-family:var(--FM);font-size:10px;color:var(--t4);margin-bottom:14px">Different scopes have different fair-price benchmarks. Yours matters.</div>
+
+    <!-- Options -->
+    ${["Full home replacement","Partial replacement","New construction","Addition / Single room"].map((o,i)=>`
+    <button class="opt${i===0?' sel':''}" onclick="selOpt(this)">
+      <div class="opt-dot"></div>
+      <span>${o}</span>
+      ${i===0?`<span style="margin-left:auto" class="bdg bdg-cy">SELECTED</span>`:''}
+    </button>`).join('')}
+  </div>
+
+  <div class="card-am">
+    <div style="font-family:var(--FM);font-size:9px;color:var(--am);letter-spacing:0.1em;margin-bottom:6px">⚡ SHARP CORNER PSYCHOLOGY</div>
+    <div style="font-size:12px;color:var(--t3);line-height:1.65">Option buttons with <span style="color:var(--t1)">border-radius: 0px</span> read as form fields on a government intake document, not consumer app choices. The user isn't selecting a preference — they're entering data into an investigation. The snap transition (0.12s) reinforces that each selection is a committed answer, not a soft toggle.</div>
+  </div>
+</div>
+
+<!-- SCAN TERMINAL -->
+<div id="scan" class="pane">
+  <div style="font-family:var(--FM);font-size:10px;color:var(--cy);letter-spacing:0.1em;margin-bottom:14px">◈ SCAN TERMINAL — FORENSIC SEQUENCE</div>
+
+  <div style="background:var(--bg);border:1px solid var(--b2);padding:4px 0;margin-bottom:12px">
+    <div style="padding:6px 12px;border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:6px">
+      <div style="width:6px;height:6px;border-radius:50%;background:var(--sco)"></div>
+      <div style="font-family:var(--FM);font-size:9px;color:var(--t4);letter-spacing:0.1em">WINDOWMAN FORENSIC ENGINE v2.1 — BROWARD COUNTY</div>
+    </div>
+    <div class="log" id="log-output">
+      <div class="log-sys">$ INITIALIZING FORENSIC PROTOCOL...</div>
+      <div class="log-sys">$ SECURE HANDSHAKE ESTABLISHED</div>
+      <div class="log-ok">■ Accessing <span style="color:var(--t1)">BROWARD COUNTY</span> pricing benchmarks...</div>
+      <div class="log-ok">■ Extracting line items and scope specifications...</div>
+      <div class="log-ok">■ Running brand registry check...</div>
+      <div class="log-flag">▲ FLAG DETECTED: No window brand specified — substitution risk HIGH</div>
+      <div class="log-ok">■ Scanning warranty language...</div>
+      <div class="log-flag">▲ FLAG DETECTED: "Permit included" — no dollar amount specified</div>
+      <div class="log-ok">■ Running NOA compliance verification...</div>
+      <div class="log-verified">✓ Document authenticity: CONFIRMED</div>
+      <div class="log-ok">■ Calculating fair-market delta...</div>
+      <div class="log-flag">▲ FLAG DETECTED: Labor warranty 1 year — state minimum is 3</div>
+      <div class="log-ok" id="computing">■ Computing final risk score<span id="dots"></span></div>
+    </div>
+  </div>
+
+  <!-- Progress -->
+  <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+    <div style="font-family:var(--FM);font-size:9px;color:var(--t4)">ANALYSIS PROGRESS</div>
+    <div style="font-family:var(--FM);font-size:9px" id="pct-label" style="color:var(--cy)">99%</div>
+  </div>
+  <div class="prog" style="height:3px"><div class="prog-fill prog-danger" id="scan-prog" style="width:99%;box-shadow:0 0 6px rgba(249,115,22,0.4)"></div></div>
+
+  <div style="margin-top:8px;text-align:center;font-family:var(--FM);font-size:10px;color:var(--fo);letter-spacing:0.08em" id="sig-found">⚡ SIGNIFICANT FINDINGS — IDENTITY VERIFICATION REQUIRED</div>
+
+  <div class="card-re" style="margin-top:12px">
+    <div style="font-family:var(--FM);font-size:9px;color:#F87171;letter-spacing:0.1em;margin-bottom:6px">WHY ORANGE LINES ≠ RED LINES</div>
+    <div style="font-size:12px;color:var(--t3);line-height:1.65">Orange (<span style="color:var(--fo)">#F97316</span>) = flag detected. Something wrong but categorized. Red (<span style="color:var(--re)">#DC2626</span>) = grade D or F. Critical severity. The scan log uses orange. The grade reveal uses red. By the time the user sees their grade, they've been conditioned: orange = warning, red = crisis.</div>
+  </div>
+</div>
+
+<!-- GRADE REVEAL -->
+<div id="grade" class="pane">
+  <div style="font-family:var(--FM);font-size:10px;color:var(--cy);letter-spacing:0.1em;margin-bottom:14px">◈ GRADE REVEAL — THE PAYOFF</div>
+
+  <div style="background:var(--surf);border:1px solid rgba(220,38,38,0.35);padding:20px;margin-bottom:12px">
+    <div style="display:flex;align-items:flex-start;gap:20px;margin-bottom:16px">
+      <div>
+        <div class="grade-letter" id="grade-letter" style="color:var(--re);text-shadow:0 0 30px rgba(220,38,38,0.35)">F</div>
+        <div style="font-family:var(--FM);font-size:9px;color:var(--t4);letter-spacing:0.1em;margin-top:4px">FORENSIC GRADE</div>
+      </div>
+      <div style="flex:1">
+        <div style="font-family:var(--FD);font-size:22px;font-weight:900;color:var(--t1);text-transform:uppercase;margin-bottom:4px">DO NOT SIGN</div>
+        <div style="font-family:var(--FM);font-size:10px;color:var(--t3);margin-bottom:12px">3 CRITICAL FLAGS · 2 LEVERAGE POINTS IDENTIFIED</div>
+        <div style="font-family:var(--FD);font-size:28px;font-weight:800;color:var(--re)">$5,400 ABOVE</div>
+        <div style="font-family:var(--FM);font-size:9px;color:var(--t4);letter-spacing:0.08em">BROWARD COUNTY FAIR-MARKET RANGE</div>
+      </div>
+    </div>
+
+    <!-- Pillars -->
+    ${[
+      ["PRICE FAIRNESS","F",36,"re"],
+      ["FINE PRINT","D",48,"fo"],
+      ["WARRANTY VALUE","D",45,"fo"],
+      ["INSTALL CLARITY","C",62,"am"],
+      ["SAFETY & CODE","B",75,"em"],
+    ].map(([l,g,v,c])=>`
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+      <div style="font-family:var(--FD);font-weight:800;font-size:16px;color:var(--${c});width:20px;text-align:center">${g}</div>
+      <div style="font-family:var(--FM);font-size:9px;color:var(--t4);width:110px;letter-spacing:0.06em">${l}</div>
+      <div style="flex:1;height:2px;background:var(--b2)"><div style="height:100%;width:${v}%;background:var(--${c});transition:width 1s ease"></div></div>
+      <div style="font-family:var(--FM);font-size:9px;color:var(--${c})">${v}/100</div>
+    </div>`).join('')}
+  </div>
+
+  <!-- Grade selector -->
+  <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap">
+    ${[["A","em"],["B","em"],["C","am"],["D","fo"],["F","re"]].map(([g,c])=>`
+    <button onclick="setGrade('${g}','${c}')" style="font-family:var(--FD);font-size:18px;font-weight:900;width:40px;height:40px;background:rgba(0,0,0,0.3);border:1px solid var(--b2);color:var(--${c});cursor:pointer;transition:all var(--fast);border-radius:0" onmouseover="this.style.borderColor='var(--${c})'" onmouseout="this.style.borderColor='var(--b2)'">${g}</button>`).join('')}
+    <div style="font-family:var(--FM);font-size:9px;color:var(--t4);align-self:center;margin-left:6px">click grade to preview</div>
+  </div>
+
+  <div class="card-co">
+    <div style="font-family:var(--FM);font-size:9px;color:var(--scov);letter-spacing:0.1em;margin-bottom:6px">THE SPRING EXCEPTION</div>
+    <div style="font-size:12px;color:var(--t3);line-height:1.65">Every transition in the noir system snaps at 0.12–0.20s. The grade letter is the ONE exception. It appears with <span style="color:var(--t1)">cubic-bezier(0.34, 1.56, 0.64, 1)</span> for 400ms. The slight overshoot gives the grade physical weight. An "F" that bounces slightly feels heavier than one that fades in. This is the payoff for 4 minutes of investment.</div>
+  </div>
+</div>
+
+<!-- LOVABLE PHASE 1 -->
+<div id="lovable" class="pane">
+  <div style="font-family:var(--FM);font-size:10px;color:var(--cy);letter-spacing:0.1em;margin-bottom:14px">◈ LOVABLE PHASE 1 — READY TO PASTE</div>
+
+  <div style="background:var(--bg);border:1px solid var(--b2);padding:14px;margin-bottom:12px">
+    <div style="font-family:var(--FM);font-size:9px;color:var(--am);letter-spacing:0.1em;margin-bottom:10px">PASTE THIS ENTIRE BLOCK INTO LOVABLE</div>
+    <div style="font-family:var(--FM);font-size:10px;color:var(--t3);line-height:2;white-space:pre-wrap">We are implementing the Forensic Noir design system.
+This is Phase 1 — foundation only. No component changes yet.
+
+1. Add to index.html &lt;head&gt;:
+&lt;link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"&gt;
+
+2. Replace entire :root in index.css or globals.css with the forensic noir tokens (provided in WindowMan_ForensicNoir_Phase1.md)
+
+3. In tailwind.config.ts:
+- Add fontFamily: { display: ['Barlow Condensed'], body: ['DM Sans'], mono: ['JetBrains Mono'] }
+- Set borderRadius: { DEFAULT: '0px', xs: '2px', sm: '3px', md: '4px' }
+- Update all color tokens to noir palette
+
+4. DO NOT change any component files yet. Phase 1 is tokens only.</div>
+  </div>
+
+  <div class="card-re">
+    <div style="font-family:var(--FM);font-size:9px;color:#F87171;letter-spacing:0.1em;margin-bottom:6px">PHASE ORDER — DO NOT SKIP</div>
+    <div style="font-size:12px;color:var(--t3);line-height:1.65">Phase 1: Tokens only (index.css, tailwind.config). Phase 2: Shell (header, hero, footer). Phase 3: Content sections. Phase 4: Scan + Report flow. Each phase is reviewable. Do not combine phases — one bad token bleeds everywhere.</div>
+  </div>
+
+  ${[
+    ["Phase 1","Design system foundation — tokens, fonts, border-radius, motion","co"],
+    ["Phase 2","LinearHeader, AuditHero, SocialProofStrip, ClosingManifesto","co"],
+    ["Phase 3","IndustryTruth, ProcessSteps, NarrativeProof, supporting components","am"],
+    ["Phase 4","TruthGateFlow, ScanTheatrics, TruthReport, GradeReveal, OTP","re"],
+  ].map(([ph,desc,c])=>`
+  <div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--b1)">
+    <div class="bdg bdg-${c}">${ph}</div>
+    <div style="font-size:12px;color:var(--t3)">${desc}</div>
+  </div>`).join('')}
+</div>
+
+<script>
+function sw(id){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  event.target.classList.add('on');
+}
+function selOpt(btn){
+  document.querySelectorAll('.opt').forEach(o=>{
+    o.classList.remove('sel');
+    o.querySelector('.opt-dot').style.background='';
+    const bdg=o.querySelector('.bdg-cy');if(bdg)bdg.remove();
+    o.querySelectorAll('span')[1].textContent=o.querySelectorAll('span')[1].textContent.replace('SELECTED','').trim();
+  });
+  btn.classList.add('sel');
+  const lbl=document.createElement('span');lbl.className='bdg bdg-cy';lbl.style.marginLeft='auto';lbl.textContent='SELECTED';
+  btn.appendChild(lbl);
+}
+function setGrade(g,c){
+  const el=document.getElementById('grade-letter');
+  el.style.color=`var(--${c})`;
+  el.style.textShadow=`0 0 30px var(--${c})40`;
+  el.style.animation='none';
+  el.textContent=g;
+  setTimeout(()=>{el.style.animation='gradeIn 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards'},10);
+}
+let dotCount=0;
+setInterval(()=>{
+  const d=document.getElementById('dots');
+  if(d)d.textContent='.'.repeat((dotCount++%4));
+},400);
+</script>
+<style>
+@keyframes gradeIn{from{transform:scale(0.6) rotate(-3deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+</style>

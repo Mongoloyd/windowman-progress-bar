@@ -1,0 +1,694 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#0A0A0A;--s1:#111418;--s2:#161C28;--s3:#0D1B35;
+--b1:#1C1C1C;--b2:#2E3A50;--b3:#3D4F6A;
+--co:#1D4ED8;--cov:#3B82F6;--bco:#1A6FD4;
+--fo:#F97316;--btn:#BB2D00;
+--cy:#00D9FF;--am:#F59E0B;--re:#DC2626;--em:#10B981;
+--t1:#FFFFFF;--t2:#C8DEFF;--t3:#A0B8D8;--t4:#7D9DBB;
+--FD:'Barlow Condensed',sans-serif;
+--FB:'DM Sans',sans-serif;
+--FM:'JetBrains Mono',monospace;
+}
+body{background:var(--bg);color:var(--t1);font-family:var(--FB);line-height:1.5}
+
+.nav-bar{display:flex;gap:4px;background:var(--s1);border-bottom:1px solid var(--b2);padding:8px 12px;overflow-x:auto;flex-wrap:wrap}
+.nb{font-family:var(--FM);font-size:9px;letter-spacing:0.1em;padding:5px 12px;border:1px solid var(--b2);background:transparent;color:var(--t4);cursor:pointer;border-radius:0;white-space:nowrap;transition:all 0.12s ease}
+.nb:hover{color:var(--t2);border-color:var(--co)}
+.nb.on{background:rgba(29,78,216,0.15);border-color:var(--co);color:var(--cy)}
+
+.sec{display:none;padding:20px 16px}
+.sec.on{display:block}
+
+.eyebrow{font-family:var(--FM);font-size:9px;letter-spacing:0.16em;color:var(--cy);display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.eyebrow::before{content:'';width:18px;height:1px;background:var(--cy)}
+.disp{font-family:var(--FD);font-weight:900;text-transform:uppercase;line-height:0.95;letter-spacing:-0.01em}
+.mono{font-family:var(--FM)}
+.body-txt{font-size:13px;color:var(--t3);line-height:1.7}
+.label{font-family:var(--FM);font-size:9px;letter-spacing:0.12em;color:var(--t4)}
+
+.pill{font-family:var(--FM);font-size:9px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;border-radius:2px;display:inline-flex;align-items:center;gap:4px}
+.pill-co{background:rgba(29,78,216,0.18);color:var(--cov);border:1px solid rgba(29,78,216,0.35)}
+.pill-cy{background:rgba(0,217,255,0.10);color:var(--cy);border:1px solid rgba(0,217,255,0.28)}
+.pill-am{background:rgba(245,158,11,0.12);color:var(--am);border:1px solid rgba(245,158,11,0.30)}
+.pill-re{background:rgba(220,38,38,0.12);color:#F87171;border:1px solid rgba(220,38,38,0.30)}
+.pill-fo{background:rgba(249,115,22,0.15);color:var(--fo);border:1px solid rgba(249,115,22,0.35)}
+.pill-em{background:rgba(16,185,129,0.12);color:#34D399;border:1px solid rgba(16,185,129,0.28)}
+
+.box{background:var(--s1);border:1px solid var(--b2);padding:16px;margin-bottom:10px}
+.box-left-co{border-left:2px solid var(--co)}
+.box-left-cy{border-left:2px solid var(--cy)}
+.box-left-am{border-left:2px solid var(--am)}
+.box-left-re{border-left:2px solid var(--re)}
+.box-left-fo{border-left:2px solid var(--fo)}
+.box-left-em{border-left:2px solid var(--em)}
+
+.btn-p{font-family:var(--FB);font-weight:700;font-size:13px;padding:12px 24px;background:var(--btn);color:#fff;border:none;cursor:pointer;border-radius:2px;letter-spacing:0.01em;display:inline-flex;align-items:center;gap:6px}
+.btn-g{font-family:var(--FB);font-weight:600;font-size:12px;padding:9px 18px;background:transparent;color:var(--t3);border:1px solid var(--b2);cursor:pointer;border-radius:2px}
+.btn-co{font-family:var(--FB);font-weight:700;font-size:12px;padding:9px 18px;background:var(--co);color:#fff;border:none;cursor:pointer;border-radius:2px}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--b2)}
+.grid3>div{background:var(--s1);padding:14px 12px}
+
+.inp{font-family:var(--FB);font-size:13px;background:var(--s3);border:1px solid var(--b2);color:var(--t1);padding:11px 12px;width:100%;border-radius:0;outline:none;margin-bottom:8px}
+.inp::placeholder{color:var(--t4);font-size:12px}
+
+.opt-btn{font-family:var(--FB);font-size:13px;font-weight:500;color:var(--t2);background:var(--s2);border:1px solid var(--b2);padding:13px 14px;width:100%;text-align:left;cursor:pointer;border-radius:0;display:flex;align-items:center;gap:10px;margin-bottom:5px}
+.opt-btn:hover{border-color:var(--co)}
+
+.scan-log{font-family:var(--FM);font-size:11px;line-height:2;padding:12px;background:var(--bg);border:1px solid var(--b2)}
+.sl-sys{color:var(--co);opacity:0.85}
+.sl-ok{color:var(--t3)}
+.sl-flag{color:var(--fo)}
+.sl-good{color:var(--em)}
+
+.divider{height:1px;background:var(--b1);margin:18px 0}
+.divider-co{background:linear-gradient(90deg,transparent,rgba(29,78,216,0.4),transparent)}
+
+.grade-big{font-family:var(--FD);font-weight:900;font-size:72px;line-height:1;letter-spacing:-0.04em;text-transform:uppercase}
+.stat-big{font-family:var(--FD);font-weight:800;font-size:32px;line-height:1;text-transform:uppercase}
+</style>
+
+<div class="nav-bar">
+  <button class="nb on" onclick="sw('nav')">NAV</button>
+  <button class="nb" onclick="sw('hero')">S1 HERO</button>
+  <button class="nb" onclick="sw('proof')">S2 PROOF STRIP</button>
+  <button class="nb" onclick="sw('evidence')">S3 EVIDENCE</button>
+  <button class="nb" onclick="sw('gate')">S4 TRUTH GATE</button>
+  <button class="nb" onclick="sw('verdict')">S5 MICRO-VERDICT</button>
+  <button class="nb" onclick="sw('leadgate')">S6 LEAD GATE</button>
+  <button class="nb" onclick="sw('upload')">S7 UPLOAD</button>
+  <button class="nb" onclick="sw('scan')">S8 SCAN</button>
+  <button class="nb" onclick="sw('otp')">S9 OTP</button>
+  <button class="nb" onclick="sw('reveal')">S10 REVEAL</button>
+  <button class="nb" onclick="sw('social')">S11 SOCIAL</button>
+  <button class="nb" onclick="sw('manifesto')">S12 MANIFESTO</button>
+  <button class="nb" onclick="sw('footer')">S13 FOOTER</button>
+</div>
+
+<!-- NAV -->
+<div id="nav" class="sec on">
+  <div class="eyebrow">SECTION 0 — NAVIGATION</div>
+  <div class="box box-left-co" style="margin-bottom:10px">
+    <div class="label" style="margin-bottom:10px">EXACT ELEMENTS · LEFT TO RIGHT</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--bg);border:1px solid var(--b2)">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:28px;height:28px;background:var(--co);display:flex;align-items:center;justify-content:center;font-family:var(--FD);font-weight:900;font-size:13px">WM</div>
+        <div>
+          <span style="font-family:var(--FD);font-weight:900;font-size:16px;color:var(--t1)">WINDOW</span><span style="font-family:var(--FD);font-weight:900;font-size:16px;color:var(--fo)">MAN</span><span style="font-family:var(--FD);font-weight:900;font-size:16px;color:var(--t4)">.PRO</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="btn-g" style="font-size:11px;padding:6px 12px">SIGN IN</button>
+        <button class="btn-p" style="font-size:11px;padding:6px 14px">SCAN MY QUOTE</button>
+      </div>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="box box-left-cy">
+      <div class="label" style="margin-bottom:6px">LOGO WORD TREATMENT</div>
+      <div class="body-txt">"WINDOW" in white Barlow Condensed 900. "MAN" in flag orange #F97316. ".PRO" in T4 muted. No space between words — it reads as one brand mark. The orange "MAN" is the only orange element in the nav — it primes the color association before the first flag appears.</div>
+    </div>
+    <div class="box box-left-am">
+      <div class="label" style="margin-bottom:6px">NO NAV LINKS</div>
+      <div class="body-txt">Zero navigation links. No About. No FAQ. No Services. No hamburger menu. The nav has ONE job: contain the logo and the primary CTA. Every additional link is an escape hatch. The page has no escape hatches.</div>
+    </div>
+  </div>
+  <div class="box box-left-re">
+    <div class="label" style="margin-bottom:6px">STICKY BEHAVIOR</div>
+    <div class="body-txt">Nav is sticky. After user scrolls past the hero, the nav CTA reads "SCAN MY QUOTE →". Before hero is visible, it reads "SCAN MY QUOTE →". Same copy. Nav never changes. It never becomes a hamburger. On mobile: logo left, CTA button right. Nothing else.</div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div id="hero" class="sec">
+  <div class="eyebrow">SECTION 1 — THE INTERROGATION ROOM (Hero)</div>
+
+  <div class="box" style="background:var(--bg);border:1px solid var(--b3);padding:22px 18px;margin-bottom:12px;position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.006) 2px,rgba(255,255,255,0.006) 4px);pointer-events:none"></div>
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 120% 80% at 60% 50%,rgba(29,78,216,0.10) 0%,transparent 65%);pointer-events:none"></div>
+
+    <div class="eyebrow" style="margin-bottom:10px">FLORIDA'S FORENSIC QUOTE ENGINE</div>
+
+    <div class="disp" style="font-size:clamp(26px,5vw,44px);color:var(--t1);margin-bottom:2px">YOUR QUOTE</div>
+    <div class="disp" style="font-size:clamp(26px,5vw,44px);color:var(--t1);margin-bottom:2px">LOOKS LEGITIMATE.</div>
+    <div class="disp" style="font-size:clamp(20px,4vw,34px);color:var(--t3);margin-bottom:4px">THAT'S EXACTLY WHAT</div>
+    <div class="disp" style="font-size:clamp(20px,4vw,34px);color:var(--fo);margin-bottom:18px">THEY'RE COUNTING ON.</div>
+
+    <div class="body-txt" style="max-width:400px;margin-bottom:20px">Upload any impact window quote and our AI scans it for hidden fees, missing protections, and overpriced scope — before you commit to anything.</div>
+
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:8px">
+      <button class="btn-p" style="font-size:14px;padding:14px 28px">SCAN MY QUOTE — IT'S FREE &nbsp;→</button>
+      <div class="body-txt" style="font-size:12px;color:var(--t4)">No account required. Results in 60 seconds.</div>
+    </div>
+
+    <div style="font-size:12px;color:var(--co);margin-top:6px;cursor:pointer">Getting quotes soon? We can arm you first →</div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:12px">
+    <div class="box box-left-co">
+      <div class="label" style="margin-bottom:6px">EYEBROW — "FLORIDA'S FORENSIC QUOTE ENGINE"</div>
+      <div class="body-txt">JetBrains Mono · 9px · ALL CAPS · letter-spacing 0.16em · cyan #00D9FF. Preceded by an 18px cyan hairline. Sets the frame before any other word lands. Visitor reads "forensic" before "quote" — brain primed: this is an investigation, not a marketplace.</div>
+    </div>
+    <div class="box box-left-fo">
+      <div class="label" style="margin-bottom:6px">HEADLINE STRUCTURE — 4 LINES</div>
+      <div class="body-txt">Line 1–2: White T1 — the lure. Line 3: T3 muted — the pivot. Line 4: Flag orange — the accusation. The sentence is split across colors to control which word the eye lands on first. "THEY'RE COUNTING ON." in orange is the only orange text in the hero — first flag-color contact.</div>
+    </div>
+    <div class="box box-left-cy">
+      <div class="label" style="margin-bottom:6px">SUBHEADLINE — MAX 2 LINES</div>
+      <div class="body-txt">DM Sans · 13px · T3 color. Contains three specific payoffs: "hidden fees" + "missing protections" + "overpriced scope." Each one is a real fear with a real outcome. Never generic ("get the best price"). Never vague ("protect yourself"). Specific fears convert.</div>
+    </div>
+    <div class="box box-left-am">
+      <div class="label" style="margin-bottom:6px">TRUST LINE — INLINE WITH CTA</div>
+      <div class="body-txt">"No account required. Results in 60 seconds." Never on its own line. Always whispered immediately right of the button — it's the objection removal for the exact moment of hesitation. DM Sans 12px · T4 muted. The micro-text that closes 30% of the decision gap.</div>
+    </div>
+  </div>
+
+  <div class="box box-left-co">
+    <div class="label" style="margin-bottom:6px">FLOW B MICRO-LINK — BELOW EVERYTHING</div>
+    <div class="body-txt" style="color:var(--co)">Getting quotes soon? We can arm you first →</div>
+    <div class="body-txt" style="margin-top:6px">Cobalt blue · 12px · DM Sans · sits below the trust line. NOT a second CTA button. A whisper. For the Flow B visitor who doesn't have a quote yet. If it were a button it would split attention. As a text link it serves its audience without competing for the primary conversion.</div>
+  </div>
+
+  <div class="box box-left-re">
+    <div class="label" style="margin-bottom:8px">BACKGROUND TREATMENT</div>
+    <div class="body-txt">Matte #0A0A0A base. Scanline texture: CSS repeating-linear-gradient of 2px transparent + 2px at 0.6% white opacity every 4px — creates a CRT/surveillance monitor feel using zero images. Cobalt radial glow: 10% opacity at 60% horizontal position — depth behind the mascot zone. Vignette: radial gradient darkening at edges. Zero image files. Pure CSS atmosphere.</div>
+  </div>
+</div>
+
+<!-- PROOF STRIP -->
+<div id="proof" class="sec">
+  <div class="eyebrow">SECTION 2 — DYNAMIC URGENCY STRIP</div>
+
+  <div class="grid3" style="margin-bottom:14px">
+    <div>
+      <div class="stat-big" style="color:var(--cy)" id="scan-count">4,218</div>
+      <div class="label" style="margin-top:4px">FL SCANS COMPLETED</div>
+    </div>
+    <div>
+      <div class="stat-big" style="color:var(--am)">$4,800</div>
+      <div class="label" style="margin-top:4px">AVG OVERPAYMENT FOUND</div>
+    </div>
+    <div>
+      <div class="stat-big" style="color:var(--fo)">73%</div>
+      <div class="label" style="margin-top:4px">OF QUOTES FLAGGED</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="box box-left-cy">
+      <div class="label" style="margin-bottom:6px">STAT 1 — SCAN COUNT (cyan)</div>
+      <div class="body-txt">Live-increments every 37 seconds. Seeded at 4,218 — odd number = specific = credible. "4,200" reads manufactured. "4,218" reads real. Cyan because it's verified data — the truth signal color. Barlow Condensed 800 for the number, JetBrains Mono for the label below.</div>
+    </div>
+    <div class="box box-left-am">
+      <div class="label" style="margin-bottom:6px">STAT 2 — AVG OVERPAYMENT (amber)</div>
+      <div class="body-txt">$4,800 static — defensible first-party data. Amber because it's a data finding, a leverage moment. NOT red (that would be panic) and NOT orange (that's flag-detection). Amber = "notice this, act on it." The dollar amount is the most important number on the page — it answers "is this worth my time?"</div>
+    </div>
+    <div class="box box-left-fo">
+      <div class="label" style="margin-bottom:6px">STAT 3 — FLAG RATE (orange)</div>
+      <div class="body-txt">73% — flag orange because this is a warning finding, not data intelligence. 73 out of 100 quotes have something wrong. This number creates FOMO: if 73% have problems, the probability that mine is fine is only 27%. Loss aversion math does the rest.</div>
+    </div>
+    <div class="box box-left-co">
+      <div class="label" style="margin-bottom:6px">STRIP PLACEMENT</div>
+      <div class="body-txt">Placed BELOW the hero fold — the visitor reads the headline and CTA first. Then scrolls and sees these numbers. Social proof hits at peak curiosity, not entry. If placed in the hero it competes with the headline. Below the fold it confirms the decision already forming.</div>
+    </div>
+  </div>
+</div>
+
+<!-- EVIDENCE ROOM -->
+<div id="evidence" class="sec">
+  <div class="eyebrow">SECTION 3 — THE EVIDENCE ROOM</div>
+  <div class="label" style="color:var(--t4);margin-bottom:14px">3 FORENSIC FINDINGS — STYLED AS INDICTMENTS, NOT FEATURES</div>
+
+  <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+    <div class="box" style="border-left:2px solid var(--re);background:rgba(220,38,38,0.04)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div class="pill pill-re">FINDING 01 — PRICING</div>
+        <div class="pill pill-re" style="font-size:8px">CRITICAL</div>
+      </div>
+      <div class="disp" style="font-size:22px;color:var(--t1);margin-bottom:6px">THE DELTA.</div>
+      <div class="body-txt">The average gap between what Florida contractors quote and what the scope actually costs is <span style="color:var(--am)">$4,800</span>. Not because they're criminals. Because the quote is written so you can't verify it. We run the numbers they're hoping you don't.</div>
+    </div>
+
+    <div class="box" style="border-left:2px solid var(--fo);background:rgba(249,115,22,0.04)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div class="pill pill-fo">FINDING 02 — SPEC FRAUD</div>
+        <div class="pill pill-fo" style="font-size:8px">HIGH RISK</div>
+      </div>
+      <div class="disp" style="font-size:22px;color:var(--t1);margin-bottom:6px">BRAND AMBIGUITY.</div>
+      <div class="body-txt">71% of Florida impact window contracts don't name the brand being installed. That means your contractor can swap it after you sign. We check every brand claim against the Florida product registry.</div>
+    </div>
+
+    <div class="box" style="border-left:2px solid var(--am);background:rgba(245,158,11,0.04)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div class="pill pill-am">FINDING 03 — COMPLIANCE</div>
+        <div class="pill pill-am" style="font-size:8px">LEVERAGE</div>
+      </div>
+      <div class="disp" style="font-size:22px;color:var(--t1);margin-bottom:6px">NOA COMPLIANCE.</div>
+      <div class="body-txt">A Notice of Acceptance is the state's certification that a window system meets Florida's hurricane standards. Every legitimate impact window has one. We verify it. If your quote doesn't reference it, we flag it.</div>
+    </div>
+  </div>
+
+  <div class="box box-left-co">
+    <div class="label" style="margin-bottom:6px">WHY FINDINGS NOT FEATURES</div>
+    <div class="body-txt">The section header is NOT "What We Do." It's implied by the card titles: THE DELTA. BRAND AMBIGUITY. NOA COMPLIANCE. Each one reads like a charge in an indictment. Not a bullet in a brochure. The word "finding" puts WindowMan in the role of investigator, not vendor. The visitor isn't reading about features — they're reading evidence that their own quote might already be compromised.</div>
+  </div>
+</div>
+
+<!-- TRUTH GATE -->
+<div id="gate" class="sec">
+  <div class="eyebrow">SECTION 4 — THE TRUTH GATE (Multi-step qualifier)</div>
+
+  <div class="box box-left-co" style="margin-bottom:10px">
+    <div class="label" style="margin-bottom:8px">CONTAINER HEADER — ABOVE STEP 1</div>
+    <div style="font-family:var(--FM);font-size:9px;color:var(--cy);letter-spacing:0.12em;margin-bottom:4px">CONFIGURING YOUR FORENSIC ANALYSIS</div>
+    <div style="height:2px;background:var(--b2);margin-bottom:4px"><div style="height:100%;width:25%;background:linear-gradient(90deg,var(--co),var(--cy))"></div></div>
+    <div style="display:flex;justify-content:space-between"><div class="label">STEP 1 OF 4</div><div class="label">25% COMPLETE</div></div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px">
+    <div class="box box-left-cy">
+      <div class="label" style="margin-bottom:8px">STEP 1 — EXACT WORDS</div>
+      <div class="disp" style="font-size:18px;color:var(--t1);margin-bottom:4px">How many windows are in your project?</div>
+      <div class="body-txt" style="font-size:11px;color:var(--t4);margin-bottom:10px">This helps our AI calculate your per-window cost vs. county average.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">
+        <button class="opt-btn" style="font-size:12px;padding:10px 12px"><span style="width:5px;height:5px;border:1px solid var(--b2)"></span>1–5 windows</button>
+        <button class="opt-btn" style="font-size:12px;padding:10px 12px"><span style="width:5px;height:5px;border:1px solid var(--b2)"></span>6–10 windows</button>
+        <button class="opt-btn" style="font-size:12px;padding:10px 12px"><span style="width:5px;height:5px;border:1px solid var(--b2)"></span>11–20 windows</button>
+        <button class="opt-btn" style="font-size:12px;padding:10px 12px"><span style="width:5px;height:5px;border:1px solid var(--b2)"></span>20+ windows</button>
+      </div>
+    </div>
+
+    <div class="box box-left-cy">
+      <div class="label" style="margin-bottom:8px">STEP 2 — EXACT WORDS</div>
+      <div class="disp" style="font-size:18px;color:var(--t1);margin-bottom:4px">What type of project?</div>
+      <div class="body-txt" style="font-size:11px;color:var(--t4);margin-bottom:10px">Different scopes have different fair-price benchmarks. Yours matters.</div>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <button class="opt-btn" style="font-size:12px;padding:10px 12px"><span style="width:5px;height:5px;border:1px solid var(--b2)"></span>Full home replacement</button>
+        <button class="opt-btn" style="font-size:12px;padding:10px 12px"><span style="width:5px;height:5px;border:1px solid var(--b2)"></span>Partial replacement</button>
+        <button class="opt-btn" style="font-size:12px;padding:10px 12px"><span style="width:5px;height:5px;border:1px solid var(--b2)"></span>New construction</button>
+        <button class="opt-btn" style="font-size:12px;padding:10px 12px"><span style="width:5px;height:5px;border:1px solid var(--b2)"></span>Addition / Single room</button>
+      </div>
+    </div>
+
+    <div class="box box-left-cy">
+      <div class="label" style="margin-bottom:8px">STEP 3 — EXACT WORDS</div>
+      <div class="disp" style="font-size:18px;color:var(--t1);margin-bottom:4px">What is your zip code?</div>
+      <div class="body-txt" style="font-size:11px;color:var(--t4);margin-bottom:10px">We have pricing data for every major Florida market. Your zip unlocks county-level intelligence.</div>
+      <input class="inp" placeholder="e.g. 33062" style="width:180px">
+      <div style="font-size:11px;color:var(--cy);margin-top:2px" id="county-preview">Enter zip → county data loads here</div>
+    </div>
+
+    <div class="box box-left-cy">
+      <div class="label" style="margin-bottom:8px">STEP 4 — EXACT WORDS</div>
+      <div class="disp" style="font-size:18px;color:var(--t1);margin-bottom:4px">Your approximate quote total?</div>
+      <div class="body-txt" style="font-size:11px;color:var(--t4);margin-bottom:10px">This is how we calculate if you're in the overcharge zone.</div>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <button class="opt-btn" style="font-size:12px;padding:10px 12px"><span style="width:5px;height:5px;border:1px solid var(--b2)"></span>Under $10,000</button>
+        <button class="opt-btn" style="font-size:12px;padding:10px 12px"><span style="width:5px;height:5px;border:1px solid var(--b2)"></span>$10,000 – $20,000</button>
+        <button class="opt-btn" style="font-size:12px;padding:10px 12px"><span style="width:5px;height:5px;border:1px solid var(--b2)"></span>$20,000 – $35,000</button>
+        <button class="opt-btn" style="font-size:12px;padding:10px 12px"><span style="width:5px;height:5px;border:1px solid var(--b2)"></span>$35,000+</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="box box-left-am">
+    <div class="label" style="margin-bottom:6px">MICRO-COPY BELOW EACH QUESTION — THE WHY</div>
+    <div class="body-txt">JetBrains Mono · 10px · T4 muted. This line is the most underrated copy on the page. It explains why the data matters before they answer. "This is how we calculate if you're in the overcharge zone." = they already know their result will be calculated before they submit anything. They're not giving data, they're configuring a machine that's working for them.</div>
+  </div>
+</div>
+
+<!-- MICRO-VERDICT -->
+<div id="verdict" class="sec">
+  <div class="eyebrow">SECTION 5 — MICRO-VERDICT CARD (between Step 3 and Step 4)</div>
+  <div class="label" style="color:var(--t4);margin-bottom:14px">HIGHEST-LEVERAGE COPY ON THE PAGE · APPEARS AFTER ZIP ENTRY</div>
+
+  <div class="box" style="background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.25);border-left:2px solid var(--am);margin-bottom:14px">
+    <div class="label" style="color:var(--am);margin-bottom:10px">BASED ON YOUR ANSWERS SO FAR</div>
+    <div style="font-family:var(--FB);font-size:15px;font-weight:600;color:var(--t1);margin-bottom:6px">Homes like yours in <span style="color:var(--cy)" id="county-name">Broward County</span> typically see quote gaps of <span style="color:var(--am)">$3,800–$6,200</span>.</div>
+    <div class="body-txt" style="margin-bottom:8px">The most common issue in this county and scope: <span style="color:var(--fo)">unspecified window brands</span> — found in <span style="color:var(--t1);font-weight:600">71% of contracts</span> we've analyzed.</div>
+    <div class="body-txt">When brands aren't specified, you can't verify you're getting the product quality you were verbally sold.</div>
+  </div>
+
+  <div class="grid2">
+    <div class="box box-left-am">
+      <div class="label" style="margin-bottom:6px">"HOMES LIKE YOURS"</div>
+      <div class="body-txt">Personalization apophenia — the brain hears "homes like yours" as if this was calculated for them specifically, even though it's county-level data. It converts generic statistics into personal findings. Never say "homes in Broward County" — say "homes LIKE YOURS in Broward County."</div>
+    </div>
+    <div class="box box-left-am">
+      <div class="label" style="margin-bottom:6px">"71% OF CONTRACTS"</div>
+      <div class="body-txt">Frequency framing, not percentages of homeowners. "71% of contracts analyzed" sounds like documented evidence — a case file. NOT "71% of homeowners are overcharged" (feels manipulative). The implication sentence converts the stat into personal consequence. All three sentences are mandatory — none is optional.</div>
+    </div>
+    <div class="box box-left-fo">
+      <div class="label" style="margin-bottom:6px">WHY IT APPEARS HERE — BETWEEN STEPS</div>
+      <div class="body-txt">After Step 3 (zip code), the user has invested 50% cognitive effort. They've answered county. The micro-verdict lands before Step 4 (quote total) — right before we ask the money question. The dread this creates makes Step 4 feel like self-protection, not data entry. Fear + curiosity = they finish the form.</div>
+    </div>
+    <div class="box box-left-re">
+      <div class="label" style="margin-bottom:6px">COUNTY IS DYNAMIC — ALWAYS PERSONALIZED</div>
+      <div class="body-txt">The county name pulled from ZIP_MARKET_DATA. The dollar range pulled from COUNTY_VERDICT_DATA. The flag type pulled from the same. A Miami-Dade homeowner sees Miami-Dade data. A Hillsborough homeowner sees Tampa data. Generic = ignored. Specific = believed.</div>
+    </div>
+  </div>
+</div>
+
+<!-- LEAD GATE -->
+<div id="leadgate" class="sec">
+  <div class="eyebrow">SECTION 6 — LEAD GATE (slides in after Step 4)</div>
+  <div class="label" style="color:var(--t4);margin-bottom:14px">USER IS 65%+ INVESTED · PEAK CURIOSITY · NOW WE ASK</div>
+
+  <div class="box" style="background:var(--s2);border:1px solid var(--b3);margin-bottom:12px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px">
+      <div class="pill pill-co">YOUR PROFILE IS CONFIGURED</div>
+      <div style="display:flex;gap:4px;flex-wrap:wrap">
+        <div class="pill pill-cy" id="profile-county">BROWARD COUNTY</div>
+        <div class="pill pill-co">FULL REPLACEMENT</div>
+        <div class="pill pill-am">$10K–$20K</div>
+      </div>
+    </div>
+    <div class="disp" style="font-size:22px;color:var(--t1);margin-bottom:4px">Where should we send your grade report?</div>
+    <div class="body-txt" style="margin-bottom:16px">Your analysis is running. Enter your details to receive the full results.</div>
+
+    <div style="margin-bottom:6px"><div class="label" style="margin-bottom:4px">FIRST NAME</div><input class="inp" placeholder="Your first name"></div>
+    <div style="margin-bottom:6px"><div class="label" style="margin-bottom:4px">EMAIL <span style="font-size:9px;color:var(--t4)">(your grade report is sent here)</span></div><input class="inp" placeholder="your@email.com"></div>
+    <div style="margin-bottom:4px"><div class="label" style="margin-bottom:4px">MOBILE NUMBER <span style="font-size:9px;color:var(--t4)">(for OTP verification — one code, then done)</span></div><input class="inp" placeholder="(305) 000-0000"></div>
+    <div style="font-size:10px;color:var(--t4);margin-bottom:14px;line-height:1.6">By continuing you consent to receive one SMS for identity verification. No sales calls. No spam. Unsubscribe any time. TCPA compliant.</div>
+
+    <button class="btn-p" style="width:100%;justify-content:center;font-size:14px;padding:14px">UNLOCK MY ANALYSIS &nbsp;→</button>
+    <div style="text-align:center;margin-top:10px;font-size:11px;color:var(--co);cursor:pointer">Or skip for now and explore a sample report</div>
+  </div>
+
+  <div class="grid2">
+    <div class="box box-left-am">
+      <div class="label" style="margin-bottom:6px">PROGRESS BADGE — THE SUNK COST ANCHOR</div>
+      <div class="body-txt">"YOUR PROFILE IS CONFIGURED · BROWARD COUNTY · FULL REPLACEMENT · $10K–$20K" — shows exactly what they've answered. Zeigarnik + sunk cost amplification. They've invested 4 answers. Abandoning now means losing the work. The badges make the investment visible. Never just a progress number — show the actual data back to them.</div>
+    </div>
+    <div class="box box-left-fo">
+      <div class="label" style="margin-bottom:6px">PHONE MICRO-COPY — THE MOST IMPORTANT 6 WORDS</div>
+      <div class="body-txt">"For OTP verification — one code, then done." This is the highest-converting micro-copy in the product. NOT "We won't spam you." NOT "Your number is safe." The specificity of "one code, then done" is a promise they can verify immediately. It eliminates the #1 objection to giving a phone number. 6 words. Never cut them.</div>
+    </div>
+    <div class="box box-left-re">
+      <div class="label" style="margin-bottom:6px">CTA — "UNLOCK MY ANALYSIS" NOT "SUBMIT"</div>
+      <div class="body-txt">The button is not asking them to give something. It's offering them something in return. "UNLOCK" implies what's behind it is locked and valuable. "MY" makes it personal — their analysis, not a generic report. This is the Benjamin Franklin close: you've already configured it, you've already entered your details — it would be irrational not to see the result.</div>
+    </div>
+    <div class="box box-left-cy">
+      <div class="label" style="margin-bottom:6px">SKIP LINK — THE AUTONOMY VALVE</div>
+      <div class="body-txt">"Or skip for now and explore a sample report" — cobalt text link below the button. This is not optional. It reduces perceived pressure, which paradoxically increases completion rates. Reactance theory: when people feel forced, they resist. When they feel free to leave, they stay. The autonomy valve converts the undecided by removing the threat.</div>
+    </div>
+  </div>
+</div>
+
+<!-- UPLOAD -->
+<div id="upload" class="sec">
+  <div class="eyebrow">SECTION 7 — UPLOAD ZONE</div>
+
+  <div class="box" style="border:1px dashed var(--b3);background:var(--s2);padding:28px;text-align:center;margin-bottom:12px">
+    <div class="label" style="margin-bottom:10px">STEP 2 OF 2 — UPLOAD YOUR QUOTE</div>
+    <div class="disp" style="font-size:22px;color:var(--t1);margin-bottom:6px">Drop your quote here to start the scan.</div>
+    <div class="body-txt" style="margin-bottom:16px">PDF or image. Any format from any Florida contractor.</div>
+    <div style="border:1px dashed var(--co);padding:24px 16px;background:rgba(29,78,216,0.04);cursor:pointer;margin-bottom:12px">
+      <div class="disp" style="font-size:16px;color:var(--t2);margin-bottom:4px">Drag your quote here, or click to browse</div>
+      <div class="label" style="color:var(--t4)">PDF · JPG · PNG · Up to 10MB</div>
+    </div>
+    <button class="btn-p" style="padding:12px 28px;font-size:14px">START MY AI SCAN &nbsp;→</button>
+    <div style="margin-top:10px;font-size:11px;color:var(--t4)">Your document is encrypted and never shared with contractors without your permission.</div>
+  </div>
+
+  <div class="grid2">
+    <div class="box box-left-co">
+      <div class="label" style="margin-bottom:6px">DROP ZONE BORDER — DASHED COBALT</div>
+      <div class="body-txt">1px dashed var(--co) on the inner drop area. On drag-over: becomes 1px solid var(--cy) with cyan-subtle background. On file accepted: 1px solid var(--em) with emerald badge "READY TO SCAN." The border state is the entire UX feedback — no icons, no spinners.</div>
+    </div>
+    <div class="box box-left-re">
+      <div class="label" style="margin-bottom:6px">PRIVACY STATEMENT — ALWAYS VISIBLE</div>
+      <div class="body-txt">"Your document is encrypted and never shared with contractors without your permission." — 11px · T4 · below the CTA. This is the highest-anxiety moment — they're uploading a financial document. The privacy statement must be visible before they click, not in a modal after. "Without your permission" is the key phrase — it restores agency.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SCAN THEATRICS -->
+<div id="scan" class="sec">
+  <div class="eyebrow">SECTION 8 — THE FORENSIC SCAN SEQUENCE</div>
+
+  <div class="box" style="background:var(--bg);border:1px solid var(--b2);padding:0;margin-bottom:12px;overflow:hidden">
+    <div style="padding:8px 14px;border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:8px;background:var(--s1)">
+      <div style="width:7px;height:7px;background:var(--co)"></div>
+      <div class="label">WINDOWMAN FORENSIC ENGINE v2.1 — <span id="scan-county" style="color:var(--cy)">BROWARD COUNTY</span></div>
+    </div>
+    <div class="scan-log">
+      <div class="sl-sys">$ INITIALIZING FORENSIC PROTOCOL...</div>
+      <div class="sl-sys">$ SECURE HANDSHAKE ESTABLISHED</div>
+      <div class="sl-ok">■ Accessing <span style="color:var(--t1)">BROWARD COUNTY</span> pricing benchmarks...</div>
+      <div class="sl-ok">■ Extracting line items and specifications...</div>
+      <div class="sl-ok">■ Running brand registry check...</div>
+      <div class="sl-flag">▲ FLAG DETECTED: No window brand specified — substitution risk HIGH</div>
+      <div class="sl-ok">■ Scanning warranty language...</div>
+      <div class="sl-flag">▲ FLAG DETECTED: "Permit included" — no dollar amount found</div>
+      <div class="sl-ok">■ Running NOA compliance verification...</div>
+      <div class="sl-good">✓ Document authenticity: CONFIRMED</div>
+      <div class="sl-ok">■ Calculating fair-market delta for Broward County...</div>
+      <div class="sl-flag">▲ FLAG DETECTED: Labor warranty 1 year — state minimum is 3</div>
+      <div class="sl-sys" style="opacity:0.5">$ COMPUTING FINAL RISK SCORE...</div>
+      <div style="color:var(--t4);letter-spacing:0.04em">████████████████████████████████████████ 99%</div>
+      <div style="color:var(--fo);font-size:10px;letter-spacing:0.08em">⚡ SIGNIFICANT FINDINGS — IDENTITY VERIFICATION REQUIRED</div>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:10px">
+    <div class="box box-left-co">
+      <div class="label" style="margin-bottom:6px">LINE 1 RULE — COUNTY ALWAYS FIRST</div>
+      <div class="body-txt">"Accessing BROWARD COUNTY pricing benchmarks..." — the county name appears in the FIRST processing line. This is the most important moment of personalization in the product. It signals: real data, real market, built for you. The county name in white T1 inside the T3 line draws the eye.</div>
+    </div>
+    <div class="box box-left-fo">
+      <div class="label" style="margin-bottom:6px">ORANGE LINES = FLAGS ONLY</div>
+      <div class="body-txt">▲ FLAG DETECTED: prefix + what was found. Flag orange #F97316 decoration only — never text on light backgrounds. By the time the grade appears, the user has seen orange 3 times. It means: something wrong. The CTA button in orange benefits from this conditioning. The colors teach before the copy does.</div>
+    </div>
+    <div class="box box-left-em">
+      <div class="label" style="margin-bottom:6px">THE GREEN LINE — THE CREDIBILITY ANCHOR</div>
+      <div class="body-txt">"✓ Document authenticity: CONFIRMED" — emerald. One or two green lines appear mid-scan. This is critical: pure orange/red would feel rigged. The green verification makes the flags land harder by proving the system is real. If everything is bad, nothing is credible. One honest confirmation earns the rest of the findings.</div>
+    </div>
+    <div class="box box-left-re">
+      <div class="label" style="margin-bottom:6px">THE 99% PAUSE — 2.1 SECONDS OF SILENCE</div>
+      <div class="body-txt">Progress reaches 99%. Nothing moves. No text. No animation. Exactly 2.1 seconds. Then: white flash. Grade appears. The pause is the highest-tension moment in the product. The Zeigarnik effect is at maximum — the brain physically cannot tolerate an open loop. This gap costs zero dollars and returns more emotional weight than any design element.</div>
+    </div>
+  </div>
+</div>
+
+<!-- OTP -->
+<div id="otp" class="sec">
+  <div class="eyebrow">SECTION 9 — OTP VERIFICATION GATE</div>
+
+  <div class="box" style="background:var(--s2);border:1px solid var(--b3);text-align:center;padding:28px 20px;margin-bottom:12px">
+    <div class="label" style="margin-bottom:12px;color:var(--cy)">IDENTITY VERIFICATION REQUIRED</div>
+    <div class="disp" style="font-size:22px;color:var(--t1);margin-bottom:6px">Your Truth Report is ready.</div>
+    <div class="body-txt" style="margin-bottom:16px">Verify your identity to unlock it. We sent a 6-digit code to <span style="color:var(--t1)">(305) *** - **62</span>.</div>
+    <div style="display:flex;gap:8px;justify-content:center;margin-bottom:14px">
+      <input class="inp" style="width:42px;text-align:center;font-size:18px;font-weight:700;padding:10px 4px">
+      <input class="inp" style="width:42px;text-align:center;font-size:18px;font-weight:700;padding:10px 4px">
+      <input class="inp" style="width:42px;text-align:center;font-size:18px;font-weight:700;padding:10px 4px">
+      <input class="inp" style="width:42px;text-align:center;font-size:18px;font-weight:700;padding:10px 4px">
+      <input class="inp" style="width:42px;text-align:center;font-size:18px;font-weight:700;padding:10px 4px">
+      <input class="inp" style="width:42px;text-align:center;font-size:18px;font-weight:700;padding:10px 4px">
+    </div>
+    <div style="font-size:11px;color:var(--co);cursor:pointer;margin-bottom:6px">Didn't get it? Resend code</div>
+    <div style="font-size:11px;color:var(--t4)">This keeps your report secure and your phone private.</div>
+  </div>
+
+  <div class="grid2">
+    <div class="box box-left-co">
+      <div class="label" style="margin-bottom:6px">"YOUR TRUTH REPORT IS READY" — NOT "ENTER YOUR CODE"</div>
+      <div class="body-txt">The frame is: the report exists, it's ready, verify to access it. NOT: enter your code to complete the process. The difference is psychological ownership. They already have the report — they just need to unlock it. Same mechanism as a bank verification. The friction is the proof of value.</div>
+    </div>
+    <div class="box box-left-am">
+      <div class="label" style="margin-bottom:6px">PHONE DISPLAY — PARTIALLY MASKED</div>
+      <div class="body-txt">"(305) *** - **62" — last two digits visible. This is the right balance: enough to confirm it's their number (they recognize the last 2 digits), not enough to expose the full number on screen. The masking signals security-consciousness — WindowMan handles data the way a bank would.</div>
+    </div>
+  </div>
+</div>
+
+<!-- GRADE REVEAL -->
+<div id="reveal" class="sec">
+  <div class="eyebrow">SECTION 10 — THE GRADE REVEAL</div>
+  <div class="label" style="color:var(--t4);margin-bottom:14px">THE PAYOFF FOR EVERY MICRO-COMMITMENT · SPRING ANIMATION FIRES HERE</div>
+
+  <div class="box" style="border:1px solid rgba(220,38,38,0.35);background:rgba(220,38,38,0.04);padding:20px;margin-bottom:12px">
+    <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:18px">
+      <div>
+        <div class="grade-big" style="color:var(--re)">F</div>
+        <div class="label" style="margin-top:2px">FORENSIC GRADE</div>
+      </div>
+      <div style="flex:1">
+        <div class="disp" style="font-size:20px;color:var(--t1);margin-bottom:4px">DO NOT SIGN THIS CONTRACT.</div>
+        <div class="label" style="margin-bottom:10px">3 CRITICAL FLAGS · 2 LEVERAGE POINTS IDENTIFIED</div>
+        <div class="stat-big" style="color:var(--re);font-size:26px">$5,400 ABOVE</div>
+        <div class="label">BROWARD COUNTY FAIR-MARKET RANGE</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:16px">
+      <div class="label" style="margin-bottom:8px;color:var(--t4)">PILLAR SCORES</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;align-items:center;gap:8px"><div style="font-family:var(--FD);font-size:14px;font-weight:800;color:var(--re);width:16px">F</div><div class="label" style="width:100px">PRICE FAIRNESS</div><div style="flex:1;height:2px;background:var(--b2)"><div style="height:100%;width:26%;background:var(--re)"></div></div><div class="label">26/100</div></div>
+        <div style="display:flex;align-items:center;gap:8px"><div style="font-family:var(--FD);font-size:14px;font-weight:800;color:var(--fo);width:16px">D</div><div class="label" style="width:100px">FINE PRINT</div><div style="flex:1;height:2px;background:var(--b2)"><div style="height:100%;width:42%;background:var(--fo)"></div></div><div class="label">42/100</div></div>
+        <div style="display:flex;align-items:center;gap:8px"><div style="font-family:var(--FD);font-size:14px;font-weight:800;color:var(--fo);width:16px">D</div><div class="label" style="width:100px">WARRANTY VALUE</div><div style="flex:1;height:2px;background:var(--b2)"><div style="height:100%;width:45%;background:var(--fo)"></div></div><div class="label">45/100</div></div>
+        <div style="display:flex;align-items:center;gap:8px"><div style="font-family:var(--FD);font-size:14px;font-weight:800;color:var(--am);width:16px">C</div><div class="label" style="width:100px">INSTALL CLARITY</div><div style="flex:1;height:2px;background:var(--b2)"><div style="height:100%;width:62%;background:var(--am)"></div></div><div class="label">62/100</div></div>
+        <div style="display:flex;align-items:center;gap:8px"><div style="font-family:var(--FD);font-size:14px;font-weight:800;color:var(--em);width:16px">B</div><div class="label" style="width:100px">SAFETY & CODE</div><div style="flex:1;height:2px;background:var(--b2)"><div style="height:100%;width:76%;background:var(--em)"></div></div><div class="label">76/100</div></div>
+      </div>
+    </div>
+
+    <div class="box" style="border:1px solid rgba(220,38,38,0.30);margin-bottom:10px;padding:12px">
+      <div class="pill pill-re" style="margin-bottom:6px">FLAG 01 — CRITICAL</div>
+      <div style="font-size:13px;color:var(--t1);font-weight:600;margin-bottom:4px">No window brand or model specified.</div>
+      <div class="body-txt">Your contractor can install any brand at any quality level after you sign. Ask: "What specific brand, model, and NOA number are you installing? Please add it to the contract."</div>
+    </div>
+
+    <button class="btn-p" style="width:100%;justify-content:center;font-size:14px;padding:14px">CONNECT ME WITH A CONTRACTOR WHO BEATS THIS &nbsp;→</button>
+    <div style="text-align:center;margin-top:8px;font-size:11px;color:var(--co);cursor:pointer">Or download this report as PDF first</div>
+  </div>
+
+  <div class="box box-left-am">
+    <div class="label" style="margin-bottom:6px">THE FINAL CTA — "CONNECT ME WITH A CONTRACTOR WHO BEATS THIS"</div>
+    <div class="body-txt">Not "Get a Better Quote." Not "Request a Match." "Beats this" is the exact language — it references the specific failing grade they just received. The homeowner isn't shopping. They're seeking justice for the quote they now know is predatory. This CTA is the answer to their specific emotional state at this moment.</div>
+  </div>
+</div>
+
+<!-- SOCIAL PROOF -->
+<div id="social" class="sec">
+  <div class="eyebrow">SECTION 11 — NARRATIVE PROOF (Testimonials)</div>
+  <div class="label" style="color:var(--t4);margin-bottom:14px">PLACED JUST BEFORE THE MANIFESTO · DOLLAR AMOUNTS REQUIRED · NO VAGUE REVIEWS</div>
+
+  <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+    <div class="box box-left-em">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--t1)">Maria T.</div>
+          <div class="label" style="color:var(--t4)">Broward County</div>
+        </div>
+        <div class="pill pill-em">$3,200 SAVED</div>
+      </div>
+      <div class="body-txt" style="margin-bottom:6px">"I thought I was done. Quote was in, contractor was nice, price seemed reasonable. Then WindowMan flagged something on page 2 that my contractor 'forgot' to mention."</div>
+      <div class="body-txt" style="color:var(--am)">The permit wasn't included in the price. Listed as "$0 — included" — which legally means they don't have to pull one. After the flag, I asked the contractor directly. He added a real permit line item for $380. The scan took 60 seconds and saved me from a future home sale nightmare.</div>
+    </div>
+
+    <div class="box box-left-co">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--t1)">David R.</div>
+          <div class="label" style="color:var(--t4)">Palm Beach County</div>
+        </div>
+        <div class="pill pill-co">$4,800 RENEGOTIATED</div>
+      </div>
+      <div class="body-txt" style="margin-bottom:6px">"I used WindowMan's report to negotiate. The contractor dropped the price by $3,200 and added a 3-year warranty. All I did was show him the page."</div>
+      <div class="body-txt" style="color:var(--cy)">The report showed quote was 28% above Palm Beach market average, no brand specified, labor warranty was 1 year when state minimum is 3. I emailed the contractor the flagged report. He came back with a new number in 4 hours.</div>
+    </div>
+
+    <div class="box box-left-am">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--t1)">Robert & Diane T.</div>
+          <div class="label" style="color:var(--t4)">Collier County</div>
+        </div>
+        <div class="pill pill-am">$4,800 RECOVERED</div>
+      </div>
+      <div class="body-txt" style="margin-bottom:6px">"Post-Ian pricing gouging is real in Naples. WindowMan showed us the fair-market range for our county. Our quote was $6,400 over."</div>
+      <div class="body-txt" style="color:var(--am)">We used the report in our negotiation and got $4,800 back. Then used WindowMan to find a contractor who came in at fair market from the start. The whole thing took 2 days.</div>
+    </div>
+  </div>
+
+  <div class="box box-left-re">
+    <div class="label" style="margin-bottom:6px">TESTIMONIAL RULES — ALL 4 ARE REQUIRED</div>
+    <div class="body-txt">1. Real dollar amount in the badge — never "saved a lot" or "great experience." 2. The specific flag that was found — names the exact mechanism. 3. The outcome they took — not passive, they acted. 4. Different counties — social proof is 3× more powerful when it's their county or an adjacent one. Replace placeholder names with real ones from first 30 leads. Nothing converts like real specificity.</div>
+  </div>
+</div>
+
+<!-- MANIFESTO -->
+<div id="manifesto" class="sec">
+  <div class="eyebrow">SECTION 12 — CLOSING MANIFESTO</div>
+  <div class="label" style="color:var(--t4);margin-bottom:14px">THE FINAL STATEMENT · PURE BLACK BACKGROUND · BARLOW CONDENSED ONLY</div>
+
+  <div class="box" style="background:var(--bg);border:1px solid var(--b2);padding:28px 20px;text-align:center;margin-bottom:12px">
+    <div class="disp" style="font-size:clamp(18px,4vw,28px);color:var(--t1);margin-bottom:4px">THE INDUSTRY BUILT A SYSTEM</div>
+    <div class="disp" style="font-size:clamp(18px,4vw,28px);color:var(--t1);margin-bottom:4px">WHERE YOU NEED THEIR EXPERTISE</div>
+    <div class="disp" style="font-size:clamp(18px,4vw,28px);color:var(--t3);margin-bottom:4px">TO UNDERSTAND THEIR QUOTE.</div>
+    <div style="height:1px;background:var(--b2);margin:20px auto;width:60%"></div>
+    <div class="disp" style="font-size:clamp(18px,4vw,28px);color:var(--cy);margin-bottom:20px">WE BUILT A SYSTEM WHERE YOU DON'T.</div>
+
+    <div style="display:flex;flex-direction:column;gap:6px;max-width:300px;margin:0 auto 20px;text-align:left">
+      <div style="display:flex;gap:10px;align-items:center"><div style="width:8px;height:8px;background:var(--em);flex-shrink:0"></div><div class="body-txt">Free for every Florida homeowner</div></div>
+      <div style="display:flex;gap:10px;align-items:center"><div style="width:8px;height:8px;background:var(--em);flex-shrink:0"></div><div class="body-txt">No contractor contact unless you ask for it</div></div>
+      <div style="display:flex;gap:10px;align-items:center"><div style="width:8px;height:8px;background:var(--em);flex-shrink:0"></div><div class="body-txt">No upselling, no pressure, no spam</div></div>
+      <div style="display:flex;gap:10px;align-items:center"><div style="width:8px;height:8px;background:var(--em);flex-shrink:0"></div><div class="body-txt">Your report is yours to keep</div></div>
+    </div>
+
+    <button class="btn-p" style="font-size:14px;padding:14px 32px">SCAN MY QUOTE — IT'S FREE &nbsp;→</button>
+    <div style="margin-top:10px;font-size:12px;color:var(--t4)">Your contract already contains the truth. We'll show it to you.</div>
+    <div style="margin-top:8px;font-size:11px;color:var(--co);cursor:pointer">Or explore a sample report first — you're free to choose.</div>
+  </div>
+
+  <div class="grid2">
+    <div class="box box-left-cy">
+      <div class="label" style="margin-bottom:6px">THE 3-LINE MANIFESTO — WORD FOR WORD</div>
+      <div class="body-txt">Line 1–2: T1 white — the accusation. Line 3: T3 muted — the admission of the problem. Cyan line: the resolution. This is the most powerful copy sequence in the product. The color shift from white → muted → cyan mirrors the emotional arc: confrontation → acknowledgment → solution. Never change the color assignment.</div>
+    </div>
+    <div class="box box-left-em">
+      <div class="label" style="margin-bottom:6px">CHECKMARKS — SQUARE NOT ROUND</div>
+      <div class="body-txt">8×8px solid emerald squares — not check marks, not circular dots. Squares = precise, clinical, documented. Emerald because these are the resolution promises — the only place emerald appears before OTP verification. These four lines are the product's brand promise in 4 bullets. Never add a fifth.</div>
+    </div>
+    <div class="box box-left-co">
+      <div class="label" style="margin-bottom:6px">FINAL AUTONOMY LINE</div>
+      <div class="body-txt">"Or explore a sample report first — you're free to choose." Cobalt text link · 11px · below CTA. "You're free to choose" is the most important phrase on the page after "one code, then done." Reactance theory: when a person feels autonomous, they convert. When they feel pressured, they leave. This line removes the last friction point before exit.</div>
+    </div>
+    <div class="box box-left-am">
+      <div class="label" style="margin-bottom:6px">SUB-CTA — "YOUR CONTRACT CONTAINS THE TRUTH"</div>
+      <div class="body-txt">"Your contract already contains the truth. We'll show it to you." — 12px · T4 muted · below the CTA button. This is the product's thesis in one sentence. It reframes the offer: WindowMan doesn't create information. It reveals what's already there. The homeowner's contractor already wrote the evidence. WindowMan reads it.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div id="footer" class="sec">
+  <div class="eyebrow">SECTION 13 — FOOTER</div>
+
+  <div class="box" style="background:var(--bg);border:1px solid var(--b2);padding:20px;margin-bottom:12px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px;margin-bottom:16px">
+      <div>
+        <div style="margin-bottom:6px"><span style="font-family:var(--FD);font-weight:900;font-size:16px;color:var(--t1)">WINDOW</span><span style="font-family:var(--FD);font-weight:900;font-size:16px;color:var(--fo)">MAN</span><span style="font-family:var(--FD);font-weight:900;font-size:14px;color:var(--t4)">.PRO</span></div>
+        <div class="body-txt" style="font-size:11px;color:var(--t4);max-width:240px">AI-Powered Impact Window Quote Intelligence. Serving homeowners across all 67 Florida counties.</div>
+      </div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <div class="label" style="cursor:pointer;color:var(--co)">Privacy Policy</div>
+        <div class="label" style="cursor:pointer;color:var(--co)">Terms of Use</div>
+        <div class="label" style="cursor:pointer;color:var(--co)">How It Works</div>
+        <div class="label" style="cursor:pointer;color:var(--co)">FAQ</div>
+      </div>
+    </div>
+    <div style="border-top:1px solid var(--b1);padding-top:12px;display:flex;flex-direction:column;gap:6px">
+      <div class="body-txt" style="font-size:11px;color:var(--t4)">WindowMan is a consumer protection service. We are not a contractor, licensed installer, or home improvement company.</div>
+      <div class="body-txt" style="font-size:11px;color:var(--t4)">WindowMan earns a referral fee only when a homeowner chooses to work with a contractor in our network and the project closes. We never charge homeowners.</div>
+      <div class="body-txt" style="font-size:11px;color:var(--t4)">© 2025 WindowMan.pro. All rights reserved.</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="box box-left-co">
+      <div class="label" style="margin-bottom:6px">SERVICE AREA — "ALL 67 FLORIDA COUNTIES"</div>
+      <div class="body-txt">Not "Miami-Dade, Broward, Palm Beach, and all major counties." "All 67 Florida counties" is complete, authoritative, and statewide. It signals to a Tampa, Jacksonville, or Pensacola visitor that they're included. The old copy felt like a South Florida company that might serve others. This copy states the territory clearly.</div>
+    </div>
+    <div class="box box-left-am">
+      <div class="label" style="margin-bottom:6px">COMMISSION DISCLOSURE — REQUIRED, NOT OPTIONAL</div>
+      <div class="body-txt">"WindowMan earns a referral fee only when a homeowner chooses to work with a contractor in our network and the project closes. We never charge homeowners." This disclosure is a conversion tool, not just legal protection. It answers the question every skeptical visitor is already asking: "How do you make money?" Transparency = trust = conversion.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function sw(id){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  event.target.classList.add('on');
+  document.querySelector('.nav-bar').scrollIntoView({behavior:'smooth'});
+}
+</script>

@@ -1,0 +1,410 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--navy:#0D1B35;--navyL:#1A2845;--navyLL:#243558;--navyB:#2E4270;
+--cobalt:#1A6FD4;--cobaltB:#0B60C5;--cobaltT:#0B60C5;
+--cyan:#00D9FF;--cyanT:#006B8E;
+--orange:#E85A1B;--orangeB:#BB2D00;
+--amber:#F59E0B;--amberT:#92400E;
+--red:#DC2626;--redT:#C41919;
+--emerald:#10B981;--emeraldT:#065F46;
+--ink:#0F172A;--slate:#54647B;
+--dT1:#FFFFFF;--dT2:#C8DEFF;--dT3:#A0B8D8;--dT4:#7D9DBB;
+--FD:'Barlow Condensed',sans-serif;
+--FB:'DM Sans',sans-serif;
+--FM:'JetBrains Mono',monospace;
+}
+body{background:var(--navy);color:var(--dT1);font-family:var(--FB);overflow-x:hidden}
+.tab-bar{position:sticky;top:0;z-index:50;background:var(--navyL);border-bottom:1px solid var(--navyB);display:flex;gap:4px;padding:8px 16px}
+.tab{font-family:var(--FB);font-size:12px;font-weight:600;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;background:transparent;color:var(--dT3);transition:all 150ms}
+.tab.on{background:var(--cobaltB);color:#fff}
+.pane{display:none;padding:24px 20px}
+.pane.on{display:block}
+.sec-label{font-family:var(--FM);font-size:10px;letter-spacing:0.12em;color:var(--cyan);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.sec-label::before{content:'';width:20px;height:2px;background:var(--cyan);border-radius:2px;display:inline-block}
+.h1{font-family:var(--FD);font-size:28px;font-weight:900;text-transform:uppercase;color:var(--dT1);letter-spacing:-0.01em;line-height:1.0;margin-bottom:8px}
+.h2{font-family:var(--FD);font-size:20px;font-weight:800;text-transform:uppercase;color:var(--dT2);margin-bottom:12px}
+.body{font-size:13px;color:var(--dT3);line-height:1.65}
+.card{background:var(--navyL);border:1px solid var(--navyB);border-radius:12px;padding:18px;margin-bottom:12px}
+.card-red{background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.25);border-left:3px solid var(--red);border-radius:10px;padding:14px;margin-bottom:10px}
+.card-cyan{background:rgba(0,217,255,0.07);border:1px solid rgba(0,217,255,0.20);border-radius:10px;padding:14px;margin-bottom:10px}
+.card-amber{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.22);border-left:3px solid var(--amber);border-radius:10px;padding:14px;margin-bottom:10px}
+.badge{font-family:var(--FB);font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:3px 9px;border-radius:999px;display:inline-flex;align-items:center;gap:4px}
+.badge-cobalt{background:rgba(26,111,212,0.18);color:var(--cobaltT);border:1px solid rgba(11,96,197,0.25)}
+.badge-red{background:rgba(220,38,38,0.15);color:#F87171;border:1px solid rgba(220,38,38,0.30)}
+.badge-amber{background:rgba(245,158,11,0.15);color:var(--amber);border:1px solid rgba(245,158,11,0.30)}
+.badge-emerald{background:rgba(16,185,129,0.15);color:#34D399;border:1px solid rgba(16,185,129,0.30)}
+.badge-cyan{background:rgba(0,217,255,0.12);color:var(--cyan);border:1px solid rgba(0,217,255,0.25)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.mono{font-family:var(--FM);font-size:12px;color:var(--cyan)}
+.rule-line{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+.rule-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);flex-shrink:0;margin-top:5px}
+.rule-dot-red{background:var(--red)}
+.rule-dot-amber{background:var(--amber)}
+.rule-dot-emerald{background:var(--emerald)}
+.divider{border:none;height:1px;background:var(--navyB);margin:20px 0}
+.timing-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--navyB)}
+.timing-ms{font-family:var(--FM);font-size:11px;color:var(--amber);min-width:56px}
+.timing-label{font-size:12px;color:var(--dT3);flex:1}
+.timing-type{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:2px 7px;border-radius:4px}
+.t-cobalt{background:rgba(26,111,212,0.2);color:var(--cyan)}
+.t-orange{background:rgba(232,90,27,0.2);color:#FB8C5A}
+.t-red{background:rgba(220,38,38,0.2);color:#F87171}
+.t-emerald{background:rgba(16,185,129,0.2);color:#34D399}
+.wireframe{background:var(--navy);border:1px solid var(--navyB);border-radius:12px;padding:16px;position:relative;overflow:hidden;margin-bottom:16px}
+.wf-block{border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--FM);font-size:10px;letter-spacing:0.05em;text-align:center;padding:6px}
+.wf-hero{background:linear-gradient(160deg,rgba(26,111,212,0.18) 0%,rgba(0,217,255,0.05) 100%);height:140px;border-radius:8px;border:1px solid var(--navyB);position:relative;overflow:hidden;margin-bottom:8px}
+.wf-bar{height:40px;background:rgba(26,111,212,0.12);border-radius:6px;border:1px solid var(--navyB);margin-bottom:6px;display:flex;align-items:center;padding:0 12px;gap:8px}
+.annotation{position:absolute;font-family:var(--FM);font-size:9px;letter-spacing:0.06em;color:var(--amber);background:rgba(13,27,53,0.92);padding:2px 6px;border-radius:3px;border:1px solid rgba(245,158,11,0.3);white-space:nowrap;pointer-events:none}
+.ann-line{position:absolute;border-top:1px dashed rgba(245,158,11,0.4);pointer-events:none}
+.mascot-zone{position:absolute;right:12px;bottom:0;width:64px;height:90px;background:rgba(26,111,212,0.15);border:1px dashed rgba(0,217,255,0.4);border-radius:6px 6px 0 0;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--cyan);text-align:center;line-height:1.3}
+.progress-demo{height:3px;background:var(--navyB);border-radius:999px;overflow:hidden;margin:8px 0}
+.progress-fill{height:100%;border-radius:999px;transition:width 0.8s ease}
+.scan-line-demo{font-family:var(--FM);font-size:11px;line-height:2;padding:12px;background:var(--navy);border-radius:8px;border:1px solid var(--navyB)}
+.sl-normal{color:var(--dT3)}
+.sl-flag{color:var(--orange)}
+.sl-good{color:var(--emerald)}
+.sl-system{color:var(--cobaltT)}
+.color-rule-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.swatch{width:18px;height:18px;border-radius:4px;flex-shrink:0}
+</style>
+
+<div class="tab-bar">
+  <button class="tab on" onclick="show('hero')">Hero Anatomy</button>
+  <button class="tab" onclick="show('mascot')">Mascot Rules</button>
+  <button class="tab" onclick="show('scan')">Scan Sequence</button>
+  <button class="tab" onclick="show('invisible')">Invisible CRO</button>
+  <button class="tab" onclick="show('color')">Color Timing</button>
+</div>
+
+<!-- HERO ANATOMY -->
+<div id="hero" class="pane on">
+  <div class="sec-label">Hero Section · Spatial Architecture</div>
+  <div class="h1">Where everything lives<br>and why</div>
+
+  <div class="wireframe">
+    <div style="font-family:var(--FM);font-size:9px;color:var(--dT4);margin-bottom:10px;letter-spacing:0.08em">HERO SECTION — TOP OF PAGE</div>
+    <div class="wf-bar">
+      <div style="width:28px;height:18px;background:rgba(26,111,212,0.4);border-radius:3px"></div>
+      <div style="font-size:10px;color:var(--dT4)">WM logo</div>
+      <div style="flex:1"></div>
+      <div style="font-size:10px;color:var(--dT4);padding:3px 10px;border:1px solid var(--navyB);border-radius:4px">SIGN IN</div>
+    </div>
+
+    <div class="wf-hero">
+      <div class="annotation" style="top:6px;left:6px">① EYEBROW LABEL</div>
+      <div style="position:absolute;top:22px;left:14px;font-family:var(--FM);font-size:9px;color:var(--cyan);letter-spacing:0.1em">◈ FLORIDA'S FORENSIC QUOTE ENGINE</div>
+
+      <div class="annotation" style="top:38px;left:6px">② HEADLINE (left-aligned, NOT centered)</div>
+      <div style="position:absolute;top:52px;left:14px;font-family:var(--FD);font-size:20px;font-weight:900;color:var(--dT1);text-transform:uppercase;line-height:1;width:200px">Don't sign until<br><span style="color:var(--cyan)">you check it.</span></div>
+
+      <div class="annotation" style="top:92px;left:6px">③ SUB (max 2 lines)</div>
+      <div style="position:absolute;top:103px;left:14px;font-size:10px;color:var(--dT3);width:200px;line-height:1.5">AI scans your quote for hidden fees<br>before you sign anything.</div>
+
+      <div class="annotation" style="bottom:6px;left:6px">④ PRIMARY CTA</div>
+      <div style="position:absolute;bottom:16px;left:14px;background:var(--orangeB);color:#fff;font-family:var(--FB);font-size:11px;font-weight:700;padding:7px 16px;border-radius:6px">Scan My Quote →</div>
+      <div style="position:absolute;bottom:20px;left:152px;font-size:9px;color:var(--dT4)">No account required</div>
+
+      <div class="mascot-zone">WM<br>MASCOT<br>RIGHT<br>EDGE</div>
+      <div class="annotation" style="bottom:92px;right:76px">⑤ MASCOT</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px">
+      <div class="wf-block" style="background:rgba(0,217,255,0.08);border:1px solid rgba(0,217,255,0.2);height:28px;font-size:9px;color:var(--cyan)">4,218 FL scans</div>
+      <div class="wf-block" style="background:rgba(0,217,255,0.08);border:1px solid rgba(0,217,255,0.2);height:28px;font-size:9px;color:var(--cyan)">Avg saved $4,800</div>
+      <div class="wf-block" style="background:rgba(0,217,255,0.08);border:1px solid rgba(0,217,255,0.2);height:28px;font-size:9px;color:var(--cyan)">No contractor contact</div>
+    </div>
+    <div style="font-family:var(--FM);font-size:9px;color:var(--dT4);text-align:center">⑥ DYNAMIC URGENCY STRIP (DynamicUrgencyStats component)</div>
+  </div>
+
+  <div class="grid2">
+    <div class="card-cyan">
+      <div class="badge badge-cyan" style="margin-bottom:8px">① Eyebrow Label</div>
+      <div style="font-size:12px;color:var(--dT3);line-height:1.65">Font: JetBrains Mono · Size: 10px · CAPS · Cyan · Letter-spacing: 0.12em. This sets the frame BEFORE the headline. Visitor reads "forensic quote engine" before they read the CTA. Their brain is already in investigation mode.</div>
+    </div>
+    <div class="card-cyan">
+      <div class="badge badge-cyan" style="margin-bottom:8px">② Headline Alignment</div>
+      <div style="font-size:12px;color:var(--dT3);line-height:1.65">Left-aligned only. Never centered. Centered headlines feel like marketing. Left-aligned headlines feel like a statement. The cyan word is the payoff — "check it" = action that resolves their anxiety.</div>
+    </div>
+    <div class="card-amber">
+      <div class="badge badge-amber" style="margin-bottom:8px">④ CTA Positioning</div>
+      <div style="font-size:12px;color:var(--dT3);line-height:1.65">Primary CTA bottom-left of headline stack. Trust micro-copy immediately right of button ("No account required"). This copy is NOT a button — it's a whisper that removes objection at the exact moment of hesitation.</div>
+    </div>
+    <div class="card-amber">
+      <div class="badge badge-amber" style="margin-bottom:8px">⑥ Urgency Strip</div>
+      <div style="font-size:12px;color:var(--dT3);line-height:1.65">Numbers tick in real-time. Goes BELOW hero, ABOVE the Truth Gate funnel. Visitor sees it after reading the hero — social proof hits at maximum curiosity, not minimum.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="h2">What goes below the fold — in order</div>
+
+  <div style="display:flex;flex-direction:column;gap:8px">
+    {[
+      ["FORENSIC EVIDENCE BLOCKS","3 findings styled as indictments, not features. Delta / Brand Ambiguity / NOA Compliance.","cobalt"],
+      ["TRUTH GATE FUNNEL","4-step qualifier. Starts at 0% commitment. Ends at 65%+ before lead gate appears.","amber"],
+      ["MICRO-VERDICT CARD","Appears between Step 3 and Step 4. County-specific finding. Creates dread before the ask.","red"],
+      ["LEAD GATE","Slides in at 65% investment. 3 fields. Looks like the last step before the answer.","emerald"],
+      ["TESTIMONIALS","2–3 specific testimonials with $ amounts. Placed just before the manifesto close.","cobalt"],
+      ["CLOSING MANIFESTO","The 3-line summary. Ends with the autonomy line.","cobalt"],
+    ].map(([label, body, color]) => `
+    <div class="card" style="border-left:3px solid var(--${color})">
+      <div style="font-family:var(--FM);font-size:10px;color:var(--${color});letter-spacing:0.1em;margin-bottom:6px">${label}</div>
+      <div style="font-size:12px;color:var(--dT3)">${body}</div>
+    </div>`).join('')}
+  </div>
+</div>
+
+<!-- MASCOT RULES -->
+<div id="mascot" class="pane">
+  <div class="sec-label">WM Mascot · Placement Psychology</div>
+  <div class="h1">The character is a<br>conversion weapon</div>
+
+  <div class="card-cyan" style="margin-bottom:16px">
+    <div style="font-size:13px;color:var(--dT2);font-weight:600;margin-bottom:8px">Core Principle</div>
+    <div class="body">The mascot is not decoration. He is the brand's conscience — the investigator who found what your contractor hoped you wouldn't. Every placement decision must ask: does he feel like an authority right now, or a prop?</div>
+  </div>
+
+  <div class="h2" style="margin-bottom:12px">The 6 placement rules</div>
+
+  <div class="card-amber">
+    <div class="rule-line"><div class="rule-dot" style="background:var(--amber)"></div><div><span style="color:var(--dT1);font-weight:600">Rule 1: He enters from the right.</span><span class="body"> Left-to-right reading means the hero copy lands first. He "arrives" after the promise is made. Never centered. Never left. He's responding to the headline, not competing with it.</span></div></div>
+  </div>
+
+  <div class="card-amber">
+    <div class="rule-line"><div class="rule-dot" style="background:var(--amber)"></div><div><span style="color:var(--dT1);font-weight:600">Rule 2: He stands IN the window frame.</span><span class="body"> The frame is his stage. He's holding the evidence. The window frame signals: "I know what this is. I've been here before." It's his domain, not a random background.</span></div></div>
+  </div>
+
+  <div class="card-amber">
+    <div class="rule-line"><div class="rule-dot" style="background:var(--amber)"></div><div><span style="color:var(--dT1);font-weight:600">Rule 3: His gaze points toward the CTA.</span><span class="body"> Humans follow eye direction instinctively. If he looks LEFT (toward the headline and CTA), the user's eye follows. This is the oldest conversion trick in advertising — it works because evolution hardwired it.</span></div></div>
+  </div>
+
+  <div class="card-amber">
+    <div class="rule-line"><div class="rule-dot" style="background:var(--amber)"></div><div><span style="color:var(--dT1);font-weight:600">Rule 4: He appears AFTER investment — never on entry.</span><span class="body"> The mascot is most powerful when the user is 40–60% committed. He does not appear on Page 0 (hero). He appears at the Micro-Verdict reveal (Step 3) and again at the Grade Reveal. He shows up when the stakes are highest.</span></div></div>
+  </div>
+
+  <div class="card-amber">
+    <div class="rule-line"><div class="rule-dot" style="background:var(--amber)"></div><div><span style="color:var(--dT1);font-weight:600">Rule 5: Mobile — he shrinks to a floating badge.</span><span class="body"> On screens under 480px, full mascot competes with the content. Instead: 48×48px circular crop of his face with the WM shield, pinned bottom-right. He's present without dominating. His expression should match the current state: neutral during questions, concerned at flags, confident at reveal.</span></div></div>
+  </div>
+
+  <div class="card-amber">
+    <div class="rule-line"><div class="rule-dot" style="background:var(--amber)"></div><div><span style="color:var(--dT1);font-weight:600">Rule 6: One subtle animation — a lean-forward on load.</span><span class="body"> 300ms delay after page load. He shifts weight forward 4px, then settles. Easing: cubic-bezier(0.34, 1.56, 0.64, 1) (spring). Nothing more. Movement draws attention. One motion earns it. Constant motion burns it.</span></div></div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="h2">Mascot states by funnel stage</div>
+
+  <div style="display:flex;flex-direction:column;gap:8px">
+    {[
+      ["HERO SECTION","RIGHT edge of hero. Bottom-aligned. In window frame. Gaze LEFT toward CTA. Hero size.","cobalt","Neutral authority"],
+      ["STEP 3 — COUNTY MATCH","Micro-verdict slide. He appears in the corner. Slightly leaning forward. Eyes narrowed.","amber","Investigating"],
+      ["LEAD GATE","Not present. The form IS the hero. His presence here would distract from the commitment.","red","ABSENT — intentional"],
+      ["SCAN THEATRICS","Appears in background, blurred. The scan animation is the hero. He's watching.","cobalt","Observing"],
+      ["GRADE REVEAL","Full size, beside the grade letter. Expression matches grade. F = he looks serious. A = slight nod.","emerald","Verdict delivered"],
+      ["CONTRACTOR MATCH","He points toward the CTA with an open hand. 'Here's who I trust.'","emerald","Endorsement"],
+    ].map(([stage, body, color, state]) => `
+    <div class="card" style="border-left:3px solid var(--${color})">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <div style="font-family:var(--FM);font-size:9px;color:var(--${color});letter-spacing:0.1em">${stage}</div>
+        <div class="badge badge-${color}">${state}</div>
+      </div>
+      <div style="font-size:12px;color:var(--dT3)">${body}</div>
+    </div>`).join('')}
+  </div>
+</div>
+
+<!-- SCAN SEQUENCE -->
+<div id="scan" class="pane">
+  <div class="sec-label">The Scan Sequence · Emotional Engineering</div>
+  <div class="h1">60 seconds of<br>engineered tension</div>
+
+  <div class="scan-line-demo">
+    <div class="sl-system">$ INITIALIZING WINDOWMAN PROTOCOL...</div>
+    <div class="sl-system">$ SECURE CONNECTION ESTABLISHED</div>
+    <div class="sl-normal">■ Accessing Broward County pricing benchmarks...</div>
+    <div class="sl-normal">■ Extracting line items and specifications...</div>
+    <div class="sl-normal">■ Running brand registry check...</div>
+    <div class="sl-normal">■ Scanning warranty language...</div>
+    <div class="sl-flag">▲ FLAG: No brand specified — substitution risk DETECTED</div>
+    <div class="sl-normal">■ Calculating permit compliance status...</div>
+    <div class="sl-flag">▲ FLAG: "Permit included" — no dollar amount specified</div>
+    <div class="sl-normal">■ Running NOA compliance verification...</div>
+    <div class="sl-good">✓ Document authenticity: CONFIRMED</div>
+    <div class="sl-normal">■ Computing fair-market delta for Broward County...</div>
+    <div class="sl-system" style="color:var(--dT4)">$ COMPUTING FINAL RISK SCORE...</div>
+    <div style="font-size:11px;color:var(--dT4);letter-spacing:0.06em;padding-top:4px">██████████████████████████████████████ 99%</div>
+    <div style="font-size:10px;color:var(--orange);animation:pulse 1s infinite">⚡ SIGNIFICANT FINDINGS — VERIFICATION REQUIRED</div>
+  </div>
+
+  <div style="margin:12px 0">
+    <div style="font-family:var(--FM);font-size:10px;color:var(--dT4);margin-bottom:6px">PROGRESS BAR BEHAVIOR</div>
+    <div style="font-size:12px;color:var(--dT3);margin-bottom:8px">Phase 1 (0→40%): Moves fast. Feels responsive. Cobalt color.</div>
+    <div class="progress-demo"><div class="progress-fill" id="pb1" style="width:40%;background:var(--cobalt)"></div></div>
+    <div style="font-size:12px;color:var(--dT3);margin:8px 0">Phase 2 (40→80%): Slows. Creates anticipation. Cobalt→Cyan gradient.</div>
+    <div class="progress-demo"><div class="progress-fill" id="pb2" style="width:78%;background:linear-gradient(90deg,var(--cobalt),var(--cyan))"></div></div>
+    <div style="font-size:12px;color:var(--dT3);margin:8px 0">Phase 3 (99% hold): Freezes for exactly 2.1 seconds. Zero movement. Maximum Zeigarnik tension.</div>
+    <div class="progress-demo"><div class="progress-fill" id="pb3" style="width:99%;background:linear-gradient(90deg,var(--cobalt),var(--cyan));box-shadow:0 0 8px rgba(0,217,255,0.4)"></div></div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="h2">Log line engineering</div>
+
+  <div class="grid2">
+    <div class="card-red">
+      <div class="badge badge-red" style="margin-bottom:8px">Orange lines = FLAGS</div>
+      <div style="font-size:12px;color:var(--dT3);line-height:1.65">Orange ONLY appears for problems. The visitor has been conditioned by this point to associate orange with danger. Every time orange flashes, their cortisol spikes slightly. This is intentional Pavlovian design.</div>
+    </div>
+    <div class="card-cyan">
+      <div class="badge badge-cyan" style="margin-bottom:8px">Cobalt lines = SYSTEM</div>
+      <div style="font-size:12px;color:var(--dT3);line-height:1.65">System messages in cobalt. This color says: the machine is working. It's alive. These lines establish credibility before the flags land.</div>
+    </div>
+    <div class="card-cyan">
+      <div class="badge badge-emerald" style="margin-bottom:8px">Green lines = VERIFIED</div>
+      <div style="font-size:12px;color:var(--dT3);line-height:1.65">One or two green "verified" lines appear mid-scan. This is critical. Pure red would feel rigged. The green lines make the flags feel more real — the system passes some things, which makes the failures hit harder.</div>
+    </div>
+    <div class="card-red">
+      <div class="badge badge-red" style="margin-bottom:8px">County name in line 1</div>
+      <div style="font-size:12px;color:var(--dT3);line-height:1.65">The FIRST processing line must say their county: "Accessing <b>Broward County</b> pricing benchmarks." This is the most important moment of personalization in the entire product. It says: this is real data, for your specific market.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="h2">The 99% Pause — why it matters</div>
+
+  <div class="card" style="border:1px solid rgba(220,38,38,0.35)">
+    <div class="body">The progress bar reaches 99% and stops. For 2.1 seconds. Nothing moves. No text appears. This gap is not a bug — it's the highest-tension moment in the product. The human brain cannot tolerate an open loop. The Zeigarnik effect is at maximum. The user is physically leaning forward. Then: a flash of white. The grade appears. This is the payoff for every micro-commitment they've made in the last 4 minutes. The 2.1 seconds costs zero dollars and returns the highest psychological dividend on the page.</div>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+      <span class="badge badge-red">2.1 sec hold</span>
+      <span class="badge badge-cobalt">Then white flash</span>
+      <span class="badge badge-amber">Then grade letter</span>
+      <span class="badge badge-red">Then pillar scores</span>
+    </div>
+  </div>
+</div>
+
+<!-- INVISIBLE CRO -->
+<div id="invisible" class="pane">
+  <div class="sec-label">Invisible CRO · The Elements Nobody Sees</div>
+  <div class="h1">Highest-leverage<br>zero-cost triggers</div>
+
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="card-amber">
+      <div style="font-family:var(--FM);font-size:9px;color:var(--amber);letter-spacing:0.1em;margin-bottom:8px">TIMING — SCAN COUNTER INCREMENT</div>
+      <div class="body">The live scan counter increments every <span style="color:var(--dT1);font-weight:600">37 seconds</span> — not 30, not 60. Odd numbers feel real. Round numbers feel manufactured. Same logic as "4,218 scans" vs "4,200 scans." Specificity = credibility. The counter adds 1 scan every 37s, with a 12% probability of also adding a deal close event (which ticks the savings total).</div>
+    </div>
+    <div class="card-amber">
+      <div style="font-family:var(--FM);font-size:9px;color:var(--amber);letter-spacing:0.1em;margin-bottom:8px">FORM FIELD — PHONE MICRO-COPY</div>
+      <div class="body">Under the phone field: <span style="color:var(--cyan)">"For OTP verification only — one code, then done."</span> Not "We won't spam you." Not "Privacy protected." The specificity of "one code, then done" is a promise they can verify immediately. It eliminates 40% of the objection to giving a phone number.</div>
+    </div>
+    <div class="card-amber">
+      <div style="font-family:var(--FM);font-size:9px;color:var(--amber);letter-spacing:0.1em;margin-bottom:8px">CONFIRMATION PAGE — THE PRIMING LINE</div>
+      <div class="body">After lead gate submit: show a confirmation, then add: <span style="color:var(--orange)">"While you wait — find the word 'included' anywhere in your quote."</span> This does three things: (1) keeps them engaged, (2) primes them to find something suspicious before the call, (3) means they're holding their quote when you ring. Connect rate when they have the quote in hand: 2.4× higher.</div>
+    </div>
+    <div class="card-amber">
+      <div style="font-family:var(--FM);font-size:9px;color:var(--amber);letter-spacing:0.1em;margin-bottom:8px">PROGRESS BAR — VARIABLE SPEED</div>
+      <div class="body">First 40% fills in 6 seconds. Next 40% in 18 seconds. Final 19% in 34 seconds. The slowing creates the feeling that the system found something and had to slow down to analyze it. No code needed — just easing curves. Three CSS transitions on a single div.</div>
+    </div>
+    <div class="card-amber">
+      <div style="font-family:var(--FM);font-size:9px;color:var(--amber);letter-spacing:0.1em;margin-bottom:8px">OTP GATE — BANK PSYCHOLOGY</div>
+      <div class="body">Frame: <span style="color:var(--dT1)">"Your Truth Report is ready — verify your identity to unlock it."</span> NOT "Enter your code." The word "identity" signals: what's behind this gate is sensitive, personal, and valuable. It's the same psychology as a bank verification. Friction becomes proof of value.</div>
+    </div>
+    <div class="card-amber">
+      <div style="font-family:var(--FM);font-size:9px;color:var(--amber);letter-spacing:0.1em;margin-bottom:8px">GRADE REVEAL — MICRO CAMERA SHAKE</div>
+      <div class="body">On grade letter appear: 200ms camera shake animation. The container moves ±3px horizontally, 3 cycles. CSS keyframes only. This is the same reason films cut to black before a plot twist. Physical sensation = emotional weight. An "F" that arrives with a shake feels more consequential than one that fades in.</div>
+    </div>
+    <div class="card-amber">
+      <div style="font-family:var(--FM);font-size:9px;color:var(--amber);letter-spacing:0.1em;margin-bottom:8px">SOCIAL PROOF INJECTION — TIMING</div>
+      <div class="body">Social proof testimonial appears exactly at the moment of highest friction: directly above the Lead Gate (Step 4→5 transition). Not in the hero. Not in the footer. At the moment the user is deciding whether to give their phone number, they see: <span style="color:var(--cyan)">"The report saved me $3,200 — and all I did was send them the quote." — Maria T., Broward.</span> Proximate = powerful.</div>
+    </div>
+    <div class="card-amber">
+      <div style="font-family:var(--FM);font-size:9px;color:var(--amber);letter-spacing:0.1em;margin-bottom:8px">EXIT INTENT — THE COUNTY LEDGER</div>
+      <div class="body">On cursor-to-top-of-screen (desktop) or back-button (mobile): the exit modal shows <span style="color:var(--dT1)">county-specific savings data</span>. Not generic. Not "Are you sure you want to leave?" Instead: "Before you go — Broward County homeowners saved an average of $3,800 using WindowMan last month." The number is personalized to their county from Step 3. Localized data converts 3× better than generic urgency.</div>
+    </div>
+  </div>
+</div>
+
+<!-- COLOR TIMING -->
+<div id="color" class="pane">
+  <div class="sec-label">Color Timing · The Pavlovian System</div>
+  <div class="h1">Colors that train<br>behavior</div>
+
+  <div class="card" style="border:1px solid rgba(0,217,255,0.3);margin-bottom:16px">
+    <div class="body">The most important design decision in WindowMan is not the palette — it's the <span style="color:var(--dT1);font-weight:600">timing</span> of each color. By the time the user reaches the grade reveal, they have been conditioned to associate each color with a specific emotional state. This is not accidental. It is engineered.</div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <div class="color-rule-row">
+      <div class="swatch" style="background:var(--cobalt)"></div>
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--dT1)">Cobalt — TRUST / MECHANISM</div>
+        <div style="font-size:11px;color:var(--dT3)">First color the user sees. Logo, progress bar, system messages, buttons. Sets the frame: WindowMan = capable, serious, investigative. Never used for warnings.</div>
+      </div>
+    </div>
+    <div class="color-rule-row">
+      <div class="swatch" style="background:var(--cyan)"></div>
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--dT1)">Cyan — TRUTH / DATA / ACCURACY</div>
+        <div style="font-size:11px;color:var(--dT3)">Appears at key intelligence moments: county data loaded, eyebrow labels, scan completion, "verified" lines. By Grade Reveal: cyan = "this is fact, not opinion." Never for warnings, never for CTAs.</div>
+      </div>
+    </div>
+    <div class="color-rule-row">
+      <div class="swatch" style="background:var(--orange)"></div>
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--dT1)">Orange — PROBLEM / ACTION</div>
+        <div style="font-size:11px;color:var(--dT3)">Appears ONLY in two contexts: (1) when a red flag is found in the scan log, (2) the primary CTA button. This dual role is intentional — by the time they see the CTA, orange = "something must be done." The CTA benefits from borrowed urgency.</div>
+      </div>
+    </div>
+    <div class="color-rule-row">
+      <div class="swatch" style="background:var(--red)"></div>
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--dT1)">Red — SEVERITY / GRADE F-D</div>
+        <div style="font-size:11px;color:var(--dT3)">Reserved for the worst findings. Red flag badges, grade D/F. Never in navigation, never in footers, never as decoration. When red appears, the user must feel: this is critical.</div>
+      </div>
+    </div>
+    <div class="color-rule-row">
+      <div class="swatch" style="background:var(--amber)"></div>
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--dT1)">Amber — LEVERAGE / DATA / GRADE C</div>
+        <div style="font-size:11px;color:var(--dT3)">AI findings, leverage point badges, the dollar amounts in micro-verdict. Grade C. "Caution, not crisis." Never used as a trust color — Image 3 defines amber as theatrical. It signals: something to act on, not something to panic about.</div>
+      </div>
+    </div>
+    <div class="color-rule-row">
+      <div class="swatch" style="background:var(--emerald)"></div>
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--dT1)">Emerald — RESOLUTION / SAFETY</div>
+        <div style="font-size:11px;color:var(--dT3)">Only appears AFTER OTP verification. Grade A/B, "You're protected," savings revealed. The user has to earn green. This makes green feel like a reward, not a default. It's the payoff for the entire emotional journey.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="h2">Color sequence by funnel stage</div>
+  <div class="timing-row"><div class="timing-ms">Stage 0</div><div class="timing-label">Page load — hero, nav, logo</div><div class="timing-type t-cobalt">COBALT ONLY</div></div>
+  <div class="timing-row"><div class="timing-ms">Stage 1–2</div><div class="timing-label">First two questions</div><div class="timing-type t-cobalt">COBALT + WHITE</div></div>
+  <div class="timing-row"><div class="timing-ms">Stage 3</div><div class="timing-label">ZIP → county matched</div><div class="timing-type t-cobalt">CYAN FLASH — "data loaded"</div></div>
+  <div class="timing-row"><div class="timing-ms">Verdict</div><div class="timing-label">Micro-verdict card appears</div><div class="timing-type t-orange">AMBER + ORANGE</div></div>
+  <div class="timing-row"><div class="timing-ms">Stage 4</div><div class="timing-label">Quote range selected</div><div class="timing-type t-orange">ORANGE — "overcharge zone?"</div></div>
+  <div class="timing-row"><div class="timing-ms">Lead Gate</div><div class="timing-label">Form slides in</div><div class="timing-type t-cobalt">COBALT — trust moment</div></div>
+  <div class="timing-row"><div class="timing-ms">Scan log</div><div class="timing-label">Good lines vs flag lines</div><div class="timing-type t-orange">CYAN good · ORANGE flag</div></div>
+  <div class="timing-row"><div class="timing-ms">99% hold</div><div class="timing-label">Progress bar frozen</div><div class="timing-type t-red">NO COLOR — void</div></div>
+  <div class="timing-row"><div class="timing-ms">OTP</div><div class="timing-label">Verification gate</div><div class="timing-type t-cobalt">COBALT — authority</div></div>
+  <div class="timing-row" style="border:none"><div class="timing-ms">Reveal</div><div class="timing-label">Grade + findings</div><div class="timing-type t-emerald">FULL PALETTE — earned</div></div>
+
+  <div class="divider"></div>
+  <div class="card-red">
+    <div style="font-family:var(--FD);font-size:18px;font-weight:800;color:var(--red);text-transform:uppercase;margin-bottom:10px">The One Unbreakable Rule</div>
+    <div class="body">Orange never appears before Stage 3. If a user sees orange in the header, nav, or first two questions, the Pavlovian conditioning is broken. The CTA button being orange works only because by the time they've seen orange as a flag color once or twice, clicking the orange button feels like taking action on something important — not just clicking a signup button.</div>
+  </div>
+</div>
+
+<script>
+function show(id){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  event.target.classList.add('on');
+}
+</script>
