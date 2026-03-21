@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import LinearHeader from "@/components/LinearHeader";
 import AuditHero from "@/components/AuditHero";
