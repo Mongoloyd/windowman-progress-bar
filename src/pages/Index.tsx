@@ -40,6 +40,7 @@ const mockAuditResult = {
 };
 
 const Index = () => {
+  const navigate = useNavigate();
   // SET TO FALSE BEFORE DEPLOYING TO PRODUCTION
   const IS_DEV_MODE = true;
 
